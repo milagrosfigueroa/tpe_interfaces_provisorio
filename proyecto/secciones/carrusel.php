@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrusel de Juegos</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link href="./carrusel.css" rel="stylesheet">
 </head>
 <body>
 
@@ -114,6 +114,6 @@
         </button>
     </div>
     </section>
-    <script src="main.js"></script>
+    <script src="../js/carrusel.js"></script>
 </body>
 </html>

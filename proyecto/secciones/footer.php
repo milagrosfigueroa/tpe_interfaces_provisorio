@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fat Footer</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Micro+5&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link href="./footer.css" rel="stylesheet">
 </head>
 <body>
     <section class="footer">
