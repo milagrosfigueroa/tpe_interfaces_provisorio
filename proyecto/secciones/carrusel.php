@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrusel de Juegos</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="./carrusel.css" rel="stylesheet">
+    <link href="../css/carrusel.css" rel="stylesheet">
 </head>
 <body>
 
@@ -24,7 +24,7 @@
 
             <div class="game-card">
             <div class="game-card-image">
-                <img src="img/dragonBall.jpg" alt="Racing Limits">
+                <img src="../images/imgCarrusel/dragonBall.jpg" alt="Racing Limits">
             </div>
             <h3 class="game-card-title">Racing Limits</h3>
             </div>
@@ -32,7 +32,7 @@
             <div class="game-card">
             <div class="price-tag">$</div>
             <div class="game-card-image">
-                <img src="img/crash.jpg" alt="Cooking Mama">
+                <img src="../images/imgCarrusel/crash.jpg" alt="Cooking Mama">
             </div>
             <h3 class="game-card-title">Cooking Mama</h3>
             </div>
@@ -40,14 +40,14 @@
             <div class="game-card">
             <div class="price-tag">$</div>
             <div class="game-card-image">
-                <img src="img/dragonBall.jpg" alt="Soccer Game">
+                <img src="../images/imgCarrusel/dragonBall.jpg" alt="Soccer Game">
             </div>
             <h3 class="game-card-title">Soccer Game</h3>
             </div>
 
             <div class="game-card">
             <div class="game-card-image">
-                <img src="img/dragonBall.jpg" alt="Subway Surfers">
+                <img src="../images/imgCarrusel/Labubu.jpg" alt="Subway Surfers">
             </div>
             <h3 class="game-card-title">Subway Surfers</h3>
             </div>
@@ -55,21 +55,21 @@
             <div class="game-card">
             <div class="price-tag">$</div>
             <div class="game-card-image">
-                <img src="img/Labubu.jpg" alt="Super Mario">
+                <img src="../images/imgCarrusel/Labubu.jpg" alt="Super Mario">
             </div>
             <h3 class="game-card-title">Super Mario</h3>
             </div>
 
             <div class="game-card">
             <div class="game-card-image">
-                <img src="img/dragonBall.jpg" alt="Dragon Ball">
+                <img src="../images/imgCarrusel/dragonBall.jpg" alt="Dragon Ball">
             </div>
             <h3 class="game-card-title">Dragon Ball</h3>
             </div>
 
             <div class="game-card">
             <div class="game-card-image">
-                <img src="img/redBall.jpg" alt="Need for Speed">
+                <img src="../images/imgCarrusel/sonic.jpg" alt="Need for Speed">
             </div>
             <h3 class="game-card-title">Need for Speed</h3>
             </div>
@@ -77,7 +77,7 @@
             <div class="game-card">
             <div class="price-tag">$</div>
             <div class="game-card-image">
-                <img src="img/dragonBall.jpg" alt="Minecraft">
+                <img src="../images/imgCarrusel/dragonBall.jpg" alt="Minecraft">
             </div>
             <h3 class="game-card-title">Minecraft</h3>
             </div>
@@ -85,21 +85,21 @@
             <div class="game-card">
             <div class="price-tag">$</div>
             <div class="game-card-image">
-                <img src="img/redBall.jpg" alt="FIFA 24">
+                <img src="../images/imgCarrusel/redBall.jpg" alt="FIFA 24">
             </div>
             <h3 class="game-card-title">FIFA 24</h3>
             </div>
 
             <div class="game-card">
             <div class="game-card-image">
-                <img src="img/dragonBall.jpg" alt="Fortnite">
+                <img src="../images/imgCarrusel/sonic.jpg" alt="Fortnite">
             </div>
             <h3 class="game-card-title">Fortnite</h3>
             </div>
 
             <div class="game-card">
             <div class="game-card-image">
-                <img src="img/dragonBall.jpg" alt="Call of Duty">
+                <img src="../images/imgCarrusel/dragonBall.jpg" alt="Call of Duty">
             </div>
             <h3 class="game-card-title">Call of Duty</h3>
             </div>

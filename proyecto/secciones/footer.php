@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fat Footer</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Micro+5&display=swap" rel="stylesheet">
-    <link href="./footer.css" rel="stylesheet">
+    <link href="../css/footer.css" rel="stylesheet">
 </head>
 <body>
     <section class="footer">
@@ -63,21 +63,21 @@
             <div class="footer-column">
                 <h3>Suscríbete a nuestro newsletter ¡Y entérate todas las novedades!</h3>
                 <a href="#" class="subscribe-link">suscribirme 
-                    <img src="img/flecha.png" alt="flecha" class="icono-flecha">
+                    <img src="../images/imgFooter/flecha.png" alt="flecha" class="icono-flecha">
                 </a>
 
                 <h3 class="margin-top">Síguenos en</h3>
                     <div class="social-icons">               
-                        <img src="img/youtube.png" alt="YouTube">
-                        <img src="img/instagram.png" alt="Instagram">
-                        <img src="img/facebook.png" alt="Facebook">
-                        <img src="img/twitter.png" alt="Twitter">
+                        <img src="../images/imgFooter/youtube.png" alt="YouTube">
+                        <img src="../images/imgFooter/instagram.png" alt="Instagram">
+                        <img src="../images/imgFooter/facebook.png" alt="Facebook">
+                        <img src="../images/imgFooter/twitter.png" alt="Twitter">
                     </div>
 
                 <div class="logos">
                     <span class="logo-text">GameHub</span>
                     <div class="logo-icon">
-                        <img src="img/logoSentado.png" alt="logo GameHub">
+                        <img src="../images/imgFooter/logoSentado.png" alt="logo GameHub">
                     </div>
                 </div>
             </div>

@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Outfit&family=Micro+5&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link href="./css/login.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio de Sesión</title>
   </head>
   <body>
     <div class="container">
       <div class="image-side">
-        <img src="img/logoAcostado.png" alt="GameHub" class="side-image">
+        <img src="./images/imgInicioSesion/logoAcostado.png" alt="GameHub" class="side-image">
         <p class="brand-text">GameHub</p>
       </div>
 
@@ -58,7 +58,7 @@
               <input type="password" id="register-confirm" required> 
               
               <div class="recaptcha-container"> 
-                  <img src="img/captcha.jpg" alt="reCAPTCHA" class="recaptcha-image"> 
+                  <img src="./images/imgInicioSesion/captcha.jpg" alt="reCAPTCHA" class="recaptcha-image"> 
               </div> 
               
               <button type="submit" class="btn-primary">Regístrate</button> 
@@ -76,6 +76,6 @@
       </div>
     </div>
 
-    <script type="module" src="main.js"></script>
+    <script type="module" src="./js/login.js"></script>
   </body>
 </html>

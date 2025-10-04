@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Juegos</title>
-    <link rel="stylesheet" href="./misJuegos.css">
+    <link rel="stylesheet" href="../css/misJuegos.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -13,7 +13,7 @@
         
         <div class="contenido">
             <div class="info-izquierda">
-                <img src="img/logoSentado.png" alt="Logo Juegos" class="logo">
+                <img src="../images/imgMisjuegos/logoSentado.png" alt="Logo Juegos" class="logo">
                 <div class="texto">
                     <p>Aquí encontrarás tus juegos favoritos y las últimas partidas</p>
                 </div>
@@ -23,21 +23,21 @@
             <div class="juegos-container">
                 <div class="game-card">
                     <div class="game-card-image">
-                        <img src="img/dragonBall.jpg" alt="Dragon ball">
+                        <img src="../images/imgMisjuegos/dragonBall.jpg" alt="Dragon ball">
                     </div>
                     <h2 class="game-card-title">Dragon ball</h2>
                 </div>
 
                 <div class="game-card">
                     <div class="game-card-image">
-                        <img src="img/uno.jpg" alt="Dragon ball">
+                        <img src="../images/imgMisjuegos/uno.jpg" alt="Dragon ball">
                     </div>
                     <h2 class="game-card-title">Uno Online</h2>
                 </div>
 
                 <div class="game-card">
                     <div class="game-card-image">
-                        <img src="img/badicecream.jpg" alt="Dragon ball">
+                        <img src="../images/imgMisjuegos/badicecream.jpg" alt="Dragon ball">
                     </div>
                     <h2 class="game-card-title">Bad Ice cream 7</h2>
                 </div>
