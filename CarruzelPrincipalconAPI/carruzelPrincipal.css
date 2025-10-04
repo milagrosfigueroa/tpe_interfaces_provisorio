@@ -96,7 +96,6 @@ body {
   margin-left: 20px; 
 }
 
-/* ⭐️ CLAVE DESKTOP: Contenedor Flexbox que alinea las flechas y el carrusel ⭐️ */
 .carousel-and-nav-desktop {
     display: flex;
     align-items: center;
@@ -111,7 +110,6 @@ body {
 /* ========================================================== */
 .carousel-wrapper {
   position: relative;
-  /* ⭐️ CLAVE DESKTOP: Ocupa todo el espacio entre las flechas ⭐️ */
   flex: 1; 
   height: 248px; 
   margin: 0;
@@ -126,7 +124,7 @@ body {
   height: 100%;
 }
 
-/* Estilos de la CARD (.carousel-content) */
+/* Estilos de la CARD */
 .carousel-content {
   background: radial-gradient(circle, #4789c4 0%, #22425e 96%);
   border-radius: 24px;
@@ -231,7 +229,6 @@ body {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 10px;
-    /* Trunca el texto en una línea en desktop */
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis;
@@ -262,7 +259,7 @@ body {
   animation: fadeInUp 0.6s ease-out 0.4s forwards;
 }
 
-/* ⭐️ BOTÓN JUGAR ⭐️ */
+/* BOTÓN JUGAR */
 .play-button {
   background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%);
   color: #ffffff;
@@ -273,13 +270,13 @@ body {
   font-weight: 600;
   cursor: pointer;
   
-  /* ⭐️ TRANSICIÓN CLAVE PARA LA ANIMACIÓN ⭐️ */
+  /* TRANSICIÓN CLAVE PARA LA ANIMACIÓN */
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
   
   box-shadow: 0 8px 20px rgba(231, 76, 140, 0.4);
-  /* 🚀 SOLUCIÓN DESKTOP: Se alinea a la derecha del contenedor text-section */
+  /* DESKTOP: Se alinea a la derecha del contenedor text-section */
   align-self: flex-end; 
-  /* 🚀 MARGEN: Añade un margen para separarlo visualmente del borde */
+  /*  Añade un margen para separarlo visualmente del borde */
   margin-right: 30px; 
   
   opacity: 0;
@@ -378,7 +375,7 @@ body {
         height: auto;
     }
 
-    /* CLAVE MÓVIL: Asegurar que el carrusel central deje espacio a los lados */
+    /* Asegurar que el carrusel central deje espacio a los lados */
     .carousel-container {
         height: auto;
         min-height: 400px;
@@ -444,7 +441,7 @@ body {
 
     .carousel-content {
         flex-direction: column; 
-        /* ⭐️ AJUSTE CLAVE: Aumentamos el mínimo para asegurar que el botón se vea ⭐️ */
+        /* Aumentamos el mínimo para asegurar que el botón se vea */
         min-height: 520px; 
         height: auto;
     }
@@ -472,10 +469,10 @@ body {
     .text-section .description {
         font-size: 14px;
         margin-bottom: 0; /* Usamos gap en su lugar */
-        flex-grow: 0; /* ⭐️ CLAVE: Evita que la descripción tome espacio extra ⭐️ */
+        flex-grow: 0; /* Evita que la descripción tome espacio extra */
     }
 
-    /* 🎯 SOLUCIÓN MÓVIL: Sobrescribe la alineación para centrarlo en la vista pequeña */
+    /* Sobrescribe la alineación para centrarlo en la vista pequeña */
     .text-section .play-button {
         align-self: center; 
         width: 80%; 
