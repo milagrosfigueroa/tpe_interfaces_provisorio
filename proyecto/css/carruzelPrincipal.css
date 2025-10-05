@@ -170,7 +170,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   color: #ffffff;
   backdrop-filter: blur(10px);
   flex-shrink: 0; 
@@ -271,7 +271,7 @@ body {
   cursor: pointer;
   
   /* TRANSICIÓN CLAVE PARA LA ANIMACIÓN */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
   
   box-shadow: 0 8px 20px rgba(231, 76, 140, 0.4);
   /* DESKTOP: Se alinea a la derecha del contenedor text-section */
