@@ -56,8 +56,9 @@
                 <!-- Hamburguesa -->
                 <div class="hamb-wrapper">
                     <div class="menu-container">
-                        <button class="icon-btn toggle-menu" data-target="menu-redes"></button>
-                        <img src="images/iconos_barra_header/menu.png" alt="menu-hamb" class="hamb">
+                        <button class="icon-btn toggle-menu" data-target="menu-redes">
+                            <img src="images/iconos_barra_header/menu.png" alt="menu-hamb" class="hamb">
+                        </button>
                         <div id="menu-redes" class="menu">
                             <ul>
                                 <li><a href="logIn.php">Log Out</a><img src="images/iconos_menu_hamb/log-out.png"></li>
