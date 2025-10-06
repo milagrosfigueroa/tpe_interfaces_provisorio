@@ -19,7 +19,7 @@ body {
     box-shadow: 8px 8px 20px rgba(0,0,0,0.5);
 }
 
-.titulo {
+.mis-juegos .titulo {
     color: white;
     font-size: 18px;
     font-weight: 600;
@@ -28,14 +28,14 @@ body {
     margin-left: 10px;
 }
 
-.contenido {
+.mis-juegos .contenido {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
 }
 
-.info-izquierda {
+.mis-juegos .info-izquierda {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,20 +44,20 @@ body {
     gap: 10px;
 }
 
-.logo {
+.mis-juegos .logo {
     width: 100px;
     height: auto;
     object-fit: contain;
 }
 
-.texto {
+.mis-juegos .texto {
     color: white;
     font-size: 14px;
     line-height: 1.3;
     padding: 0 10px;
 }
 
-.juegos-container {
+.mis-juegos .juegos-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -66,7 +66,7 @@ body {
 }
 
 /* === ESTILOS DE LAS TARJETAS DE JUEGOS === */
-.game-card {
+.mis-juegos .game-card {
     width: 220px;
     height: auto;
     border-radius: 12px;
@@ -78,7 +78,7 @@ body {
     flex-direction: column;
 }
 
-.game-card-image {
+.mis-juegos .game-card-image {
     width: 100%;
     height: 106px;
     border-radius: 10px;
@@ -89,37 +89,19 @@ body {
     transition: border-color 0.3s ease;
 }
 
-.game-card-image:hover {
+.mis-juegos .game-card-image:hover {
     border-color: #FA62A5;
 }
 
-.game-card-image img {
+.mis-juegos .game-card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* === PRICE TAG === */
-.price-tag {
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    background-color: #00D9A3;
-    color: #ffffff;
-    font-family: 'Outfit', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    padding: 8px 12px;
-    border-radius: 10px 0 10px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
 
 /* === TITULO === */
-.game-card-title {
+.mis-juegos .game-card-title {
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -138,33 +120,33 @@ body {
         margin: 15px auto;
     }
 
-    .titulo {
+    .mis-juegos .titulo {
         font-size: 20px;
         margin-left: 15px;
     }
 
-    .contenido {
+    .mis-juegos .contenido {
         flex-direction: row;
         justify-content: space-between;
         gap: 20px;
     }
 
-    .info-izquierda {
+    .mis-juegos .info-izquierda {
         flex-direction: row;
         text-align: left;
         gap: 15px;
     }
 
-    .logo {
+    .mis-juegos .logo {
         width: 100px;
     }
 
-    .texto {
+    .mis-juegos .texto {
         font-size: 15px;
         padding: 0;
     }
 
-    .juegos-container {
+    .mis-juegos.juegos-container {
         flex-direction: row;
         gap: 10px;
         width: auto;
@@ -182,27 +164,27 @@ body {
         overflow: hidden;
     }
 
-    .titulo {
+    .mis-juegos .titulo {
         font-size: 20px;
         margin-left: 20px;
         padding-top: 10px;
         margin-bottom: 5px;
     }
 
-    .contenido {
+    .mis-juegos .contenido {
         gap: 40px;
     }
 
-    .info-izquierda {
+    .mis-juegos .info-izquierda {
         gap: 15px;
     }
 
-    .logo {
+    .mis-juegos .logo {
         width: 110px;
         height: 70px;
     }
 
-    .texto {
+    .mis-juegos .texto {
         font-size: 16px;
     }
 }
