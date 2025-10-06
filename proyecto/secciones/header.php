@@ -49,8 +49,8 @@
                     <li class="active">Contraseña</li>
                     <li class="active">Idioma</li>
                 </ul>
-                </div>
             </div>
+        </div>
 
             <!-- Hamburguesa -->
             <div class="hamb-wrapper">
@@ -58,11 +58,11 @@
                 <button class="icon-btn toggle-menu" data-target="menu-redes"><img src="../images/iconos_barra_header/menu.png" alt="menu-hamb" class="hamb"></button>
                 <div id="menu-redes" class="menu">
                     <ul>
-                    <li><a href="../html/logIn.html">Log Out</a><img src="../images/iconos_menu_hamb/log-out.png"></li>
-                    <li><a href="#">Facebook</a><img src="../images/iconos_menu_hamb/facebook.png"></li>
-                    <li><a href="#">Instagram</a><img src="../images/iconos_menu_hamb/instagram.png"></li>
-                    <li><a href="#">Youtube</a><img src="../images/iconos_menu_hamb/youtube.png"></li>
-                    <li><a href="#">Twitter</a><img src="../images/iconos_menu_hamb/twitter.png"></li>
+                        <li><a href="html/logIn.html">Log Out</a><img src="images/iconos_menu_hamb/log-out.png"></li>
+                        <li><a href="#">Facebook</a><img src="images/iconos_menu_hamb/facebook.png"></li>
+                        <li><a href="#">Instagram</a><img src="images/iconos_menu_hamb/instagram.png"></li>
+                        <li><a href="#">Youtube</a><img src="images/iconos_menu_hamb/youtube.png"></li>
+                        <li><a href="#">Twitter</a><img src="images/iconos_menu_hamb/twitter.png"></li>
                     </ul>
                 </div>
                 </div>

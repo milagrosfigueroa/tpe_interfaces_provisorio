@@ -3,7 +3,7 @@ const API_URL = 'https://vj.interfaces.jima.com.ar/api/v2';
 const carouselContainer = document.querySelector('.carousel-container');
 const loadingScreen = document.getElementById('loading-screen');
 
-// ... (Tu lógica de funciones de carrusel: previousSlide, nextSlide, initializeCarouselLogic debe ir aquí) ...
+// Lógica de funciones de Carrusel: previousSlide, nextSlide, initializeCarouselLogic //
 
 async function loadCarouselData() {
     if (!carouselContainer) {
@@ -27,7 +27,7 @@ async function loadCarouselData() {
         games.forEach((game, index) => {
             const isActive = index === 0 ? 'active' : ''; 
             
-            // Llamas a la función aquí 
+            // Llamas a la función 
             const truncatedDescription = truncateText(game.description, 180); // Límite de 180 caracteres
             
             const slideHtml = `
@@ -49,7 +49,7 @@ async function loadCarouselData() {
 
         console.log(`Carga exitosa. Se agregaron ${games.length} slides.`);
 
-        // 4. Inicializar la lógica del carrusel (crucial)
+        // 4. Inicializar la lógica del carrusel 
         initializeCarouselLogic(games.length); 
 
     } catch (error) {
@@ -61,7 +61,7 @@ async function loadCarouselData() {
 
 document.addEventListener('DOMContentLoaded', loadCarouselData);
 
-// ⭐️ DEFINICIÓN DE LA FUNCIÓN AUXILIAR AL FINAL ⭐️
+// DEFINICIÓN DE LA FUNCIÓN AUXILIAR AL FINAL //
 function truncateText(text, maxLength) {
     if (text && text.length > maxLength) {
         return text.substring(0, maxLength) + '...';
