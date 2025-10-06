@@ -26,9 +26,9 @@
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Worms Armageddon.jpg" alt=""></div><h3 class="game-card-title">Worms Armagedom</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Uno.jpg" alt=""></div><h3 class="game-card-title">Uno Online</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Ludo.png" alt=""></div><h3 class="game-card-title">Ludo Online</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/roblox.jpeg" alt=""></div><h3 class="game-card-title">Roblox</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Chess Online.jpg" alt=""></div><h3 class="game-card-title">Chess Online</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/stealABrainrot.avif" alt=""></div><h3 class="game-card-title">Steal a Brainrot</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/8 Ball Pool.jpg" alt=""></div><h3 class="game-card-title">8 Ball Pool</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/scrabble.jpg" alt=""></div><h3 class="game-card-title">Scrable Online</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Domino.jpg" alt=""></div><h3 class="game-card-title">Domino Online</h3></div>
@@ -59,8 +59,8 @@
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Chicken Scream.jpg" alt=""></div><h3 class="game-card-title">Chicken Scream</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Tank Wars.jpg" alt=""></div><h3 class="game-card-title">Tank Wars</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Fish Stab Getting Big.png" alt=""></div><h3 class="game-card-title">Fish Stab Getting Big</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores" alt=""></div><h3 class="game-card-title">TBC</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/3enRaya.jpg" alt=""></div><h3 class="game-card-title">Tres En Raya</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/tagRun.jpg" alt=""></div><h3 class="game-card-title">Tag Run</h3></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel2" data-direction="siguiente">
@@ -117,8 +117,8 @@
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/sonic the hedhehog (1).jpg" alt=""></div><h3 class="game-card-title">Sonic The Hedgehog</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion/Dragon Ball Advanced Adventure.jpg" alt=""></div><h3 class="game-card-title">Dragon Ball: Advanced Adventure</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/Labubu Playground.jpg" alt=""></div><h3 class="game-card-title">Labubu Playground</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion" alt=""></div><h3 class="game-card-title">TBC</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/99nightsintheforest.webp" alt=""></div><h3 class="game-card-title">99 Nights In The Forest</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion/boxteria2.jpeg" alt=""></div><h3 class="game-card-title">Boxteria 2</h3></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel4" data-direction="siguiente">
@@ -267,6 +267,33 @@
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel9" data-direction="siguiente">
+                    <svg width="24" height="24" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </section>
+         <section class="carousel-container">
+            <h2 class="carousel-title">Belleza</h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn carousel-btn-left" data-carousel="carousel10" data-direction="anterior">
+                    <svg width="24" height="24" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div class="carousel-track-container">
+                    <div class="carousel-track" data-track="carousel10">
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/aEFeuCi.jpg" alt=""></div><h3 class="game-card-title">Bakery Story 2</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">Cooking Dash</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/hu3PHcv.jpg" alt=""></div><h3 class="game-card-title">Papa´s Pizzeria</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/ZkX8T6L.jpg" alt=""></div><h3 class="game-card-title">My Cafe: restaurant game</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/5sRh1cG.jpg" alt=""></div><h3 class="game-card-title">Cooking Mama</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Kitchen Scramble</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Good Pizza, Great Pizza</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/QPz64Fb.jpg" alt=""></div><h3 class="game-card-title">Ratatouille: the game</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/lNVFVi3.jpg" alt=""></div><h3 class="game-card-title">World Chef</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Cooking Fever</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/kDWcKUd.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-btn-right" data-carousel="carousel10" data-direction="siguiente">
                     <svg width="24" height="24" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
             </div>
