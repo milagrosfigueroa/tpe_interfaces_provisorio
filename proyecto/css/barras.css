@@ -20,12 +20,18 @@ header {
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   padding-left: 0;
 }
 .logo img {
-  width: 76px;
-  height: 43px;
+  width: 83px;
+  height: 50px;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+.logo img:hover{
+  transform: scale(1.1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .logo h1 {
   font-size: 40px;
@@ -52,7 +58,7 @@ header {
 }
 
 /* Imágenes dentro de los botones */
-.acciones img {
+.acciones img{
   width: 24px;
   height: 24px;
   object-fit: contain;
@@ -70,7 +76,7 @@ header {
 /* Caja del buscador */
 .buscador {
   position: relative;
-  width: 210px;
+  width: 220px;
   max-width: 400px;
   height: 30px;
   display: flex;
@@ -92,6 +98,7 @@ header {
   color: #93989A;
   font-family: 'Lohit Devanagari', sans-serif;
   font-size: 14px;
+  padding-right: 0px;
 }
 
 /* Botón lupa */
@@ -134,7 +141,7 @@ header {
 }
  
 /* SOLO afecta al menú de redes */
-#menu-redes ul li {
+#menu-redes ul li{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -238,14 +245,16 @@ header {
     top: 50px;
     left: 0px;
     transition: width 0.3s ease;
-    overflow: hidden;
+    overflow: visible;
     padding: 0;
     margin: 0;
+    z-index: 9999;
 }
 .sidebar ul{
   list-style-type: none;
   margin: 0;
   padding: 0;
+  overflow: visible;
 }
 .sidebar ul li{
   width: 100%;
@@ -270,6 +279,7 @@ header {
 .sidebar:hover{
   width: 170px;
   background-color: #0A2E4D;
+  overflow: visible;
 }
 .sidebar img {
   width: 18px;       /* ancho fijo */
@@ -297,6 +307,10 @@ header {
   opacity: 1;
 }
 .sidebar ul li:hover, .sidebar ul li a.active {
+  position: relative; /* Necesario para que z-index funcione */
+  z-index: 1000;         /* Más alto que el resto */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05); /* Opcional: agranda un poco */
   background: #FA62A5;
   border-radius: 5px;
   color: #ffffff;
@@ -407,83 +421,3 @@ header {
     padding-left: 7px;
   }
 }
-
-/*
-<nav class="sidebar">
-        <ul>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/casa-home.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Home</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/corazon-favs.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Mis juegos</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/estrellas-new.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Nuevos</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src=""></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Multijugador</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/controles-2-players.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>2 jugadores</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/espadas-accion.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Accion</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/bandera-carreras.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Carreras</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/pikas-de-mesa.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>De mesa</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/fantasma-terror.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Terror</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/pelotas-deportes.png"></i></li>
-            </div>
-            <div class="text-icon">
-                <li><span>Deportes</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/pacman-clasicos.png"></i></li>
-            </div>
-           <div class="text-icon"> 
-                <li><span>Clasicos</span></a></li>
-            </div>
-            <div class="img-icon">
-                <li><a href="#"><i><img src="../images/iconos_nav_bar/gorro-cocina.png"></i></li>
-            </div>
-           <div class="text-icon">
-                <li><span>Cocina</span></a></li>
-            </div>
-        </ul>
-    </nav>
-  */
-  
