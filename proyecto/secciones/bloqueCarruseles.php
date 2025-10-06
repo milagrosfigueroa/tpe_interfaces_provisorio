@@ -279,18 +279,18 @@
                 </button>
                 <div class="carousel-track-container">
                     <div class="carousel-track" data-track="carousel10">
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/aEFeuCi.jpg" alt=""></div><h3 class="game-card-title">Bakery Story 2</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">Cooking Dash</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/hu3PHcv.jpg" alt=""></div><h3 class="game-card-title">Papa´s Pizzeria</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/ZkX8T6L.jpg" alt=""></div><h3 class="game-card-title">My Cafe: restaurant game</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/5sRh1cG.jpg" alt=""></div><h3 class="game-card-title">Cooking Mama</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Kitchen Scramble</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Good Pizza, Great Pizza</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/QPz64Fb.jpg" alt=""></div><h3 class="game-card-title">Ratatouille: the game</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/lNVFVi3.jpg" alt=""></div><h3 class="game-card-title">World Chef</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Cooking Fever</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/kDWcKUd.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/belleza/Avakin_Life.jpg" alt="Avakin life"></div><h3 class="game-card-title">Avakin Life</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/belleza/barbie_fashion_closet.jpg" alt="barbie fashion closet"></div><h3 class="game-card-title">Barbie Fashion Closet</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/belleza/CocoPPa_Dolls.jpg" alt="CocoPPa Dolls"></div><h3 class="game-card-title">CocoPPa Dolls</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/belleza/covet_fashion.jpg" alt="covet fashion"></div><h3 class="game-card-title">Covet Fashion</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/belleza/Dress_Up_Games.jpg" alt="dress up games"></div><h3 class="game-card-title">Dress Up Games</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/belleza/fashion_fever.jpg" alt="fashion fever"></div><h3 class="game-card-title">Fashion Fever</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/belleza/Frozen_Makeup.jpg" alt="frozen makeup"></div><h3 class="game-card-title">Frozen Makeup</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/belleza/glamour_life.jpg" alt="glamour life"></div><h3 class="game-card-title">Glamour Life</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/belleza/Hair_Challenge.jpg" alt="hair challenge"></div><h3 class="game-card-title">Hair Challenge</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/belleza/lady_popular.jpg" alt="lady popular"></div><h3 class="game-card-title">Lady Popular</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/belleza/Love_Nikki-Dress_UP_Queen.jpg" alt="love nikki dress up queen"></div><h3 class="game-card-title">Love Nikki-Dress: UP Queen</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/belleza/Makeup_Artist_Makeover_Games.jpg" alt="makeup artist makeover games"></div><h3 class="game-card-title">Makeup Artist Makeover Games</h3></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel10" data-direction="siguiente">
