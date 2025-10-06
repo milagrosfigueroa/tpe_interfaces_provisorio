@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Micro+5&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -70,7 +73,7 @@
             </ul>
             <div class="controls">
                 <img src="images/mouseBtnIzq.PNG" alt="Icono de Control de Mouse" class="control-image">
-                 <img src="images/seleccione.png" alt="Icono de Seleccionar" class="control-image hand-icon">
+                <img src="images/seleccione.png" alt="Icono de Seleccionar" class="control-image hand-icon">
             </div>
         </div>
     </section>
@@ -78,22 +81,43 @@
   <section class="comments-section">
     <h2>Comentarios</h2>
     <div class="comment-input-area">
-        <img src="images/avatar.png" alt="Avatar" class="user-avatar">
+        <img src="images/imgAvatarComentarios/hombre1.png" alt="Avatar" class="user-avatar">
         <textarea placeholder="Agrega un comentario..." class="comment-textarea"></textarea>
     </div>
     <button class="btn-comment-submit">Comentar</button>
     
     <div class="comment-item">
-        <img src="images/avatar.png" alt="Avatar" class="user-avatar">
+        <img src="images/imgAvatarComentarios/hombre2.png" alt="Avatar" class="user-avatar">
         
         <div class="comment-content">
             
             <div class="comment-header">
-                <span class="comment-username">Noobslayer99</span>
+                <span class="comment-username">NoobSlayer99</span>
                 <span class="comment-date">12/01/2023</span>
             </div>
             
-            <p class="comment-text">Es un juego muy divertido, las animaciones son muy buenas!</p>
+            <p class="comment-text">Es un juego muy divertido, las animaciones  son muy buenas!</p>
+            
+            <div class="comment-actions">
+                <i class="fas fa-thumbs-up"></i>
+                <i class="fas fa-thumbs-down"></i>
+                <i class="fas fa-comment"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="comment-item">
+        <img src="images/imgAvatarComentarios/mujer3.png" alt="Avatar" class="user-avatar">
+        
+        <div class="comment-content">
+            
+            <div class="comment-header">
+                <span class="comment-username">PixelNinja</span>
+                <span class="comment-date">22/08/2023</span>
+            </div>
+            
+            <p class="comment-text">Me encanta cómo un juego tan simple puede ser tan desafiante.</p>
             
             <div class="comment-actions">
                 <i class="fas fa-thumbs-up"></i>
@@ -104,16 +128,16 @@
     </div>
 
     <div class="comment-item">
-        <img src="images/avatar.png" alt="Avatar" class="user-avatar">
+        <img src="images/imgAvatarComentarios/hombre4.png" alt="Avatar" class="user-avatar">
         
         <div class="comment-content">
             
             <div class="comment-header">
-                <span class="comment-username">Noobslayer99</span>
-                <span class="comment-date">12/01/2023</span>
+                <span class="comment-username">GameOverLord</span>
+                <span class="comment-date">29/10/2024</span>
             </div>
             
-            <p class="comment-text">Es un juego muy divertido, las animaciones son muy buenas!</p>
+            <p class="comment-text">Logré terminar con una sola ficha, ¡me sentí un pro total!</p>
             
             <div class="comment-actions">
                 <i class="fas fa-thumbs-up"></i>
@@ -124,16 +148,16 @@
     </div>
 
     <div class="comment-item">
-        <img src="images/avatar.png" alt="Avatar" class="user-avatar">
+        <img src="images/imgAvatarComentarios/mujer5.png" alt="Avatar" class="user-avatar">
         
         <div class="comment-content">
             
             <div class="comment-header">
-                <span class="comment-username">Noobslayer99</span>
-                <span class="comment-date">12/01/2023</span>
+                <span class="comment-username">HeadshotKing</span>
+                <span class="comment-date">15/02/2022</span>
             </div>
             
-            <p class="comment-text">Es un juego muy divertido, las animaciones son muy buenas!</p>
+            <p class="comment-text">No es mi tipo de juego normalmente, pero este me enganchó.</p>
             
             <div class="comment-actions">
                 <i class="fas fa-thumbs-up"></i>
@@ -144,16 +168,16 @@
     </div>
 
     <div class="comment-item">
-        <img src="images/avatar.png" alt="Avatar" class="user-avatar">
+        <img src="images/imgAvatarComentarios/mujer6.png" alt="Avatar" class="user-avatar">
         
         <div class="comment-content">
             
             <div class="comment-header">
-                <span class="comment-username">Noobslayer99</span>
-                <span class="comment-date">12/01/2023</span>
+                <span class="comment-username">UltraByte</span>
+                <span class="comment-date">20/04/2025</span>
             </div>
             
-            <p class="comment-text">Es un juego muy divertido, las animaciones son muy buenas!</p>
+            <p class="comment-text">Un desafío mental que vale la pena, perfecto para entrenar la mente.</p>
             
             <div class="comment-actions">
                 <i class="fas fa-thumbs-up"></i>
@@ -163,59 +187,79 @@
         </div>
     </div>
     
+    <div class="comment-item">
+        <img src="images/imgAvatarComentarios/hombre7.png" alt="Avatar" class="user-avatar">
+        
+        <div class="comment-content">
+            
+            <div class="comment-header">
+                <span class="comment-username">ShadowKillerX</span>
+                <span class="comment-date">09/09/2022</span>
+            </div>
+            
+            <p class="comment-text">Pensé que era fácil, pero este juego me explotó la cabeza 😂. Muy buen reto.</p>
+            
+            <div class="comment-actions">
+                <i class="fas fa-thumbs-up"></i>
+                <i class="fas fa-thumbs-down"></i>
+                <i class="fas fa-comment"></i>
+            </div>
+        </div>
+    </div>
+
     </section>
 
     <section class="related-games-section">
         <h2>También te puede interesar...</h2>
         <div class="games-grid">
             <div class="game-card">
-                <img src="images/clasicos/busca_minas.jpg" alt="Buscaminas" class="game-image">
+                <img src="images/imgTambienInteresa/recom1.jpg" alt="Ludo Online" class="game-image">
                 <div class="game-title-overlay">
-                    Buscaminas
+                   Ludo Online
                 </div>
             </div>
             <div class="game-card">
-                <img src="assets/img/ludo-online.jpg" alt="Ludo Online" class="game-image">
+                <img src="images/imgTambienInteresa/recom2.jpg" alt="Scrabble Online" class="game-image">
                 <div class="game-title-overlay">
-                    Ludo Online
+                    Scrabble Online
                 </div>
             </div>
             <div class="game-card">
-                <img src="assets/img/ludo-online.jpg" alt="Ludo Online" class="game-image">
+                <img src="images/imgTambienInteresa/recom3.png" alt="Cokitos" class="game-image">
                 <div class="game-title-overlay">
-                    Ludo Online
+                    Cokitos
                 </div>
             </div>
             <div class="game-card">
-                <img src="assets/img/ludo-online.jpg" alt="Ludo Online" class="game-image">
+                <img src="images/imgTambienInteresa/recom4.jpeg" alt="FrontTenis" class="game-image">
                 <div class="game-title-overlay">
-                    Ludo Online
+                   FrontTenis
                 </div>
             </div>
         </div>
          <div class="games-grid">
             <div class="game-card">
-                <img src="assets/img/ludo-online.jpg" alt="Ludo Online" class="game-image">
+                <img src="images/imgTambienInteresa/recom5.jpeg" alt="Mahjongg Solitarie" class="game-image">
                 <div class="game-title-overlay">
-                    Ludo Online
+                    Mahjongg Solitarie
                 </div>
             </div>
             <div class="game-card">
-                <img src="assets/img/ludo-online.jpg" alt="Ludo Online" class="game-image">
+                <img src="images/imgTambienInteresa/recom6.jpeg" alt="Cities" class="game-image">
                 <div class="game-title-overlay">
-                    Ludo Online
+                    Cities
                 </div>
             </div>
             <div class="game-card">
-                <img src="assets/img/ludo-online.jpg" alt="Ludo Online" class="game-image">
+                <img src="images/imgTambienInteresa/recom7.jpg" alt="Catan" class="game-image">
                 <div class="game-title-overlay">
-                    Ludo Online
+                    Catan
                 </div>
             </div>
             <div class="game-card">
-                <img src="assets/img/ludo-online.jpg" alt="Ludo Online" class="game-image">
+                <img src="images/imgTambienInteresa/recom8.png" alt="Sushi Game" class="game-image">
                 <div class="game-title-overlay">
-                    Ludo Online
+                    Sushi Game
                 </div>
         </div>
     </section>
