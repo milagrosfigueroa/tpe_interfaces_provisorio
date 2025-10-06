@@ -2,8 +2,8 @@
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-column">
-            <h3>Destacados</h3>
-            <ul>
+            <h3 class="footer-titles">Destacados</h3>
+            <ul class="ul-footer">
                 <li>Top de la semana</li>
                 <li>Lanzamiento</li>
                 <li>Aleatorio del día</li>
@@ -16,15 +16,15 @@
         </div>
 
         <div class="footer-column">
-            <h3>Soporte</h3>
-            <ul>
+            <h3 class="footer-titles">Soporte</h3>
+            <ul class="ul-footer">
                 <li>Preguntas frecuentes</li>
                 <li>Guías y tutoriales</li>
                 <li>Reportar un problema</li>
             </ul>
 
             <h3 class="margin-top">Acerca de</h3>
-            <ul>
+            <ul class="ul-footer">
                 <li>Quienes somos</li>
                 <li>Nuestro equipo</li>
                 <li>Blog o novedades</li>
@@ -32,8 +32,8 @@
         </div>
 
         <div class="footer-column">
-            <h3>Información legal</h3>
-            <ul>
+            <h3 class="footer-titles">Información legal</h3>
+            <ul class="ul-footer">
                 <li>Términos y privacidad</li>
                 <li>Condiciones de uso</li>
                 <li>Política de cookies</li>
@@ -41,14 +41,14 @@
             </ul>
 
             <h3 class="margin-top">Contacto</h3>
-            <ul>
+            <ul class="ul-footer">
                 <li>gamehubinfo@gmail.com</li>
                 <li>Tel: +542494308645</li>
             </ul>
         </div>
 
         <div class="footer-column">
-            <h3>Suscríbete a nuestro newsletter ¡Y entérate todas las novedades!</h3>
+            <h3 class="footer-titles">Suscríbete a nuestro newsletter ¡Y entérate todas las novedades!</h3>
             <a href="#" class="subscribe-link">suscribirme 
                 <img src="images/imgFooter/flecha.png" alt="flecha" class="icono-flecha">
             </a>

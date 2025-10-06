@@ -19,7 +19,7 @@ body {
     box-shadow: 8px 8px 20px rgba(0,0,0,0.5);
 }
 
-.mis-juegos .titulo {
+.titulo {
     color: white;
     font-size: 18px;
     font-weight: 600;
@@ -28,14 +28,14 @@ body {
     margin-left: 10px;
 }
 
-.mis-juegos .contenido {
+.contenido {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
 }
 
-.mis-juegos .info-izquierda {
+.info-izquierda {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,20 +44,20 @@ body {
     gap: 10px;
 }
 
-.mis-juegos .logo {
+.logo {
     width: 100px;
     height: auto;
     object-fit: contain;
 }
 
-.mis-juegos .texto {
+.texto {
     color: white;
     font-size: 14px;
     line-height: 1.3;
     padding: 0 10px;
 }
 
-.mis-juegos .juegos-container {
+.juegos-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -66,7 +66,7 @@ body {
 }
 
 /* === ESTILOS DE LAS TARJETAS DE JUEGOS === */
-.mis-juegos .game-card {
+.game-card {
     width: 220px;
     height: auto;
     border-radius: 12px;
@@ -78,7 +78,7 @@ body {
     flex-direction: column;
 }
 
-.mis-juegos .game-card-image {
+.game-card-image {
     width: 100%;
     height: 106px;
     border-radius: 10px;
@@ -89,19 +89,20 @@ body {
     transition: border-color 0.3s ease;
 }
 
-.mis-juegos .game-card-image:hover {
+.game-card-image:hover {
     border-color: #FA62A5;
 }
 
-.mis-juegos .game-card-image img {
+.game-card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
 
+
 /* === TITULO === */
-.mis-juegos .game-card-title {
+.game-card-title {
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -120,33 +121,33 @@ body {
         margin: 15px auto;
     }
 
-    .mis-juegos .titulo {
+    .titulo {
         font-size: 20px;
         margin-left: 15px;
     }
 
-    .mis-juegos .contenido {
+    .contenido {
         flex-direction: row;
         justify-content: space-between;
         gap: 20px;
     }
 
-    .mis-juegos .info-izquierda {
+    .info-izquierda {
         flex-direction: row;
         text-align: left;
         gap: 15px;
     }
 
-    .mis-juegos .logo {
+    .logo {
         width: 100px;
     }
 
-    .mis-juegos .texto {
+    .texto {
         font-size: 15px;
         padding: 0;
     }
 
-    .mis-juegos.juegos-container {
+    .juegos-container {
         flex-direction: row;
         gap: 10px;
         width: auto;
@@ -164,27 +165,27 @@ body {
         overflow: hidden;
     }
 
-    .mis-juegos .titulo {
+    .titulo {
         font-size: 20px;
         margin-left: 20px;
         padding-top: 10px;
         margin-bottom: 5px;
     }
 
-    .mis-juegos .contenido {
+    .contenido {
         gap: 40px;
     }
 
-    .mis-juegos .info-izquierda {
+    .info-izquierda {
         gap: 15px;
     }
 
-    .mis-juegos .logo {
+    .logo {
         width: 110px;
         height: 70px;
     }
 
-    .mis-juegos .texto {
+    .texto {
         font-size: 16px;
     }
 }

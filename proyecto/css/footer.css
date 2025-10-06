@@ -23,7 +23,7 @@ body {
     
 }
 
-.footer-column h3 {
+.footer-column h3 .footer-titles {
     font-size: 20px;
     font-weight: 600;/* el 600 simula el semibold*/
     margin-bottom: 5px;
