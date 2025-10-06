@@ -28,28 +28,23 @@
     <!-- Contenedor principal para el contenido -->
     <main class="main-content-home">
         <?php 
-            // Carrusel principal
             require 'secciones/carruselPrincipal.php'; 
-
-            // Sección "mis juegos"
             require 'secciones/misJuegos.php'; 
-
-            // Bloque de carruseles adicionales
             require 'secciones/bloqueCarruseles.php'; 
         ?>
     </main>
 
+    <!-- Footer dentro del body -->
+    <footer>    
+        <?php
+            require 'secciones/footer.php';
+        ?>
+    </footer>
 
     <script src="js/loading.js"></script>
     <script src="js/barras.js"></script>
     <script src="js/bloqueCarruseles.js"></script>
     <script src="js/carruselPrincipal.js"></script>
-        
 </body>
-<footer>    
-    <?php
-        // Footer
-        require 'secciones/footer.php';
-    ?>
-</footer>
+
 </html>

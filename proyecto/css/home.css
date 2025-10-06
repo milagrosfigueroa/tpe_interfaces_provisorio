@@ -18,9 +18,6 @@ header {
 }
 /* ======== CONTENIDO PRINCIPAL ======== */
 .main-content-home{
-    margin-top: 70px; /* deja espacio para el header */
-    margin-left: 90px; /* deja espacio para la sidebar */
-    padding: 20px;
     flex: 1;
     display: flex;
     flex-direction: column;
