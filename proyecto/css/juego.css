@@ -13,7 +13,19 @@
     --color-card-bg: #1F375A;
     --color-text-primary: #FFFFFF;
     --color-text-secondary: #AAAAAA;
-    --color-primary-pink: #FF69B4; /* O tu color de acento */
+    --color-primary-pink: #FA62A5; 
+    
+    /* Colores de Hover/Estados */
+    --color-pink-hover: #FA328A;
+    --color-added-green: #69B469;
+    --color-added-green-hover: #5AA15A;
+    
+    /* 💥 FUENTES FINALES 💥 */
+    --font-base: 'Outfit', sans-serif;  /* Para cuerpo, botones, subtítulos */
+    --font-heading: 'Montserrat', sans-serif; /* Para títulos principales y secciones */
+    
+    /* TAMAÑOS BASE */
+    --font-size-base: 16px;
 }
 
 /* ======================================= */
@@ -21,24 +33,29 @@
 /* ======================================= */
 
 body {
+    /* Mantenemos el margen para la barra lateral fija */
     margin-left: var(--menu-lateral-width); 
     margin-top: 0; 
     padding: 0;
     
     background-color: var(--color-bg-dark);
+    
+    /* FUENTE BASE: OUTFIT */
     color: var(--color-text-primary);
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-base);
+    font-size: var(--font-size-base);
 }
 
 .game-page {
-    /* Limita el ancho y centra el contenido dentro del espacio disponible del <body> */
+    /* Mantenemos el ancho fijo */
     width: var(--content-width); 
-    margin: 0 auto; 
     
-    /* Asegura que el contenido quede detrás de la barra lateral y header */
-    position: relative;
-    z-index: 10; 
-
+    /* Eliminamos el centrado */
+    margin: 0; 
+    
+    /* Empujamos el contenido a la derecha para separarlo de la barra lateral. */
+    margin-left: 40px; 
+    
     /* Espacio superior para separar del header superior */
     padding-top: 20px; 
 }
@@ -55,8 +72,25 @@ body {
     height: 29px;
 }
 
+/* BREADCRUMB: PARTE "Nuevos /" (Color Gris Sutil y Delgado) */
+.breadcrumb {
+    font-family: var(--font-base); /* Outfit */
+    
+    /* Usamos el peso Regular (400) para el aspecto delgado */
+    font-weight: 400; 
+    
+    /* Aplicamos el color secundario (Gris Sutil) que imita la sutileza de la descripción */
+    color: var(--color-text-secondary); 
+    
+    font-size: 0.90rem;
+}
+
+/* SPAN: PARTE "Peg Solitaire" (Bold y Color Blanco)  */
 .breadcrumb span {
-    font-weight: bold;
+    font-family: var(--font-heading); /* Montserrat */
+    font-weight: 800; /* BOLD para el nombre del juego */
+    
+    color: var(--color-text-primary); 
 }
 
 .share-btn {
@@ -68,7 +102,7 @@ body {
 }
 
 /* ======================================= */
-/* 3. SECCIÓN 2: BANNER Y BOTONES (CORREGIDO) */
+/* 3. SECCIÓN 2: BANNER Y BOTONES */
 /* ======================================= */
 
 .game-banner-container {
@@ -81,8 +115,6 @@ body {
     border-radius: 15px; 
     overflow: hidden;
     height: 476px; 
-    
-    /* Z-index bajo para que la barra lateral lo cubra */
     z-index: 1; 
 }
 
@@ -100,60 +132,47 @@ body {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center; /* Centra horizontalmente el botón */
-    align-items: center;     /* Centra verticalmente */
+    justify-content: center;
+    align-items: center;
     padding-top: 50px;  
 }
 
 /* ========================================================== */
-/* ESTILOS BASE: BOTÓN JUGAR (.btn-primary-play) - UNIFICADO */
+/* ESTILOS BASE: BOTÓN JUGAR (.btn-primary-play) */
 /* ========================================================== */
 
 .btn-primary-play {
+    /* FUENTE: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600; 
+    
     padding: 15px 40px; 
     font-size: 1.1rem;  
     border-radius: 8px; 
-
-    /* ⭐️ PROPIEDADES VISUALES COPIADAS ⭐️ */
     color: #ffffff;
     border: none;
-    font-weight: 600;
     cursor: pointer;
     
-    /* CLAVE 1: BACKGROUND DEGRADADO (Para el brillo) */
-    background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%); 
+    background: linear-gradient(135deg, #e74c8c 0%, #FA328A 100%); 
+    box-shadow: 0 4px 15px rgba(231, 76, 140, 0.4);
     
-    /* CLAVE 2: TRANSICIÓN CLAVE */
     transition: 
         transform 0.3s ease, 
         box-shadow 0.3s ease, 
         background 0.3s ease;
     
-    /* ⚡ APLICACIÓN DEL PULSO AVANZADO ⚡ */
     animation: pulse 1.5s infinite alternate; 
 }
 
-/* ========================================================== */
-/* ESTADO HOVER (Copiado de .play-button) */
-/* ========================================================== */
+/* ESTADO HOVER */
 .btn-primary-play:hover {
-    /* Máximo movimiento de elevación */
     transform: translateY(-4px) scale(1.05);
-    
-    /* Sombra intensa al hacer hover */
     box-shadow: 0 12px 28px rgba(231, 76, 140, 0.6);
-    
-    /* Inversión de gradiente para el hover */
     background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%);
-    
-    /* Detiene la animación 'pulse' */
     animation: none;
 }
 
-/* ========================================================== */
-/* ESTADO ACTIVO (Copiado de .play-button) */
-/* ========================================================== */
-
+/* ESTADO ACTIVO */
 .btn-primary-play:active {
     transform: translateY(-2px) scale(1.02);
     box-shadow: 0 8px 20px rgba(231, 76, 140, 0.5);
@@ -172,95 +191,75 @@ body {
     padding: 20px 10px;
 }
 
-/* 1. Ajuste del Título (<h2> dentro de .card-footer) */
+/* TÍTULO DENTRO DEL FOOTER: MONTSERRAT */
 .card-footer h2 {
-    margin: 0; 
+    /* Mantenemos el font-size de la propuesta inicial del título */
+    font-family: var(--font-heading); 
+    font-weight: 800;
     font-size: 1.5rem;
     color: var(--color-text-primary);
+    margin: 0; 
 }
 
 /* ========================================================== */
 /* ESTILOS BASE: BOTÓN AGREGAR A MIS JUEGOS (.btn-add-game) */
 /* ========================================================== */
 .btn-add-game {
+    /* FUENTE: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600;
+    
     margin: 0; 
     border-radius: 8px; 
     padding: 8px 18px; 
     font-size: 1rem;
-    font-weight: bold; 
     cursor: pointer;
     background-color: var(--color-primary-pink); 
     color: #ffffff; 
     border: none;
-  
-    box-shadow: none !important; /* Aseguramos que la sombra heredada se elimine */
     
     box-shadow: 0 4px 15px rgba(255, 68, 126, 0.4); 
+    animation: none !important;
     
-    /* Transición para todos los cambios */
     transition: 
         transform 0.3s ease, 
         box-shadow 0.3s ease, 
         background-color 0.4s ease;
-    
-    /* Asegura que no tenga animaciones heredadas (anti-brillo) */
-    animation: none !important; /* Usamos !important por si acaso */
     
     display: inline-flex;
     align-items: center;
     gap: 8px; 
 }
 
-/* ------------------------------------------- */
 /* Icono (Font Awesome) */
-/* ------------------------------------------- */
-
 .btn-add-game i {
     color: #ffffff;
     font-size: 1.1rem;
 }
 
-/* ------------------------------------------- */
 /* ESTADO HOVER (Normal: Agregar a mis juegos) */
-/* ------------------------------------------- */
-
 .btn-add-game:not(.added):hover { 
-    /* Movimiento de elevación */
     transform: translateY(-3px) scale(1.02); 
-    
-    /* Cambio de color de fondo (Hover) */
-    background-color: #E05D9D; 
-    
-    /* Sombra más intensa (Brillo al pasar el ratón) */
-    box-shadow: 0 10px 25px rgba(255, 68, 126, 0.7); 
-    
-    /* Asegurar que el texto se mantenga blanco */
-    color: #ba06a2; 
+    background-color: var(--color-pink-hover);
+    color: #A70046; 
 }
-/* NUEVO BLOQUE PARA CAMBIAR EL COLOR DEL CORAZÓN */
-.btn-add-game:not(.added):hover i {
-    color:  #FF4478; /* Ejemplo: Cambiar el corazón a un color dorado/amarillo */
 
-    /* Opcional: añadir una transición suave para el icono */
+/* BLOQUE PARA CAMBIAR EL COLOR DEL CORAZÓN */
+.btn-add-game:not(.added):hover i {
+    color:  #A70046;
     transition: color 0.3s ease;
 }
 
-/* ========================================================== */
 /* ESTADO "AGREGADO" (.added) */
-/* ========================================================== */
-
 .btn-add-game.added {
-    background-color: #69B469; /* Color verde */
+    background-color: var(--color-added-green);
     box-shadow: 0 4px 15px rgba(105, 180, 105, 0.4); 
     color: #ffffff; 
 }
 
-/* ------------------------------------------- */
 /* ESTADO HOVER (Agregado) */
-/* ------------------------------------------- */
-
 .btn-add-game.added:hover {
-    background-color: #5AA15A; /* Verde más oscuro al hacer hover */
+    background-color: var(--color-added-green-hover);
     box-shadow: 0 10px 25px rgba(105, 180, 105, 0.7);
     transform: translateY(-3px) scale(1.02); 
     color: #ffffff;
@@ -285,12 +284,13 @@ body {
     padding: 20px;
     box-sizing: border-box;
 
-    /* CLAVE: AÑADE EL BORDE DELGADO CON EL COLOR PRIMARIO */
     border: 1px solid var(--color-primary-pink); 
 }
 
-/* Títulos de Sub-sección (Reglas, Victoria, Controles) */
+/* SUBTÍTULOS (REGLAS, VICTORIA, CONTROLES): OUTFIT */
 .info-section h3 {
+    font-family: var(--font-base); /* Outfit */
+    font-weight: 600;
     color: var(--color-primary-pink);
     margin-top: 0;
     font-size: 1.3rem; 
@@ -307,40 +307,58 @@ body {
 .info-section li {
     font-size: 0.95rem; 
     margin-bottom: 6px; 
+    color: var(--color-text-secondary);
 }
 
-/* Estilo para la imagen del mouse/clic */
+/* ---------------------------------------------------- */
+/* AJUSTE PARA CENTRAR ICONOS DE CONTROLES */
+/* ---------------------------------------------------- */
+
+/* Contenedor de los iconos  */
+.info-section div.controls {
+    text-align: center; /* Centra los elementos de línea dentro */
+    margin-top: 25px;   /* Espacio superior para separar de la lista */
+    margin-bottom: 15px;
+}
+
+/* Estilo para todas las imágenes de control */
 .control-image {
     width: 50px;
     height: auto; 
-    align-self: flex-start; 
-    margin-top: 15px; 
+    
+    /* Aseguramos que se comporten como elementos en línea para que text-align: center funcione */
+    display: inline-block;
+    vertical-align: middle; 
+    margin: 0 10px; /* Espacio entre los dos iconos */
+    
+
 }
 
-/* Aplica la rotación solo al ícono de la mano */
+/* Estilo para el icono de la mano/seleccionar */
 .hand-icon {
+    /* Mantenemos la rotación sutil que pediste */
     transform: rotate(-10deg); 
     position: relative;
-    top: -5px; 
+    top: -5px; /* Ajuste sutil */
 }
 
 /* ======================================= */
 /* 5. SECCIÓN COMENTARIOS                  */
 /* ======================================= */
 
-/* --------------------------------------- */
-/* A. ESTILOS DEL TÍTULO Y SEPARADOR       */
-/* --------------------------------------- */
-
+/* Títulos de Sección (ej. COMENTARIOS) */
 .comments-section h2 {
+    /* TÍTULO DE SECCIÓN: MONTSERRAT */
+    font-family: var(--font-heading); 
+    font-weight: 800;
+    
     color: var(--color-text-primary);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin-bottom: 5px; 
     padding-top: 40px; 
 }
 
 /* Línea de separación rosa debajo del título "Comentarios" */
-
 .comments-section h2::after {
     content: '';
     display: block;
@@ -351,10 +369,7 @@ body {
     margin-bottom: 30px; 
 }
 
-/* --------------------------------------- */
-/* B. ÁREA DE INPUT DE COMENTARIO          */
-/* --------------------------------------- */
-
+/* ÁREA DE INPUT DE COMENTARIO */
 .comment-input-area {
     display: flex;
     align-items: flex-start; 
@@ -381,101 +396,66 @@ body {
     box-sizing: border-box;
     resize: vertical; 
     font-size: 1rem;
+    font-family: var(--font-base); /* Outfit */
 }
 
 .comment-textarea::placeholder {
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* ========================================================== */
-/* BOTÓN COMENTAR (.btn-comment-submit) - AJUSTADO */
-/* ========================================================== */
-
+/* BOTÓN COMENTAR (.btn-comment-submit) */
 .btn-comment-submit {
-    /* Botón "Comentar" */
+    /* FUENTE: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600;
+
     background-color: var(--color-primary-pink);
-    color: #ffffff; /* Aseguramos que el color sea blanco */
+    color: #ffffff;
     border: none;
     
-    /* Forma y padding */
-    border-radius: 20px; /* Borde más redondeado para que se vea como en la imagen */
+    border-radius: 20px;
     padding: 10px 25px;
     font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
     
-    /* Alineación y espaciado */
     display: block;
     margin-left: auto; 
     margin-bottom: 20px; 
 
-    /* Sombra base suave (Sin brillo constante) */
-    box-shadow: 0 4px 15px rgba(255, 68, 126, 0.4); 
-
-    /* Transición para el efecto hover  */
     transition: 
         transform 0.3s ease, 
-        box-shadow 0.3s ease, 
         background-color 0.3s ease;
 }
 
-/* ------------------------------------------- */
 /* ESTADO HOVER */
-/* ------------------------------------------- */
-
 .btn-comment-submit:hover {
-    /* Mismo efecto de elevación que los otros botones */
     transform: translateY(-2px); 
-    
-    /* Color de fondo ligeramente más oscuro */
-    background-color: #E05D9D; 
-    color: #ba06a2; /* Aseguramos que el color sea blanco */
-    
-    /* Sombra más intensa al hacer hover */
-    box-shadow: 0 8px 20px rgba(255, 68, 126, 0.6); 
+    background-color: var(--color-pink-hover); 
+    color: #A70046; 
 }
 
-/* ------------------------------------------- */
 /* ESTADO ACTIVO (Al hacer click) */
-/* ------------------------------------------- */
-
 .btn-comment-submit:active {
-    transform: translateY(0); /* Vuelve a la posición original */
-    box-shadow: 0 4px 15px rgba(255, 68, 126, 0.4); /* Vuelve a la sombra base */
+    transform: translateY(0);
 }
 
 
-/* --------------------------------------- */
-/* C. COMENTARIOS EXISTENTES               */
-/* --------------------------------------- */
-
-/* Estilos para cada comentario individual */
+/* COMENTARIOS EXISTENTES */
 .comment-item {
-    display: flex;
+    display: flex; 
     align-items: flex-start;
     gap: 15px;
     margin-bottom: 30px; 
     padding-top: 10px;
 } 
 
-/* Reducimos el tamaño del avatar para los comentarios ya publicados */
 .comment-item .user-avatar {
     width: 40px; 
     height: 40px;
 }
 
-.comment-content {
-    flex-grow: 1; 
-}
-
-.comment-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
 .comment-username {
-    font-weight: bold;
+    font-weight: 600; /* Outfit Semi-Bold */
     color: var(--color-text-primary);
     font-size: 1rem;
     margin-right: 10px; 
@@ -486,6 +466,10 @@ body {
     font-size: 0.85rem;
 }
 
+.comment-content {
+    /* CLAVE: Esto obliga al contenedor de texto a absorber todo el espacio */
+    flex-grow: 1; 
+}
 .comment-text {
     color: var(--color-text-primary);
     font-size: 0.95rem; 
@@ -494,7 +478,7 @@ body {
     line-height: 1.4;
 }
 
-/* Acciones (Like/Dislike/Reply) - si usas iconos */
+/* Acciones (Like/Dislike/Reply) */
 .comment-actions {
     display: flex;
     justify-content: flex-end; 
@@ -503,7 +487,6 @@ body {
     margin-top: 10px; 
 }
 
-/* Estilos de los Iconos (i, svg) */
 .comment-actions i {
     color: var(--color-text-secondary); 
     cursor: pointer;
@@ -518,9 +501,6 @@ body {
 /* ======================================= */
 /* 6. SECCIÓN 5: JUEGOS RELACIONADOS       */
 /* ======================================= */
-/* ========================================================== */
-/* SECCIÓN DE JUEGOS RELACIONADOS */
-/* ========================================================== */
 
 .related-games-section {
     margin-top: 20px;
@@ -528,67 +508,55 @@ body {
 }
 
 .related-games-section h2 {
-    color: #ffffff; /* Asegura que el título sea blanco */
+    /* TÍTULO DE SECCIÓN: MONTSERRAT */
+    font-family: var(--font-heading);
+    font-size: 1.35rem; 
+    font-weight: 800;
+    
+    color: #ffffff;
     padding-bottom: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 5px ;
 }
 
 .games-grid {
     display: grid;
-    /* La cuadrícula se ajustará automáticamente, mostrando hasta 4 columnas */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    
-    /* ⭐️ CLAVE: Aumentar el espacio vertical (el primer valor) ⭐️ */
-    /* 30px entre filas y 20px entre columnas */
     padding: 10px;
     gap: 30px 20px; 
 }
 
-/* ========================================================== */
-/* TARJETA DE JUEGO INDIVIDUAL (.game-card) */
-/* ========================================================== */
+/* TARJETA DE JUEGO INDIVIDUAL */
 
 .game-card {
     position: relative;
     border-radius: 12px;
-    overflow: hidden; /* Mantiene la imagen dentro del borde redondeado */
+    overflow: hidden; 
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra base sutil */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
     
-    /* Clave: Transición para el borde y la elevación */
     transition: 
         transform 0.3s ease, 
         box-shadow 0.3s ease, 
         border 0.3s ease;
     
-    /* Borde inicial: Transparente (para que la tarjeta no salte al hacer hover) */
     border: 3px solid transparent; 
 }
 
-/* ------------------------------------------- */
 /* ESTADO HOVER (Borde Rosa y Elevación) */
-/* ------------------------------------------- */
-
 .game-card:hover {
-    transform: translateY(-5px); /* Eleva la tarjeta */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Sombra más intensa */
-    
-    /* ⭐️ APLICA EL BORDE ROSA VIBRANTE ⭐️ */
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
     border: 3px solid var(--color-primary-pink); 
 }
 
-/* Imagen de fondo */
 .game-image {
     width: 100%;
-    height: 150px; /* Altura fija para todas las imágenes */
+    height: 150px; 
     object-fit: cover; 
     display: block;
 }
 
-/* ------------------------------------------- */
 /* Overlay del Título */
-/* ------------------------------------------- */
-
 .game-title-overlay {
     position: absolute;
     bottom: 0;
@@ -596,13 +564,13 @@ body {
     width: 100%;
     padding: 10px 15px;
     
-    /* Fondo azul con transparencia */
     background-color: rgba(22, 60, 100, 0.85); 
     
-    /* Estilo del texto */
-    color: #ffffff;
+    /* TÍTULO DEL JUEGO EN TARJETA: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600;
     font-size: 1rem;
-    font-weight: bold;
+    color: #ffffff;
     text-align: left;
 }
 
@@ -629,7 +597,6 @@ body {
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Otros Keyframes de tu carrusel */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -645,5 +612,12 @@ body {
   0% { transform: scale(1.15); opacity: 0.8; }
   100% { transform: scale(1); opacity: 1; }
 }
+
+
+
+
+
+
+
 
 

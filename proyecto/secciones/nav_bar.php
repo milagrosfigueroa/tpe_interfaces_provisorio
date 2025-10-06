@@ -13,6 +13,7 @@
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/pelotas-deportes.png"></i><span>Deportes</span></a></li>
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/pacman-clasicos.png"></i><span>Clasicos</span></a></li>
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/gorro-cocina.png"></i><span>Cocina</span></a></li>
+         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/maquillaje.png"></i><span>Belleza</span></a></li>
         </ul>
     </nav>
 </section>
