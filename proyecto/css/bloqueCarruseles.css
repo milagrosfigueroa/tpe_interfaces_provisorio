@@ -1,14 +1,15 @@
 body {
   margin: 0;
   padding: 20px 12px;
-  background-color: #1a1a1a;
   font-family: "Outfit", sans-serif;
   min-height: 100vh;
+  background-color: none;
 }
 
-.main-container {
+.main-container-carruseles {
   max-width: 100%;
   margin: 0 auto;
+  background-color: none;
 }
 
 /* 🔹 Carrusel general */

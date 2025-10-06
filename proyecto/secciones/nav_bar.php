@@ -1,4 +1,3 @@
-
 <section id="seccion-sidebar">
     <nav class="sidebar">
         <ul>
@@ -17,4 +16,4 @@
         </ul>
     </nav>
 </section>
-<script type="text/javascript" src="js/barras.js"></script>
+<script type="text/javascript" src="../js/barras.js"></script>
