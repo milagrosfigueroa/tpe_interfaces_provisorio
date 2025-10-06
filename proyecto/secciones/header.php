@@ -13,7 +13,7 @@
     <section id="seccion-header">
         <header>
             <div class="logo">
-            <img src="../images/icono_GameHub.png" alt="GameHub">
+            <img src="../images/iconos_barra_header/icono_GameHub.png" alt="GameHub">
             <h1>GameHub</h1>
             </div>
 
@@ -22,7 +22,7 @@
             <div class="buscador">
                 <input type="text" placeholder="¿A qué jugamos hoy?">
                 <button type="submit" class="boton-lupa">
-                <img src="../images/lupa.png">
+                <img src="../images/iconos_barra_header/lupa.png">
                 </button>
             </div>
             </div>
@@ -30,16 +30,16 @@
             <div class="acciones">
             <!-- Carrito -->
             <button class="icon-btn">
-                <img src="../images/carrito-de-compras.png">
+                <img src="../images/iconos_barra_header/carrito-de-compras.png">
             </button>
 
             <!-- Perfil -->
             <div class="menu-container">
                 <button class="icon-btn toggle-menu" data-target="menu-perfil">
-                <img src="../images/usuario.png">
+                <img src="../images/iconos_barra_header/usuario.png">
                 </button>
                 <div id="menu-perfil" class="menu">
-                <img src="../images/avatar.png" alt="avatar" class="avatar">
+                <img src="../images/iconos_barra_header/avatar.png" alt="avatar" class="avatar">
                 <h3>NICKNAME</h3>
                 <p>Configuraciones de la cuenta</p>
                 <ul>
@@ -55,7 +55,7 @@
             <!-- Hamburguesa -->
             <div class="hamb-wrapper">
                 <div class="menu-container">
-                <button class="icon-btn toggle-menu" data-target="menu-redes">☰</button>
+                <button class="icon-btn toggle-menu" data-target="menu-redes"><img src="../images/iconos_barra_header/menu.png" alt="menu-hamb" class="hamb"></button>
                 <div id="menu-redes" class="menu">
                     <ul>
                     <li><a href="../html/logIn.html">Log Out</a><img src="../images/iconos_menu_hamb/log-out.png"></li>
@@ -70,6 +70,6 @@
             </div>
         </header>
     </section>
-    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/barras.js"></script>
 </body>
 </html>
