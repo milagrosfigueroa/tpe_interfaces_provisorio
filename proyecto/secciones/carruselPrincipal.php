@@ -34,7 +34,7 @@
 
                 <div class="carousel-wrapper">
                     <div class="carousel-container">
-                        </div>
+                    </div>
                 </div>
 
                 <button class="nav-button nav-button-right" aria-label="Siguiente" onclick="nextSlide()">
