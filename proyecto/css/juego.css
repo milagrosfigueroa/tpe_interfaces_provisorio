@@ -235,8 +235,8 @@ header {
     background-color: var(--color-primary-pink); 
     color: #ffffff; 
     border: none;
-    
-    box-shadow: 0 4px 15px rgba(255, 68, 126, 0.4); 
+  
+    box-shadow: 0 0 0 transparent; 
     animation: none !important;
     
     transition: 
@@ -271,14 +271,12 @@ header {
 /* ESTADO "AGREGADO" (.added) */
 .btn-add-game.added {
     background-color: var(--color-added-green);
-    box-shadow: 0 4px 15px rgba(105, 180, 105, 0.4); 
     color: #ffffff; 
 }
 
 /* ESTADO HOVER (Agregado) */
 .btn-add-game.added:hover {
     background-color: var(--color-added-green-hover);
-    box-shadow: 0 10px 25px rgba(105, 180, 105, 0.7);
     transform: translateY(-3px) scale(1.02); 
     color: #ffffff;
 }
