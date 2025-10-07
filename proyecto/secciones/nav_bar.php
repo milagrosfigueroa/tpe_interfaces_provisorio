@@ -1,7 +1,7 @@
 <section id="seccion-sidebar">
     <nav class="sidebar">
         <ul>
-        <li><a href="html/home.html"><i class="active"><img src="images/iconos_nav_bar/casa-home.png"></i><span>Home</span></a></li>
+        <li><a href="home.php"><i class="active"><img src="images/iconos_nav_bar/casa-home.png"></i><span>Home</span></a></li>
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/corazon-favs.png"></i><span>Mis juegos</span></a></li>
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/estrellas-new.png"></i><span>Nuevos</span></a></li>
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/joystick-multijugador.png"></i><span>Multijugador</span></a></li>
@@ -13,7 +13,7 @@
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/pelotas-deportes.png"></i><span>Deportes</span></a></li>
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/pacman-clasicos.png"></i><span>Clasicos</span></a></li>
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/gorro-cocina.png"></i><span>Cocina</span></a></li>
-         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/maquillaje.png"></i><span>Belleza</span></a></li>
+         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/labial-belleza.png"></i><span>Belleza</span></a></li>
         </ul>
     </nav>
 </section>
