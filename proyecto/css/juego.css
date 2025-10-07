@@ -629,6 +629,33 @@ header {
   100% { transform: scale(1); opacity: 1; }
 }
 
+.btn-add-game:not(.added):hover {
+    transform: translateY(-3px) scale(1.05); 
+    background-color: var(--color-pink-hover);
+    color: #A70046; 
+    animation: heartbeat 0.8s ease-in-out infinite alternate;
+}
+
+.btn-add-game:not(.added):hover i {
+    color: #A70046;
+    animation: pulseHeart 0.8s ease-in-out infinite alternate;
+}
+
+/* ANIMACIÓN DEL BOTÓN */
+@keyframes heartbeat {
+  0% { transform: translateY(-3px) scale(1.0); box-shadow: 0 0 10px rgba(250, 98, 165, 0.4); }
+  50% { transform: translateY(-3px) scale(1.07); box-shadow: 0 0 25px rgba(250, 98, 165, 0.8); }
+  100% { transform: translateY(-3px) scale(1.0); box-shadow: 0 0 10px rgba(250, 98, 165, 0.4); }
+}
+
+/* ANIMACIÓN DEL CORAZÓN */
+@keyframes pulseHeart {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+
 
 
 
