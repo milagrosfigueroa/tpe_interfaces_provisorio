@@ -9,11 +9,16 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.footer {
+ .footer {
     background-color: #02213E;
     color: #ffffff;
-    padding: 60px 40px;
-}
+    /* padding: 60px 40px; */
+    display: grid;
+    position:relative;
+    background-color: #043968;
+    margin-left: 20px;
+    width: 100%;
+} 
 
 .footer-container {
     max-width: 1366px;
@@ -123,7 +128,4 @@ body {
         gap: 30px;
     }
     
-    .footer {
-        padding: 40px 20px;
-    }
 }

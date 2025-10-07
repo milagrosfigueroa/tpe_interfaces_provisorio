@@ -1,6 +1,7 @@
 // 1. Configuración de la API y selectores
 const API_URL = "https://vj.interfaces.jima.com.ar/api/v2"
-const carouselContainer = document.querySelector(".carousel-container")
+// ⚠️ CLASE CORREGIDA: Usar el nuevo nombre del contenedor interno
+const carouselContainer = document.querySelector(".hero-carousel-inner") 
 const loadingScreen = document.getElementById("loading-screen")
 
 // Variables globales para el carrusel
@@ -23,7 +24,8 @@ function initializeCarouselLogic(count) {
 
 // Función para mostrar un slide específico
 function showSlide(index) {
-  const slides = document.querySelectorAll(".carousel-content")
+  // ⚠️ CLASE CORREGIDA: Usar el nuevo nombre de las tarjetas (slides)
+  const slides = document.querySelectorAll(".hero-card-content") 
   if (index >= totalSlides) {
     currentSlide = 0
   } else if (index < 0) {
@@ -53,7 +55,7 @@ function previousSlide() {
 // Función principal para cargar datos del carrusel
 async function loadCarouselData() {
   if (!carouselContainer) {
-    console.error("El elemento .carousel-container no fue encontrado.")
+    console.error("El elemento .hero-carousel-inner no fue encontrado.")
     return
   }
 
@@ -74,17 +76,18 @@ async function loadCarouselData() {
       const isActive = index === 0 ? "active" : ""
       const truncatedDescription = truncateText(game.description, 180)
 
+      // ⚠️ HTML GENERADO CORREGIDO: Todas las clases internas cambiadas
       const slideHtml = `
-                <div class="carousel-content ${isActive}" tabindex="0" role="group" aria-label="Slide ${index + 1} de ${games.length}">
-                    <div class="image-section">
-                        <img src="${game.background_image_low_res}" alt="${game.name}" class="game-image">
+                <div class="hero-card-content ${isActive}" tabindex="0" role="group" aria-label="Slide ${index + 1} de ${games.length}">
+                    <div class="hero-image-section">
+                        <img src="${game.background_image_low_res}" alt="${game.name}" class="hero-game-image">
                     </div>
-                    <div class="text-section">
-                        <h1 class="title">${game.name}</h1>
-                        <p class="description">
+                    <div class="hero-text-section">
+                        <h1 class="hero-card-title">${game.name}</h1>
+                        <p class="hero-card-description">
                             ${truncatedDescription} 
                         </p>
-                        <button class="play-button">Jugar</button>
+                        <button class="hero-play-button">Jugar</button>
                     </div>
                 </div>
             `

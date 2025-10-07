@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Juegos</title>
-    <link rel="stylesheet" href="../css/misJuegos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <section class="mis-juegos">
+ <section class="mis-juegos">
         <h2 class="titulo">Mis Juegos</h2>
         
         <div class="contenido">
@@ -44,5 +34,4 @@
             </div>
         </div>
     </section>
-</body>
-</html>
+

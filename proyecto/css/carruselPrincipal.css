@@ -1,102 +1,36 @@
 /* ========================================================== */
-/* 1. BASE GLOBAL Y RESETS */
-/* ========================================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; 
-}
-
-body {
-  font-family: 'Rosario', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  overflow-x: hidden; 
-}
-
-/* ========================================================== */
-/* 2. PANTALLA DE CARGA (LOADER) */
-/* ========================================================== */
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    background-color: #102f4b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
-}
-
-#loading-screen.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loader-content {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2em;
-    display: flex; 
-    flex-direction: column;
-    align-items: center;
-}
-
-/* SPINNER DE CARGA CSS */
-.spinner-loader {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-top: 5px solid #E74C8C;
-  border-radius: 50%;
-  margin: 0 auto 20px auto;
-  animation: spin 1s linear infinite;
-}
-
-.loading-percentage {
-    display: block;
-    margin-top: 10px;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* ========================================================== */
 /* 3. CONTENEDORES PRINCIPALES Y TÍTULO */
 /* ========================================================== */
-.main-container {
+.hero-main-container {
   width: 100%; 
   height: auto; 
   max-width: 1326px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   background-color: #102f4b;
   padding: 20px;
+  margin: 0 auto;
   /* CLAVE: Posicionamiento relativo para anclar las flechas en MÓVIL */
   position: relative; 
 }
-
-.section-title {
-  font-family: 'Montserrat', sans-serif; 
-  font-size: 24px;
-  font-weight: 700; 
-  color: #ffffff;
-  margin-bottom: 20px;
-  text-align: left;
-  flex-shrink: 0;
-  margin-left: 20px; 
+/* Y añade espaciado superior a la sección, NO al contenedor interno */
+#seccion-destacados {
+    margin-bottom: 30px; /* Espacio para separar de 'Mis Juegos' */
+    margin-top: 50px;    /* 👈 Pequeño empuje extra *DENTRO* del main */
 }
 
-.carousel-and-nav-desktop {
+.hero-section-title {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 24px;
+    font-weight: 700; 
+    color: #ffffff;
+    margin-bottom: 20px; 
+    text-align: left;
+    flex-shrink: 0;
+    margin-left: 20px; 
+}
+
+.hero-carousel-nav-desktop {
     display: flex;
     align-items: center;
     width: 100%;
@@ -108,7 +42,7 @@ body {
 /* ========================================================== */
 /* 4. CARRUSEL Y FLECHAS */
 /* ========================================================== */
-.carousel-wrapper {
+.hero-carousel-wrapper {
   position: relative;
   flex: 1; 
   height: 248px; 
@@ -116,7 +50,7 @@ body {
   padding: 0;
 }
 
-.carousel-container {
+.hero-carousel-inner {
   position: relative;
   flex: 1;
   overflow: hidden;
@@ -125,7 +59,7 @@ body {
 }
 
 /* Estilos de la CARD */
-.carousel-content {
+.hero-card-content {
   background: radial-gradient(circle, #4789c4 0%, #22425e 96%);
   border-radius: 24px;
   display: flex;
@@ -142,25 +76,25 @@ body {
   transform: translateX(100%) scale(0.9); 
 }
 
-.carousel-content.active {
+.hero-card-content.active {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(0) scale(1);
   animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.carousel-content.slide-out-left {
+.hero-card-content.slide-out-left {
   transform: translateX(-100%) scale(0.9);
   opacity: 0;
 }
 
-.carousel-content.slide-out-right {
+.hero-card-content.slide-out-right {
   transform: translateX(100%) scale(0.9);
   opacity: 0;
 }
 
 /* Flechas de Navegación BASE */
-.nav-button {
+.hero-nav-button {
   background: rgba(255, 255, 255, 0.1);
   border: none;
   border-radius: 12px;
@@ -176,28 +110,33 @@ body {
   flex-shrink: 0; 
 }
 
-.nav-button:hover {
+.hero-nav-button:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: scale(1.1);
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
 }
 
-.nav-button svg {
+.hero-nav-button svg {
     display: block;
     margin: 0;
 }
 
+/* Clases específicas para posicionar las flechas */
+.hero-nav-button-left {} 
+.hero-nav-button-right {} 
+
+
 /* ========================================================== */
 /* 5. SECCIONES INTERNAS DEL CARD */
 /* ========================================================== */
-.image-section {
+.hero-image-section {
   flex: 0 0 50%; 
   min-width: 0;
   height: 100%;
   overflow: hidden;
 }
 
-.game-image {
+.hero-game-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -205,15 +144,15 @@ body {
   transition: transform 0.5s ease-out;
 }
 
-.game-image:hover {
+.hero-game-image:hover {
   transform: scale(1.05);
 }
 
-.carousel-content.active .game-image {
+.hero-card-content.active .hero-game-image {
   animation: zoomIn 1s ease-out;
 }
 
-.text-section {
+.hero-text-section {
   flex: 1 1 50%; 
   padding: 20px 30px; 
   display: flex;
@@ -224,7 +163,7 @@ body {
 }
 
 /* Título de la Card */
-.text-section .title {
+.hero-text-section .hero-card-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
     font-weight: 700;
@@ -237,12 +176,12 @@ body {
     word-break: break-word; 
 }
 
-.carousel-content.active .title {
+.hero-card-content.active .hero-card-title {
   animation: fadeInUp 0.6s ease-out 0.2s forwards;
 }
 
 /* Descripción de la Card */
-.text-section .description {
+.hero-text-section .hero-card-description {
     font-family: 'Rosario', sans-serif; 
     font-size: 16px;
     line-height: 1.5;
@@ -255,12 +194,12 @@ body {
     overflow-wrap: break-word; 
 }
 
-.carousel-content.active .description {
+.hero-card-content.active .hero-card-description {
   animation: fadeInUp 0.6s ease-out 0.4s forwards;
 }
 
 /* BOTÓN JUGAR */
-.play-button {
+.hero-play-button {
   background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%);
   color: #ffffff;
   border: none;
@@ -276,29 +215,29 @@ body {
   box-shadow: 0 8px 20px rgba(231, 76, 140, 0.4);
   /* DESKTOP: Se alinea a la derecha del contenedor text-section */
   align-self: flex-end; 
-  /*  Añade un margen para separarlo visualmente del borde */
+  /* Añade un margen para separarlo visualmente del borde */
   margin-right: 30px; 
   
   opacity: 0;
 }
 
-.carousel-content.active .play-button {
+.hero-card-content.active .hero-play-button {
   animation: fadeInUp 0.6s ease-out 0.6s forwards, pulse 1.5s infinite alternate 1.2s; 
 }
 
-.play-button:hover {
+.hero-play-button:hover {
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 12px 28px rgba(231, 76, 140, 0.6);
   background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%);
   animation: none;
 }
 
-.play-button:active {
+.hero-play-button:active {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 20px rgba(231, 76, 140, 0.5);
 }
 
-.play-button:focus {
+.hero-play-button:focus {
   outline: 3px solid rgba(231, 76, 140, 0.5);
   outline-offset: 3px;
 }
@@ -306,6 +245,8 @@ body {
 /* ========================================================== */
 /* 6. KEYFRAMES (ANIMACIONES) */
 /* ========================================================== */
+/* NOTA: Los keyframes (animaciones) no necesitan ser renombrados, ya que su ámbito es global por defecto y no causan conflictos de estilo directo. */
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -346,10 +287,10 @@ body {
 
 /* Estilos para Tablet (hasta 1024px) */
 @media (max-width: 1024px) {
-  .carousel-and-nav-desktop {
+  .hero-carousel-nav-desktop {
       gap: 10px;
   }
-  .nav-button {
+  .hero-nav-button {
       width: 40px;
       height: 100px;
   }
@@ -357,18 +298,18 @@ body {
 
 /* Estilos para Móviles (hasta 768px) */
 @media (max-width: 768px) {
-    .main-container {
+    .hero-main-container {
         padding: 20px 10px; 
     }
     
     /* Ocultamos el layout Flexbox de desktop y preparamos para posición absoluta de flechas */
-    .carousel-and-nav-desktop {
+    .hero-carousel-nav-desktop {
         flex-direction: column; 
         max-width: none;
         gap: 0;
     }
     
-    .carousel-wrapper {
+    .hero-carousel-wrapper {
         position: static; 
         width: 100%;
         max-width: none;
@@ -376,7 +317,7 @@ body {
     }
 
     /* Asegurar que el carrusel central deje espacio a los lados */
-    .carousel-container {
+    .hero-carousel-inner {
         height: auto;
         min-height: 400px;
         width: calc(100% - 20px); 
@@ -384,7 +325,7 @@ body {
     }
     
     /* Posicionamiento Absoluto para Flechas en MÓVIL */
-    .nav-button {
+    .hero-nav-button {
         position: absolute; 
         z-index: 10;
         top: 50%;
@@ -394,35 +335,35 @@ body {
         background: rgba(0, 0, 0, 0.4);
     }
     
-    .nav-button-left { left: 10px; } 
-    .nav-button-right { right: 10px; } 
+    .hero-nav-button-left { left: 10px; } 
+    .hero-nav-button-right { right: 10px; } 
 
     /* Diseño horizontal de la card para tablets */
-    .carousel-content {
+    .hero-card-content {
         flex-direction: row; 
         min-height: 280px;
     }
     
-    .image-section {
+    .hero-image-section {
         flex: 0 0 45%; 
         height: 100%;
     }
 
-    .text-section {
+    .hero-text-section {
         flex: 1 1 55%; 
         padding: 15px 20px; 
     }
-    .text-section .title {
+    .hero-text-section .hero-card-title {
         font-size: 22px;
     }
-    .text-section .description {
+    .hero-text-section .hero-card-description {
         font-size: 14px;
         margin-bottom: 10px;
         flex-grow: 1;
     }
     
     /* Mantiene la alineación del botón en tablet a la derecha (igual que desktop) */
-    .text-section .play-button {
+    .hero-text-section .hero-play-button {
         padding: 10px 20px;
         align-self: flex-end; 
     }
@@ -435,24 +376,24 @@ body {
 --- */
 
 @media (max-width: 480px) {
-    .section-title {
+    .hero-section-title {
         font-size: 22px;
     }
 
-    .carousel-content {
+    .hero-card-content {
         flex-direction: column; 
         /* Aumentamos el mínimo para asegurar que el botón se vea */
         min-height: 520px; 
         height: auto;
     }
 
-    .image-section {
+    .hero-image-section {
         width: 100%; 
         height: 160px; 
         flex: none; 
     }
     
-    .text-section {
+    .hero-text-section {
         flex: 1; 
         padding: 10px 20px 5px 20px; /* Padding comprimido */
         
@@ -461,19 +402,19 @@ body {
         height: auto; 
     }
     
-    .text-section .title {
+    .hero-text-section .hero-card-title {
         font-size: 20px; 
         margin-bottom: 0; /* Usamos gap en su lugar */
     }
     
-    .text-section .description {
+    .hero-text-section .hero-card-description {
         font-size: 14px;
         margin-bottom: 0; /* Usamos gap en su lugar */
         flex-grow: 0; /* Evita que la descripción tome espacio extra */
     }
 
     /* Sobrescribe la alineación para centrarlo en la vista pequeña */
-    .text-section .play-button {
+    .hero-text-section .hero-play-button {
         align-self: center; 
         width: 80%; 
         padding: 10px 20px;

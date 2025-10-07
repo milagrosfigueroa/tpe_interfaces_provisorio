@@ -68,7 +68,7 @@ body {
 /* === ESTILOS DE LAS TARJETAS DE JUEGOS === */
 .game-card {
     width: 220px;
-    height: auto;
+    height: 100px;
     border-radius: 12px;
     box-sizing: border-box;
     transition: border-color 0.2s ease;

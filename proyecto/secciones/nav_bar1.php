@@ -17,3 +17,4 @@
         </ul>
     </nav>
 </section>
+<script type="text/javascript" src="../js/barras.js"></script>
