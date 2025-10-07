@@ -6,7 +6,7 @@
     <title>GameHub - Plataforma de Juegos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rosario:wght@400;700&family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rosario:wght@400;700&family=Roboto:wght@400;600&family=Micro+5&display=swap" rel="stylesheet">
     <link href="css/home.css" rel="stylesheet">
     <link href="css/barras.css" rel="stylesheet">
 </head>
@@ -56,7 +56,7 @@
 
         <div class="contenido">
             <div class="info-izquierda">
-                <img src="https://i.imgur.com/placeholder.png" alt="Logo Juegos" class="logo">
+                <img src="images/imgMisjuegos/logoSentado.png" alt="Logo Juegos" class="logo">
                 <div class="texto">
                     <p>Aquí encontrarás tus juegos favoritos y las últimas partidas</p>
                 </div>
@@ -65,21 +65,21 @@
             <div class="juegos-container">
                 <div class="game-card-mis-juegos">
                     <div class="game-card-image-mis-juegos">
-                        <img src="https://i.imgur.com/L7wG3Pl.jpg" alt="Dragon ball">
+                        <img src="images/imgMisjuegos/dragonBall.jpg" alt="Dragon ball">
                     </div>
                     <h2 class="game-card-title-mis-juegos">Dragon ball</h2>
                 </div>
 
                 <div class="game-card-mis-juegos">
                     <div class="game-card-image-mis-juegos">
-                        <img src="https://i.imgur.com/S7yN4Fe.jpg" alt="Uno">
+                        <img src="images/imgMisjuegos/uno.jpg" alt="Uno">
                     </div>
                     <h2 class="game-card-title-mis-juegos">Uno Online</h2>
                 </div>
 
                 <div class="game-card-mis-juegos">
                     <div class="game-card-image-mis-juegos">
-                        <img src="https://i.imgur.com/HfH48gk.jpg" alt="Bad Ice Cream">
+                        <img src="images/imgMisjuegos/badicecream.jpg" alt="Bad Ice Cream">
                     </div>
                     <h2 class="game-card-title-mis-juegos">Bad Ice cream 7</h2>
                 </div>
@@ -101,18 +101,18 @@
                 <div class="carousel-track-container">
                     
                     <div class="carousel-track" data-track="carousel1">
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Bomb It 7</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Bad Ice Cream 3</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">Gun Mayhem 2</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/QPz64Fb.jpg" alt=""></div><h3 class="game-card-title">Worms Armagedom</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/hu3PHcv.jpg" alt=""></div><h3 class="game-card-title">Uno Online</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/ZkX8T6L.jpg" alt=""></div><h3 class="game-card-title">Ludo Online</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Roblox</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/aEFeuCi.jpg" alt=""></div><h3 class="game-card-title">Chess Online</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/5sRh1cG.jpg" alt=""></div><h3 class="game-card-title">Steal a Brainrot</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/kDWcKUd.jpg" alt=""></div><h3 class="game-card-title">8 Ball Pool</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/lNVFVi3.jpg" alt=""></div><h3 class="game-card-title">Scrable Online</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Domino Online</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Bomb it 7.png" alt=""></div><h3 class="game-card-title">Bomb It 7</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/bad ice cream 7.jpg" alt=""></div><h3 class="game-card-title">Bad Ice Cream 3</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Gun Mayhem 2.jpg" alt=""></div><h3 class="game-card-title">Gun Mayhem 2</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Worms Armageddon.jpg" alt=""></div><h3 class="game-card-title">Worms Armageddom</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Uno.jpg" alt=""></div><h3 class="game-card-title">Uno Online</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Ludo.png" alt=""></div><h3 class="game-card-title">Ludo Online</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/roblox.jpeg" alt=""></div><h3 class="game-card-title">Roblox</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Chess Online.jpg" alt=""></div><h3 class="game-card-title">Chess Online</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/multijugador/stealABrainrot.avif" alt=""></div><h3 class="game-card-title">Steal a Brainrot</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/8 Ball Pool.jpg" alt=""></div><h3 class="game-card-title">8 Ball Pool</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/scrabble.jpg" alt=""></div><h3 class="game-card-title">Scrable Online</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/multijugador/Domino.jpg" alt=""></div><h3 class="game-card-title">Domino Online</h3></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel1" data-direction="siguiente">
@@ -130,18 +130,18 @@
                 </button>
                 <div class="carousel-track-container">
                     <div class="carousel-track" data-track="carousel2">
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Fireboy & Watergirl 1</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Money Movers</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">G-Switch 3</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/QPz64Fb.jpg" alt=""></div><h3 class="game-card-title">Basket Random</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/hu3PHcv.jpg" alt=""></div><h3 class="game-card-title">Night City Racing</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/ZkX8T6L.jpg" alt=""></div><h3 class="game-card-title">Soccer Legends 2021</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Rolling Balls Sea Race</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/aEFeuCi.jpg" alt=""></div><h3 class="game-card-title">Chicken Scream</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/5sRh1cG.jpg" alt=""></div><h3 class="game-card-title">Tank Wars</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/kDWcKUd.jpg" alt=""></div><h3 class="game-card-title">Fish Stab Getting Big</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/lNVFVi3.jpg" alt=""></div><h3 class="game-card-title">Tres En Raya</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Tag Run</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/FireBoy and Watergirl.jpg" alt=""></div><h3 class="game-card-title">Fireboy & Watergirl 1</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Money Movers.jpg" alt=""></div><h3 class="game-card-title">Money Movers</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/G-Switch 3.png" alt=""></div><h3 class="game-card-title">G-Switch 3</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Basket random.jpg" alt=""></div><h3 class="game-card-title">Basket Random</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Night city racing.jpg" alt=""></div><h3 class="game-card-title">Night City Racing</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Soccer legends 2021.jpg" alt=""></div><h3 class="game-card-title">Soccer Legends 2021</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Rolling balls sea race.jpg" alt=""></div><h3 class="game-card-title">Rolling Balls Sea Race</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Chicken Scream.jpg" alt=""></div><h3 class="game-card-title">Chicken Scream</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Tank Wars.jpg" alt=""></div><h3 class="game-card-title">Tank Wars</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/Fish Stab Getting Big.png" alt=""></div><h3 class="game-card-title">Fish Stab Getting Big</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/3enRaya.jpg" alt=""></div><h3 class="game-card-title">Tres En Raya</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/2jugadores/tagRun.jpg" alt=""></div><h3 class="game-card-title">Tag Run</h3></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel2" data-direction="siguiente">
@@ -188,18 +188,18 @@
                 </button>
                 <div class="carousel-track-container">
                     <div class="carousel-track" data-track="carousel4">
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Zombie Horde</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Autogun Heroes</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">Crash Bandicoot</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/QPz64Fb.jpg" alt=""></div><h3 class="game-card-title">Red Ball</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/hu3PHcv.jpg" alt=""></div><h3 class="game-card-title">Squid game</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/ZkX8T6L.jpg" alt=""></div><h3 class="game-card-title">Geometry Dash</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Go Slimey Go</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/aEFeuCi.jpg" alt=""></div><h3 class="game-card-title">Sonic</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/5sRh1cG.jpg" alt=""></div><h3 class="game-card-title">Dragon Ball</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/kDWcKUd.jpg" alt=""></div><h3 class="game-card-title">Labubu</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/lNVFVi3.jpg" alt=""></div><h3 class="game-card-title">99 Nights</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Boxteria 2</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion/Zombie horde Build & Survive.jpg" alt=""></div><h3 class="game-card-title">Zombie Horde</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/Autogun heroes.png" alt=""></div><h3 class="game-card-title">Autogun Heroes</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/Crash Bandicoot.jpg" alt=""></div><h3 class="game-card-title">Crash Bandicoot</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion/red ball.jpg" alt=""></div><h3 class="game-card-title">Red Ball</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion/Squid Game.jpg" alt=""></div><h3 class="game-card-title">Squid game</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/Geometry Dash.jpg" alt=""></div><h3 class="game-card-title">Geometry Dash</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/Go Slimey Go.jpg" alt=""></div><h3 class="game-card-title">Go Slimey Go</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/sonic the hedhehog (1).jpg" alt=""></div><h3 class="game-card-title">Sonic The hedhehog</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion/Dragon Ball Advanced Adventure.jpg" alt=""></div><h3 class="game-card-title">Dragon Ball Advanced Adventure</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/Labubu Playground.jpg" alt=""></div><h3 class="game-card-title">Labubu Playground</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/accion/99nightsintheforest.webp" alt=""></div><h3 class="game-card-title">99 Nights In The Forest</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/accion/boxteria2.jpeg" alt=""></div><h3 class="game-card-title">Boxteria 2</h3></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel4" data-direction="siguiente">
@@ -363,17 +363,17 @@
                 <div class="carousel-track-container">
                     <div class="carousel-track" data-track="carousel10">
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/aEFeuCi.jpg" alt=""></div><h3 class="game-card-title">Beauty Salon</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">Hair Salon</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">Hair Salon</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/hu3PHcv.jpg" alt=""></div><h3 class="game-card-title">Makeup Artist</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/ZkX8T6L.jpg" alt=""></div><h3 class="game-card-title">Spa Day</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/5sRh1cG.jpg" alt=""></div><h3 class="game-card-title">Nail Studio</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Fashion Show</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Fashion Show</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">Style Studio</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/QPz64Fb.jpg" alt=""></div><h3 class="game-card-title">Dress Up</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/lNVFVi3.jpg" alt=""></div><h3 class="game-card-title">Glamour Girl</h3></div>
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Beauty Queen</h3></div>
+                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Beauty Queen</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/kDWcKUd.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
-                        <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
                     </div>
                 </div>
                 <button class="carousel-btn carousel-btn-right" data-carousel="carousel10" data-direction="siguiente">
@@ -436,9 +436,7 @@
             <div class="footer-column">
                 <h3>Suscríbete a nuestro newsletter ¡Y entérate todas las novedades!</h3>
                 <a href="#" class="subscribe-link">suscribirme
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 11L11 1M11 1H1M11 1V11" stroke="white" stroke-width="2"/>
-                    </svg>
+                   <img src="images/imgFooter/flecha.png" alt="flecha">
                 </a>
 
                 <h3 class="margin-top">Síguenos en</h3>
@@ -452,9 +450,7 @@
                 <div class="logos">
                     <span class="logo-text">GameHub</span>
                     <div class="logo-icon">
-                        <svg width="86" height="57" viewBox="0 0 86 57" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="43" cy="28.5" r="20" fill="#FA328A"/>
-                        </svg>
+                        <img src="images/imgFooter/logoSentado.png" alt="logo">
                     </div>
                 </div>
             </div>

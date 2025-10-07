@@ -31,7 +31,7 @@
       <div class="acciones">
         <!-- Carrito -->
         <button class="icon-btn">
-          <img src="images/iconos_barra_header/carrito-de-compras.png" alt="Carrito">
+          <img src="images/iconos_barra_header/carrito-de-compras .png" alt="Carrito">
         </button>
 
         <!-- Perfil -->
