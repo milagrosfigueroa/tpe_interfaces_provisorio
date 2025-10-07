@@ -1,0 +1,1699 @@
+/* ========================================================== */
+/* 1. BASE GLOBAL Y RESETS */
+/* ========================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rosario", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+  background-color: #043968;
+  /* min-height: 100vh; */
+}
+
+/* ========================================================== */
+/* 2. PANTALLA DE CARGA (LOADER) - (Se mantiene) */
+/* ========================================================== */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: #043968;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-content {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner-loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid #e74c8c;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  animation: spin 1s linear infinite;
+}
+
+.loading-percentage {
+  display: block;
+  margin-top: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================================== */
+/* 3. HEADER BASE (MOBILE FIRST - VISTA COMPACTA < 1000PX) */
+/* ========================================================== */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 50px; 
+    background: #02213E; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Espacio para sidebar (50px) + 10px a la derecha */
+    padding: 0 10px 0 50px; 
+    color: white;
+    box-sizing: border-box;
+    transition: height 0.3s ease, padding 0.3s ease; 
+    overflow: hidden; 
+}
+
+/* LOGO: TAMAÑO AUMENTADO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 6px; 
+    /* Alineación al inicio del contenido después del sidebar */
+    margin-left: 0; 
+}
+
+.logo img {
+    /* CLAVE: Aumentamos el logo (ej. de 40px a 45px) */
+    width: 45px; 
+    height: 45px; 
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+.logo img:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.logo h1 {
+    /* CLAVE: Aumentamos el texto (ej. de 1.5rem a 1.7rem) */
+    font-size: 1.7rem; 
+    font-family: 'Micro 5', sans-serif;
+}
+
+/* ========================= */
+/* BUSCADOR */
+/* ========================= */
+.buscador-wrapper {
+    /* Oculto en Mobile First (< 1000px) */
+    display: none; 
+    padding: 0;
+}
+
+.buscador {
+    position: relative;
+    width: 100%;
+    max-width: 280px; 
+    height: 36px;
+    background-color: #F9F6F6;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.buscador input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #333;
+    font-family: 'Lohit Devanagari', sans-serif;
+    font-size: 14px;
+    padding-left: 12px;
+    padding-right: 36px;
+}
+
+.lupa-icono {
+    position: absolute;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+/* ========================= */
+/* ACCIONES DERECHA DEL HEADER (Iconos Reducidos) */
+/* ========================= */
+.acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px; /* Reducimos el espacio entre íconos */
+    padding-right: 0;
+}
+
+.icon-btn {
+    /* Reducimos el área de clic (contenedor) */
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.icon-btn img {
+    /* CLAVE: Reducimos el tamaño del icono (ej. de 20px a 18px) */
+    width: 18px; 
+    height: 18px;
+    object-fit: contain;
+}
+
+
+/* ========================================================== */
+/* 5. RESPONSIVE DESIGN (Escritorio > 1000px) */
+/* ========================================================== */
+
+@media (min-width: 1000px) {
+    
+    /* 💥 HEADER: AUMENTA TAMAÑO Y MUESTRA BUSCADOR 💥 */
+    header {
+        height: 80px; 
+        padding: 0 40px; 
+        overflow: visible; 
+    }
+    
+    /* LOGO: TAMAÑO GRANDE DE ESCRITORIO */
+    .logo {
+        margin-left: 0; 
+        gap: 8px;
+    }
+    .logo img {
+        /* CLAVE: Mantenemos un tamaño grande para escritorio (50px) */
+        width: 50px; 
+        height: 50px;
+    }
+    .logo h1 {
+        /* CLAVE: Mantenemos un texto grande para escritorio (2.2rem) */
+        font-size: 2.2rem; 
+    }
+
+    /* 💥 BUSCADOR: APARECE Y OCUPA EL CENTRO 💥 */
+    .buscador-wrapper {
+        display: flex; 
+        flex-grow: 1; 
+        max-width: none;
+        margin: 0 40px; 
+        justify-content: center; 
+    }
+    
+    /* ACCIONES: TAMAÑO ESTÁNDAR DE ESCRITORIO */
+    .acciones {
+        gap: 14px;
+    }
+    .icon-btn img {
+        /* Íconos de acción vuelven a 24px en escritorio */
+        width: 24px;
+        height: 24px;
+    }
+    .icon-btn {
+        width: 32px; /* Restablecemos el área de clic */
+        height: 32px;
+    }
+    
+    /* SINCRONIZACIÓN DE SIDEBAR */
+    .sidebar {
+        top: 80px; 
+        height: calc(100vh - 80px);
+    }
+}
+
+
+/* ========================================================== */
+/* 6. MENÚS DESPLEGABLES (Se mantienen) */
+/* ========================================================== */
+.menu-container {
+    position: relative;
+    display: inline-block;
+    margin-right: 0;
+}
+
+.menu {
+    position: fixed;
+    right: 10px;
+    top: 36px;
+    background: #02213E;
+    border-radius: 4px;
+    padding: 0;
+    width: 150px;
+    height: auto;
+    display: none;
+    color: white;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 5px;
+}
+
+.menu.active {
+    display: block;
+    opacity: 1;
+}
+
+#menu-perfil {
+    width: 260px;
+    height: 378px;
+}
+
+.menu .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    margin: 15px auto 10px auto;
+}
+
+.menu h3 {
+    text-align: center;
+    margin: 5px 0;
+    color: #ffffff;
+}
+
+.menu p {
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #bbb;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #033354;
+    color: #ffffff;
+    background-color: #02213E;
+    transition: background-color 0.3s;
+}
+
+.menu ul li:hover,
+.menu ul li a.active {
+    background: #FA62A5;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+/* Menú redes */
+
+#menu-redes {
+    top: 40px;
+}
+
+#menu-redes ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #033354;
+    background-color: #02213E;
+    font-size: 14px;
+    color: #ffffff;
+    transition: background-color 0.3s;
+}
+
+#menu-redes ul li:hover,
+#menu-redes ul li a.active {
+    background: #FA62A5;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+#menu-redes ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    flex-grow: 1;
+}
+
+#menu-redes ul li img {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+}
+
+
+.content{
+    display: grid;
+    position:relative;
+    background-color: #043968;
+    margin-left: 20px;
+    width: 100%;
+}
+
+
+/* ========================================================== */
+/* BARRAS.CSS */
+/* Contiene estilos para Header y Sidebar */
+/* ========================================================== */
+
+
+/* ---------------------------------------------------------- */
+/* 2. HEADER BASE (MOBILE FIRST - VISTA COMPACTA < 1000PX) */
+/* ---------------------------------------------------------- */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    height: 50px; 
+    background: #02213E; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Espacio para sidebar (50px) + 10px a la derecha */
+    padding: 0 10px 0 50px; 
+    color: white;
+    box-sizing: border-box;
+    transition: height 0.3s ease, padding 0.3s ease; 
+    overflow: hidden; 
+}
+
+/* LOGO: TAMAÑO AUMENTADO (Móvil) */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 6px; 
+    margin-left: 0; 
+}
+
+.logo img {
+    width: 45px; 
+    height: 45px; 
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+.logo img:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.logo h1 {
+    font-size: 1.7rem; 
+    font-family: 'Micro 5', sans-serif;
+}
+
+/* BUSCADOR (Oculto en Mobile First) */
+.buscador-wrapper {
+    display: none; 
+    padding: 0;
+}
+
+.buscador {
+    position: relative;
+    width: 100%;
+    max-width: 280px; 
+    height: 36px;
+    background-color: #F9F6F6;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.buscador input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #333;
+    font-family: 'Lohit Devanagari', sans-serif;
+    font-size: 14px;
+    padding-left: 12px;
+    padding-right: 36px;
+}
+
+.lupa-icono {
+    position: absolute;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+
+/* ACCIONES DERECHA DEL HEADER (Iconos Reducidos en Móvil) */
+.acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px; 
+    padding-right: 0;
+}
+
+.icon-btn {
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.icon-btn img {
+    width: 18px; 
+    height: 18px;
+    object-fit: contain;
+}
+
+/* ---------------------------------------------------------- */
+/* 3. SIDEBAR BASE (CÓDIGO CORREGIDO PARA ALTURA DINÁMICA) */
+/* ---------------------------------------------------------- */
+.sidebar {
+    background-color: #02213E;
+    width: 40px; 
+    /* ¡CORRECCIÓN CRÍTICA! Altura dinámica para MOBILE FIRST */
+    height: calc(100vh - 50px); 
+    position: fixed;
+    top: 50px; /* Sincronizado con Header de 50px */
+    left: 0; 
+    z-index: 999; 
+    
+    box-shadow: 1px 0 0 0 #02213E; /* Soluciona la línea gris */
+    
+    transition: width 0.3s ease;
+    /* overflow-y: auto;  */
+    overflow-x: visible;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px; 
+    padding-top: 10px;
+}
+
+
+/* ---------------------------------------------------------- */
+/* 4. RESPONSIVE DESIGN (Escritorio > 1000px) */
+/* ---------------------------------------------------------- */
+
+@media (min-width: 1000px) { */
+    
+    /* HEADER: AUMENTA TAMAÑO Y MUESTRA BUSCADOR */
+    header {
+        height: 50px; 
+        padding: 0 40px; 
+        overflow: visible; 
+    }
+    
+    /* LOGO: TAMAÑO GRANDE DE ESCRITORIO */
+    .logo {
+        margin-left: 0; 
+        gap: 8px;
+    }
+    .logo img {
+        width: 60px; 
+        height: 50px;
+    }
+    .logo h1 {
+        font-size: 2.2rem; 
+    }
+
+    /* BUSCADOR: APARECE Y OCUPA EL CENTRO */
+    .buscador-wrapper {
+        display: flex; 
+        flex-grow: 1; 
+        max-width: none;
+        margin: 0 40px; 
+        justify-content: center; 
+    }
+    
+    /* ACCIONES: TAMAÑO ESTÁNDAR DE ESCRITORIO */
+    .acciones {
+        gap: 14px;
+    }
+    .icon-btn img {
+        width: 24px;
+        height: 24px;
+    }
+    .icon-btn {
+        width: 32px; 
+        height: 32px;
+    }
+} 
+/* ========================= */
+/* SIDEBAR */
+/* ========================= */
+
+.sidebar {
+    background-color: #02213E;
+    width: 40px;
+    height: 800px;
+    position: fixed;
+    top: 50px;
+    left: 0px;
+    transition: width 0.3s ease;
+    overflow: visible;
+    z-index: 9999;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 100%; /* 👈 ocupa todo el alto de la barra */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 👈 distribuye arriba-abajo */
+}
+
+
+.sidebar ul li {
+    width: 100%;
+    color: #ffffff;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 4px;
+    white-space: nowrap;
+    margin-left: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sidebar ul li a span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover {
+    width: 170px;
+    background-color: #0A2E4D;
+}
+
+.sidebar img {
+    width: 18px;
+    height: auto;
+    margin: 10px 0;
+    display: block;
+    flex-shrink: 0;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+}
+
+.sidebar span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    flex: 1;
+}
+
+.sidebar:hover span {
+    opacity: 1;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li a.active {
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    background: #FA62A5;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+
+/* Footer general */
+.footer {
+    background-color: #02213E;
+    color: #ffffff;
+    padding: 40px 20px; /* móvil: padding reducido */
+    margin-left: 20px;
+}
+
+.footer-container {
+    max-width: 1366px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 columna */
+    gap: 30px;
+}
+
+.footer-column h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #FA328A;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.margin-top {
+    margin-top: 32px;
+}
+
+.subscribe-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffffff;
+    font-size: 16px;
+    border-bottom: 0.5px solid #ffffff;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.subscribe-link img {
+    width: 12px;
+    height: 12px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    align-items: center;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.logos {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+.logo-text {
+    font-size: 47px;
+    font-weight: bold;
+    font-family: 'Micro 5', sans-serif;
+}
+
+.logo-icon img {
+    width: 86px;
+    height: 57px;
+    display: block;
+}
+
+/* Tablet - >= 641px */
+@media (min-width: 641px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .footer {
+        padding: 50px 30px;
+    }
+}
+
+/* Desktop - >= 1025px */
+@media (min-width: 1025px) {
+    .footer-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+    }
+
+    .footer {
+        padding: 60px 40px;
+    }
+}
+
+/* ========================================================== */
+/* 3. CONTENEDORES PRINCIPALES Y TÍTULO */
+/* ========================================================== */
+.hero-main-container {
+  width: 100%; 
+  height: auto; 
+  max-width: 1326px;
+  display: flex;
+  flex-direction: column;
+  background-color: #102f4b;
+  padding: 20px;
+  margin: 0 auto;
+  /* CLAVE: Posicionamiento relativo para anclar las flechas en MÓVIL */
+  position: relative; 
+  border-radius: 8px;
+}
+/* Y añade espaciado superior a la sección, NO al contenedor interno */
+#seccion-destacados {
+    margin-top: 70px;    /* 👈 Pequeño empuje extra *DENTRO* del main */
+}
+
+.hero-section-title {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 24px;
+    font-weight: 700; 
+    color: #ffffff;
+    margin-bottom: 20px; 
+    text-align: left;
+    flex-shrink: 0;
+    margin-left: 20px; 
+}
+
+.hero-carousel-nav-desktop {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1027px; /* Define el ancho total del carrusel + flechas */
+    margin: 0 auto;
+    gap: 20px; /* Espacio entre flechas y carrusel */
+}
+
+/* ========================================================== */
+/* 4. CARRUSEL Y FLECHAS */
+/* ========================================================== */
+.hero-carousel-wrapper {
+  position: relative;
+  flex: 1; 
+  height: 248px; 
+  margin: 0;
+  padding: 0;
+}
+
+.hero-carousel-inner {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 16px;
+  height: 100%;
+}
+
+/* Estilos de la CARD */
+.hero-card-content {
+  background: radial-gradient(circle, #4789c4 0%, #22425e 96%);
+  border-radius: 24px;
+  display: flex;
+  overflow: hidden; 
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out, transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: none;
+  transform: translateX(100%) scale(0.9); 
+}
+
+.hero-card-content.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) scale(1);
+  animation: slideInBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hero-card-content.slide-out-left {
+  transform: translateX(-100%) scale(0.9);
+  opacity: 0;
+}
+
+.hero-card-content.slide-out-right {
+  transform: translateX(100%) scale(0.9);
+  opacity: 0;
+}
+
+/* Flechas de Navegación BASE */
+.hero-nav-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 12px;
+  width: 50px;
+  height: 120px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0; 
+}
+
+.hero-nav-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+.hero-nav-button svg {
+    display: block;
+    margin: 0;
+}
+
+/* Clases específicas para posicionar las flechas */
+.hero-nav-button-left {} 
+.hero-nav-button-right {} 
+
+
+/* ========================================================== */
+/* 5. SECCIONES INTERNAS DEL CARD */
+/* ========================================================== */
+.hero-image-section {
+  flex: 0 0 50%; 
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-game-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease-out;
+}
+
+.hero-game-image:hover {
+  transform: scale(1.05);
+}
+
+.hero-card-content.active .hero-game-image {
+  animation: zoomIn 1s ease-out;
+}
+
+.hero-text-section {
+  flex: 1 1 50%; 
+  padding: 20px 30px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  color: white;
+  min-width: 0; 
+}
+
+/* Título de la Card */
+.hero-text-section .hero-card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    opacity: 0;
+    transform: translateY(30px);
+    word-break: break-word; 
+}
+
+.hero-card-content.active .hero-card-title {
+  animation: fadeInUp 0.6s ease-out 0.2s forwards;
+}
+
+/* Descripción de la Card */
+.hero-text-section .hero-card-description {
+    font-family: 'Rosario', sans-serif; 
+    font-size: 16px;
+    line-height: 1.5;
+    color: #e8f0f7;
+    margin-bottom: 20px; 
+    flex-grow: 1; 
+    opacity: 0;
+    transform: translateY(30px);
+    word-break: break-word; 
+    overflow-wrap: break-word; 
+}
+
+.hero-card-content.active .hero-card-description {
+  animation: fadeInUp 0.6s ease-out 0.4s forwards;
+}
+
+/* BOTÓN JUGAR */
+.hero-play-button {
+  background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  
+  /* TRANSICIÓN CLAVE PARA LA ANIMACIÓN */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
+  
+  box-shadow: 0 8px 20px rgba(231, 76, 140, 0.4);
+  /* DESKTOP: Se alinea a la derecha del contenedor text-section */
+  align-self: flex-end; 
+  /* Añade un margen para separarlo visualmente del borde */
+  margin-right: 30px; 
+  
+  opacity: 0;
+}
+
+.hero-card-content.active .hero-play-button {
+  animation: fadeInUp 0.6s ease-out 0.6s forwards, pulse 1.5s infinite alternate 1.2s; 
+}
+
+.hero-play-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(231, 76, 140, 0.6);
+  background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%);
+  animation: none;
+}
+
+.hero-play-button:active {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(231, 76, 140, 0.5);
+}
+
+.hero-play-button:focus {
+  outline: 3px solid rgba(231, 76, 140, 0.5);
+  outline-offset: 3px;
+}
+
+/* ========================================================== */
+/* 6. KEYFRAMES (ANIMACIONES) */
+/* ========================================================== */
+/* NOTA: Los keyframes (animaciones) no necesitan ser renombrados, ya que su ámbito es global por defecto y no causan conflictos de estilo directo. */
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes slideInBounce {
+  0% { opacity: 0; transform: translateX(100%) scale(0.9); }
+  60% { transform: translateX(-10px) scale(1.02); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px 0px rgba(231, 76, 140, 0.4); 
+    background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%); 
+  }
+  50% {
+    transform: scale(1.08); 
+    box-shadow: 0 0 30px 10px rgba(231, 76, 140, 0.85);
+    background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%); 
+  }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(1.15); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ========================================================== */
+/* 7. RESPONSIVE DESIGN (TABLETS Y MÓVILES) */
+/* ========================================================== */
+
+/* Estilos para Tablet (hasta 1024px) */
+@media (max-width: 1024px) {
+  .hero-carousel-nav-desktop {
+      gap: 10px;
+  }
+  .hero-nav-button {
+      width: 40px;
+      height: 100px;
+  }
+}
+
+/* Estilos para Móviles (hasta 768px) */
+@media (max-width: 768px) {
+    .hero-main-container {
+        padding: 20px 10px; 
+    }
+    
+    /* Ocultamos el layout Flexbox de desktop y preparamos para posición absoluta de flechas */
+    .hero-carousel-nav-desktop {
+        flex-direction: column; 
+        max-width: none;
+        gap: 0;
+    }
+    
+    .hero-carousel-wrapper {
+        position: static; 
+        width: 100%;
+        max-width: none;
+        height: auto;
+    }
+
+    /* Asegurar que el carrusel central deje espacio a los lados */
+    .hero-carousel-inner {
+        height: auto;
+        min-height: 400px;
+        width: calc(100% - 20px); 
+        margin: 0 auto; 
+    }
+    
+    /* Posicionamiento Absoluto para Flechas en MÓVIL */
+    .hero-nav-button {
+        position: absolute; 
+        z-index: 10;
+        top: 50%;
+        transform: translateY(-50%) scale(0.9);
+        width: 35px;
+        height: 70px;
+        background: rgba(0, 0, 0, 0.4);
+    }
+    
+    .hero-nav-button-left { left: 10px; } 
+    .hero-nav-button-right { right: 10px; } 
+
+    /* Diseño horizontal de la card para tablets */
+    .hero-card-content {
+        flex-direction: row; 
+        min-height: 280px;
+    }
+    
+    .hero-image-section {
+        flex: 0 0 45%; 
+        height: 100%;
+    }
+
+    .hero-text-section {
+        flex: 1 1 55%; 
+        padding: 15px 20px; 
+    }
+    .hero-text-section .hero-card-title {
+        font-size: 22px;
+    }
+    .hero-text-section .hero-card-description {
+        font-size: 14px;
+        margin-bottom: 10px;
+        flex-grow: 1;
+    }
+    
+    /* Mantiene la alineación del botón en tablet a la derecha (igual que desktop) */
+    .hero-text-section .hero-play-button {
+        padding: 10px 20px;
+        align-self: flex-end; 
+    }
+}
+
+/* ---
+
+## Estilos para Móviles pequeños (hasta 480px)
+
+--- */
+
+@media (max-width: 480px) {
+    .content {
+        padding: 0 20px;
+    }
+
+    .hero-section-title {
+        font-size: 22px;
+    }
+
+    .hero-card-content {
+        flex-direction: column; 
+        /* Aumentamos el mínimo para asegurar que el botón se vea */
+        min-height: 520px; 
+        height: auto;
+    }
+
+    .hero-image-section {
+        width: 100%; 
+        height: 160px; 
+        flex: none; 
+    }
+    
+    .hero-text-section {
+        flex: 1; 
+        padding: 10px 20px 5px 20px; /* Padding comprimido */
+        
+        justify-content: flex-start; /* Asegura que los elementos se apilen */
+        gap: 5px; /* Agregamos un pequeño gap para separar título/descripción */
+        height: auto; 
+    }
+    
+    .hero-text-section .hero-card-title {
+        font-size: 20px; 
+        margin-bottom: 0; /* Usamos gap en su lugar */
+    }
+    
+    .hero-text-section .hero-card-description {
+        font-size: 14px;
+        margin-bottom: 0; /* Usamos gap en su lugar */
+        flex-grow: 0; /* Evita que la descripción tome espacio extra */
+    }
+
+    /* Sobrescribe la alineación para centrarlo en la vista pequeña */
+    .hero-text-section .hero-play-button {
+        align-self: center; 
+        width: 80%; 
+        padding: 10px 20px;
+        margin-top: 10px; /* Espacio extra entre la descripción y el botón */
+        margin-right: 0; /* Asegura que no haya margen derecho del modo escritorio */
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* === MOBILE FIRST === */
+.mis-juegos {
+    background-color: #4789C4;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 15px 10px;
+    /* margin: 10px; */
+    box-shadow: 8px 8px 20px rgba(0,0,0,0.5);
+}
+
+.titulo {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    padding-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.info-izquierda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: 'Outfit', sans-serif;
+    gap: 10px;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+}
+
+.texto {
+    color: white;
+    font-size: 14px;
+    line-height: 1.3;
+    padding: 0 10px;
+}
+
+.juegos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+/* === ESTILOS DE LAS TARJETAS DE JUEGOS === */
+.game-card {
+    width: 220px;
+    height: 100px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card-image {
+    width: 100%;
+    height: 106px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    border: 2px solid transparent;
+    position: relative;
+    transition: border-color 0.3s ease;
+}
+
+.game-card-image:hover {
+    border-color: #FA62A5;
+}
+
+.game-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+/* === TITULO === */
+.game-card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    text-align: start;
+}
+
+/* === TABLET (≥768px) === */
+@media (min-width: 768px) {
+    .mis-juegos {
+        padding: 15px 20px;
+        border-top-right-radius: 25px;
+        border-bottom-left-radius: 25px;
+        max-width: 720px;
+        margin: 15px auto;
+    }
+
+    .titulo {
+        font-size: 20px;
+        margin-left: 15px;
+    }
+
+    .contenido {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .info-izquierda {
+        flex-direction: row;
+        text-align: left;
+        gap: 15px;
+    }
+
+    .logo {
+        width: 100px;
+    }
+
+    .texto {
+        font-size: 15px;
+        padding: 0;
+    }
+
+    .juegos-container {
+        flex-direction: row;
+        gap: 10px;
+        width: auto;
+    }
+}
+
+/* === DESKTOP (≥1024px) === */
+@media (min-width: 1024px) {
+    .mis-juegos {
+        padding: 10px 15px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        max-width: 1200px;
+        max-height: 300px;
+        overflow: hidden;
+    }
+
+    .titulo {
+        font-size: 20px;
+        margin-left: 20px;
+        padding-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .contenido {
+        gap: 40px;
+    }
+
+    .info-izquierda {
+        gap: 15px;
+    }
+
+    .logo {
+        width: 110px;
+        height: 70px;
+    }
+
+    .texto {
+        font-size: 16px;
+    }
+}
+
+.main-container-carruseles {
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: none;
+}
+
+/* 🔹 Carrusel general */
+.carousel-container {
+  max-width: 340px;
+  height: auto;
+  margin: 0 0 8px 0;       /* menos espacio entre carruseles */
+  background-color: #074a86;
+  padding: 8px 8px;        /* menos alto total */
+  border-radius: 8px;
+}
+
+/* 🔹 Título más compacto */
+.carousel-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 6px 10px;    /* menos espacio */
+}
+
+/* 🔹 Wrapper y botones */
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-btn {
+  background-color: rgba(237, 226, 226, 0.1);
+  border: none;
+  width: 28px;             /* más chico */
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.carousel-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.carousel-btn:active {
+  transform: scale(0.95);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: scale(1);
+}
+
+/* 🔹 Menos espacio vertical en la pista */
+.carousel-track-container {
+  overflow: hidden;
+  width: 100%;
+  padding: 4px 0; 
+  padding-left: 4px;         /* más compacto */
+}
+
+.carousel-track {
+  display: flex;
+  gap: 8px;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* 🔹 Cards */
+.game-card {
+  flex: 0 0 160px;
+  min-width: 160px;
+  width: 160px;
+  height: auto;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+}
+
+.game-card-image {
+  width: 100%;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  border: 2px solid transparent;
+  position: relative;
+  transition: border-color 0.3s ease;
+}
+
+.game-card-image:hover {
+  border-color: #fa62a5;
+}
+
+.game-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.price-tag {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  background-color: #0FC78A;
+  color: #ffffff;
+  font-family: "Outfit", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 8px 0 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-card-title {
+  font-family: "Outfit", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  text-align: start;
+}
+
+/* 🔹 Responsive mediano */
+@media screen and (min-width: 640px) {
+
+  .carousel-container {
+    max-width: 640px;
+    padding: 10px 8px;     /* antes: 16px */
+    margin-bottom: 12px;   /* antes: 20px */
+  }
+
+  .carousel-title {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .carousel-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .carousel-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .carousel-wrapper {
+    gap: 10px;
+  }
+
+  .carousel-track {
+    gap: 12px;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .carousel-track-container {
+    padding: 6px 0;        
+    padding-left: 6px;
+  }
+
+  .game-card {
+    flex: 0 0 calc(33.333% - 8px);
+    min-width: calc(33.333% - 8px);
+    width: calc(33.333% - 8px);
+  }
+
+  .game-card-image {
+    height: 80px;
+  }
+
+  .game-card-title {
+    font-size: 12px;
+  }
+
+  .price-tag {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+/* 🔹 Responsive grande */
+@media screen and (min-width: 1024px) {
+
+  .carousel-container {
+    max-width: 1324px;
+    padding: 14px 10px;    /* antes: 20px */
+    margin-bottom: 16px;   /* antes: 24px */
+  }
+
+  .carousel-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-left: 18px;
+  }
+
+  .carousel-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .carousel-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .carousel-wrapper {
+    gap: 14px;
+  }
+
+  .carousel-track-container {
+    width: 1180px;
+    padding: 8px 0;      
+    padding-left: 8px;
+  }
+
+  .carousel-track {
+    gap: 18px;
+    transition: transform 0.4s ease-in-out;
+  }
+
+  .game-card {
+    width: 220px;
+    flex: 0 0 220px;
+    min-width: 220px;
+  }
+
+  .game-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .game-card-image {
+    height: 106px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+  .game-card-title {
+    font-size: 14px;
+  }
+
+  .price-tag {
+    font-size: 20px;
+    padding: 8px 12px;
+    border-radius: 10px 0 10px 0;
+  }
+}
+
+
+
