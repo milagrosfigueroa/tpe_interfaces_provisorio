@@ -564,121 +564,6 @@ body {
   text-align: start;
 }
 
-/* ========================================================== */
-/* 6. FOOTER */
-/* ========================================================== */
-.footer {
-  background-color: #02213e;
-  color: #ffffff;
-  padding: 60px 40px;
-  margin-top: 40px;
-}
-
-.footer-container {
-  max-width: 1366px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-}
-
-.footer-column h3 {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  color: #fa328a;
-  font-family: "Roboto", sans-serif;
-}
-
-.footer-column ul {
-  list-style: none;
-}
-
-.ul-footer {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.ul-footer li {
-  margin-bottom: 10px;
-  color: #ffffff;
-  font-size: 16px;
-  font-family: "Roboto", sans-serif;
-}
-
-.margin-top {
-  margin-top: 32px;
-}
-
-.subscribe-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: #ffffff;
-  font-size: 16px;
-  border-bottom: 0.5px solid #ffffff;
-  padding-bottom: 2px;
-  margin-bottom: 20px;
-  text-decoration: none;
-  transition: opacity 0.3s ease;
-}
-
-.subscribe-link:hover {
-  opacity: 0.8;
-}
-
-.subscribe-link img {
-  width: 12px;
-  height: 12px;
-}
-
-.social-icons {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
-  align-items: center;
-}
-
-.social-icons a {
-  color: #ffffff;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: opacity 0.3s ease;
-}
-
-.social-icons a:hover {
-  opacity: 0.7;
-}
-
-.social-icons svg {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-.logos {
-  margin-top: 32px;
-  display: flex;
-  align-items: center;
-  gap: 0px;
-}
-
-.logo-text {
-  font-size: 47px;
-  font-weight: bold;
-  font-family: "Micro 5", "Orbitron";
-  color: #ffffff;
-}
-
-.logo-icon img {
-  width: 120px;
-  height: 80px;
-  display: block;
-}
 
 /* ========================================================== */
 /* 7. KEYFRAMES (ANIMACIONES) */
@@ -739,7 +624,8 @@ body {
 
 @media (min-width: 640px) {
   .carousel-container {
-    max-width: 640px;
+    max-width: 100%;
+    height: 250px;
     padding: 10px 8px;
     margin-bottom: 12px;
   }
@@ -798,7 +684,6 @@ body {
     border-bottom-left-radius: 25px;
     max-width: 720px;
     margin: 15px auto;
-    margin-left: 100px;
   }
 
   .mis-juegos .titulo {
@@ -807,14 +692,15 @@ body {
   }
 
   .contenido {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
   }
 
   .info-izquierda {
-    flex-direction: row;
-    text-align: left;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
     gap: 15px;
   }
 
@@ -824,13 +710,14 @@ body {
 
   .info-izquierda .texto {
     font-size: 15px;
-    padding: 0;
+    padding: 0 10px;
   }
 
   .juegos-container {
-    flex-direction: row;
-    gap: 10px;
-    width: auto;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
   }
 }
 
@@ -1039,10 +926,14 @@ body {
   }
 
   .contenido {
+    flex-direction: row;
+    justify-content: space-between;
     gap: 40px;
   }
 
   .info-izquierda {
+    flex-direction: row;
+    text-align: left;
     gap: 15px;
   }
 
@@ -1055,6 +946,12 @@ body {
     font-size: 16px;
   }
 
+  .juegos-container {
+    flex-direction: row;
+    gap: 10px;
+    width: auto;
+  }
+
   .carousel-and-nav-desktop {
     gap: 10px;
   }
@@ -1065,37 +962,4 @@ body {
   }
 }
 
-@media (max-width: 1024px) {
-  .footer-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
-}
 
-@media (max-width: 640px) {
-  .footer-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .footer {
-    padding: 40px 20px;
-  }
-
-  .footer-column h3 {
-    font-size: 18px;
-  }
-
-  .ul-footer li {
-    font-size: 14px;
-  }
-
-  .logo-text {
-    font-size: 36px;
-  }
-
-  .logo-icon svg {
-    width: 60px;
-    height: 40px;
-  }
-}
