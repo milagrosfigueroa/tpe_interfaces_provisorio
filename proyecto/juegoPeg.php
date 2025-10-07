@@ -18,8 +18,10 @@
 </head>
 <body>
 
-<?php include 'secciones/header.php'; ?> 
-<?php include 'secciones/nav_bar.php'; ?>
+<?php
+        require 'secciones/header.php';
+        require 'secciones/nav_bar.php';
+?>
 
 <main class="game-page">
 
@@ -266,9 +268,18 @@
 
 </main>
 
-<?php include 'secciones/footer.php'; ?>
+<?php require 'secciones/footer.php'; ?> 
 
 <script src="js/agregarJuego.js"></script>
+<script src="js/barras.js"></script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+

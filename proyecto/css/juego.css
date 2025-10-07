@@ -20,7 +20,7 @@
     --color-added-green: #69B469;
     --color-added-green-hover: #5AA15A;
     
-    /* 💥 FUENTES FINALES 💥 */
+    /* FUENTES FINALES */
     --font-base: 'Outfit', sans-serif;  /* Para cuerpo, botones, subtítulos */
     --font-heading: 'Montserrat', sans-serif; /* Para títulos principales y secciones */
     
@@ -35,8 +35,8 @@
 body {
     /* Mantenemos el margen para la barra lateral fija */
     margin-left: var(--menu-lateral-width); 
-    margin-top: 0; 
-    padding: 0;
+    margin-top: 20px; 
+    padding: 0px;
     
     background-color: var(--color-bg-dark);
     
@@ -57,7 +57,25 @@ body {
     margin-left: 40px; 
     
     /* Espacio superior para separar del header superior */
-    padding-top: 20px; 
+    padding-top: 50px; 
+}
+
+/* ======== HEADER SUPERIOR ======== */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* ======== BARRA LATERAL / SIDEBAR ======== */
+.sidebar {
+    height: 100%;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 1000;
 }
 
 /* ======================================= */
