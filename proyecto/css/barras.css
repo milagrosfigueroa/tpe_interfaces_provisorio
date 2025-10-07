@@ -273,8 +273,12 @@ header {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: visible;
+    height: 100%; /* 👈 ocupa todo el alto de la barra */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 👈 distribuye arriba-abajo */
 }
+
 
 .sidebar ul li {
     width: 100%;
