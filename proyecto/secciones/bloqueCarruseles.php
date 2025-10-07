@@ -136,7 +136,7 @@
                 </button>
                 <div class="carousel-track-container">
                     <div class="carousel-track" data-track="carousel5">
-                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/clasicos/arkanoid.jpg" alt=""></div><h3 class="game-card-title">Arknoid</h3></div>
+                        <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/clasicos/arkanoid.jpg" alt="arkanoid"></div><h3 class="game-card-title">Arknoid</h3></div>
                         <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/clasicos/bubble_shooter.jpg" alt="bubble shooter"></div><h3 class="game-card-title">Bubble Shotter</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/clasicos/contra.jpg" alt="contra"></div><h3 class="game-card-title">Contra</h3></div>
                         <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/clasicos/busca_minas.jpg" alt="busca minas"></div><h3 class="game-card-title">Busca Minas</h3></div>
