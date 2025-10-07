@@ -256,3 +256,50 @@ input::placeholder {
   font-size: 16px;
   color: #a0a8b5;
 }
+/* ========================================================== */
+/* ANIMACIÓN HOVER: BOTÓN INICIAR SESIÓN */
+/* ========================================================== */
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de brillo que se desliza */
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.8s;
+}
+
+.btn-primary:hover::before {
+  left: 125%;
+}
+
+/* Pulso suave del botón */
+.btn-primary:hover {
+  animation: pulseButton 0.9s ease-in-out infinite alternate;
+}
+
+/* Animación del pulso */
+@keyframes pulseButton {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(250, 98, 165, 0.3);
+  }
+  100% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(250, 98, 165, 0.6);
+  }
+}

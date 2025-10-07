@@ -9,25 +9,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-<<<<<<< HEAD
- .footer {
-    background-color: #02213E;
-    color: #ffffff;
-    /* padding: 60px 40px; */
-    display: grid;
-    position:relative;
-    background-color: #043968;
-    margin-left: 20px;
-    width: 100%;
-} 
-=======
 /* Footer general */
 .footer {
     background-color: #02213E;
     color: #ffffff;
     padding: 40px 20px; /* móvil: padding reducido */
 }
->>>>>>> cc570d2eb011ba0c8824ace5df883d74bfadeba9
 
 .footer-container {
     max-width: 1366px;
@@ -138,12 +125,4 @@ body {
         grid-template-columns: repeat(4, 1fr);
         gap: 40px;
     }
-<<<<<<< HEAD
-    
-=======
-
-    .footer {
-        padding: 60px 40px;
-    }
->>>>>>> cc570d2eb011ba0c8824ace5df883d74bfadeba9
 }
