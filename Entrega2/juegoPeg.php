@@ -19,10 +19,89 @@
 </head>
 <body>
 
-<?php
-        require 'secciones/header.php';  
-        require 'secciones/nav_bar.php';
-?>
+  <section id="seccion-header">
+    <header>
+      <div class="logo">
+        <a href="home.php">
+          <img src="images/iconos_barra_header/icono_GameHub.png" alt="GameHub">
+        </a>
+        <h1>GameHub</h1>
+      </div>
+
+        <!-- Buscador -->
+        <div class="buscador-wrapper">
+            <div class="buscador">
+                <input type="text" placeholder="¿A qué jugamos hoy?">
+                <img src="images/iconos_barra_header/lupa.png" alt="Buscar" class="lupa-icono">
+            </div>
+        </div>
+
+      <!-- Acciones (carrito, perfil, menú) -->
+      <div class="acciones">
+        <!-- Carrito -->
+        <button class="icon-btn">
+          <img src="images/iconos_barra_header/carrito-de-compras.png" alt="Carrito">
+        </button>
+
+        <!-- Perfil -->
+        <div class="menu-container">
+          <button class="icon-btn toggle-menu" data-target="menu-perfil">
+            <img src="images/iconos_barra_header/usuario.png" alt="Perfil">
+          </button>
+          <div id="menu-perfil" class="menu">
+            <img src="images/iconos_barra_header/avatar.png" alt="avatar" class="avatar">
+            <h3>NICKNAME</h3>
+            <p>Configuraciones de la cuenta</p>
+            <ul>
+              <li>Editar Nickname</li>
+              <li>Editar Avatar</li>
+              <li>Correo electrónico</li>
+              <li>Contraseña</li>
+              <li>Idioma</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Menú hamburguesa -->
+        <div class="hamb-wrapper">
+          <div class="menu-container">
+            <button class="icon-btn toggle-menu" data-target="menu-redes">
+              <img src="images/iconos_barra_header/menu.png" alt="Menú">
+            </button>
+            <div id="menu-redes" class="menu">
+              <ul>
+                <li id="logout-link"><a href="#" >Log Out</a><img src="images/iconos_menu_hamb/log-out.png" alt="Salir"></li>
+                <li><a href="#">Facebook</a><img src="images/iconos_menu_hamb/facebook.png" alt="Facebook"></li>
+                <li><a href="#">Instagram</a><img src="images/iconos_menu_hamb/instagram.png" alt="Instagram"></li>
+                <li><a href="#">Youtube</a><img src="images/iconos_menu_hamb/youtube.png" alt="Youtube"></li>
+                <li><a href="#">Twitter</a><img src="images/iconos_menu_hamb/twitter.png" alt="Twitter"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </section>
+
+  <section id="seccion-sidebar">
+    <nav class="sidebar">
+        <ul>
+        <li><a href="home.php"><i class="active"><img src="images/iconos_nav_bar/casa-home.png"></i><span>Home</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/corazon-favs.png"></i><span>Mis juegos</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/estrellas-new.png"></i><span>Nuevos</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/joystick-multijugador.png"></i><span>Multijugador</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/controles-2-players.png"></i><span>2 jugadores</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/espadas-accion.png"></i><span>Accion</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/bandera-carreras.png"></i><span>Carreras</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/pikas-de-mesa.png"></i><span>De mesa</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/fantasma-terror.png"></i><span>Terror</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/pelotas-deportes.png"></i><span>Deportes</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/pacman-clasicos.png"></i><span>Clasicos</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/gorro-cocina.png"></i><span>Cocina</span></a></li>
+        <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/maquillaje.png"></i><span>Belleza</span></a></li>
+        </ul>
+    </nav>
+</section>
 
 <main class="game-page">
 
