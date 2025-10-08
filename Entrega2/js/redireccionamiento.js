@@ -18,3 +18,9 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.cursor = 'pointer'; 
     }
 });
+
+const inicioSesion = document.getElementById('inicioSesion');
+inicioSesion.addEventListener('submit', function(e) {
+  e.preventDefault(); 
+  window.location.href = 'home.html';
+});
