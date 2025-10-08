@@ -55,6 +55,6 @@ formRegistro.addEventListener('submit', function(e) {
 
 inicioSesion.addEventListener('submit', function(e) {
   e.preventDefault(); 
-  window.location.href = 'home.php';
+  window.location.href = 'home.html';
 });
 
