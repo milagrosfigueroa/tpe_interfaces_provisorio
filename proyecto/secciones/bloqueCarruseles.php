@@ -146,18 +146,18 @@
             </button>
             <div class="carousel-track-container">
                 <div class="carousel-track" data-track="carousel6">
-                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/ZkX8T6L.jpg" alt=""></div><h3 class="game-card-title">UNO Online</h3></div>
-                    <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/pnmMJhG.jpg" alt=""></div><h3 class="game-card-title">Monopoly</h3></div>
-                    <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/aEFeuCi.jpg" alt=""></div><h3 class="game-card-title">Ludo Online</h3></div>
-                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/QPz64Fb.jpg" alt=""></div><h3 class="game-card-title">Domino</h3></div>
-                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/S7yN4Fe.jpg" alt=""></div><h3 class="game-card-title">Classic Chess</h3></div>
-                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/HfH48gk.jpg" alt=""></div><h3 class="game-card-title">Chinchon Online</h3></div>
-                    <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/hu3PHcv.jpg" alt=""></div><h3 class="game-card-title">Poker Texas </h3></div>
-                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/kDWcKUd.jpg" alt=""></div><h3 class="game-card-title">Damas Chinas</h3></div>
-                    <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/lNVFVi3.jpg" alt=""></div><h3 class="game-card-title">Black Jack Online</h3></div>
-                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="https://i.imgur.com/5sRh1cG.jpg" alt=""></div><h3 class="game-card-title">Buraco Online</h3></div>
-                    <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
-                    <div class="game-card"><div class="game-card-image"><img src="https://i.imgur.com/L7wG3Pl.jpg" alt=""></div><h3 class="game-card-title">TBC</h3></div>
+                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa1UNOOnline.jpg" alt=""></div><h3 class="game-card-title">UNO Online</h3></div>
+                    <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa2Monopoly.webp" alt=""></div><h3 class="game-card-title">Monopoly</h3></div>
+                    <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa3LudoOnline.jpg" alt=""></div><h3 class="game-card-title">Ludo Online</h3></div>
+                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa4Domino.png" alt=""></div><h3 class="game-card-title">Domino</h3></div>
+                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa5ClassicChess.webp" alt=""></div><h3 class="game-card-title">Classic Chess</h3></div>
+                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa6ChinchonOnline.jpeg" alt=""></div><h3 class="game-card-title">Chinchon Online</h3></div>
+                    <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa7PokerTexas.webp" alt=""></div><h3 class="game-card-title">Poker Texas </h3></div>
+                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa8DamasChinas.png" alt=""></div><h3 class="game-card-title">Damas Chinas</h3></div>
+                    <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa9BlackJackOnline.jpg" alt=""></div><h3 class="game-card-title">Black Jack Online</h3></div>
+                    <div class="game-card"><div class="price-tag">$</div><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa10BuracoOnline.jpg" alt=""></div><h3 class="game-card-title">Buraco Online</h3></div>
+                    <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa11ParchisOnline.jpeg" alt=""></div><h3 class="game-card-title">Parchis Online</h3></div>
+                    <div class="game-card"><div class="game-card-image"><img src="images/imgCarruseles/deMesa/mesa12DreamPetHotel.jpg" alt=""></div><h3 class="game-card-title">Dream Pet Hotel</h3></div>
                 </div>
             </div>
             <button class="carousel-btn carousel-btn-right" data-carousel="carousel6" data-direction="siguiente">

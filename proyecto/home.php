@@ -38,6 +38,9 @@
 
     <script src="./js/barras.js"></script>
     <script src="./js/loading.js"></script>
+    <script src="./js/redireccionamiento.js"></script>
+
+
 
    
 </body>

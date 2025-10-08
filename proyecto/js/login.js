@@ -4,6 +4,7 @@ const irAregistro = document.getElementById('ir-a-registro');
 const irAlogin = document.getElementById('ir-a-login');
 const formRegistro = document.getElementById('form-registro');
 const successMessage = document.getElementById('success-message');
+const inicioSesion = document.getElementById('inicioSesion');
 
 irAregistro.addEventListener('click', function(e) {
   e.preventDefault();
@@ -50,3 +51,10 @@ formRegistro.addEventListener('submit', function(e) {
     }, 500);
   }, 2500);
 });
+
+
+inicioSesion.addEventListener('submit', function(e) {
+  e.preventDefault(); 
+  window.location.href = 'home.php';
+});
+

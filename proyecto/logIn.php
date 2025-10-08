@@ -17,11 +17,11 @@
       <!-- PANEL DERECHO -->
       <div class="right-side">
         <!-- LOGIN -->
-        <div class="form-side" id="login-form">
+        <div class="form-side" id="login-form-">
           <h2>Inicio de sesión</h2>
           <p class="subtitle">Inicia sesión con tu cuenta de <span class="name">GameHub</span></p>
 
-          <form>
+          <form id="inicioSesion">
             <label for="login-email">Email</label>
             <input type="email" id="login-email" placeholder="user@tuemail.com" required>
 

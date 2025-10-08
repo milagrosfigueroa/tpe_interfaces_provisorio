@@ -11,11 +11,11 @@
             
 
             <div class="juegos-container">
-                <div class="game-card">
-                    <div class="game-card-image">
-                        <img src="images/imgMisjuegos/dragonBall.jpg" alt="Dragon ball">
+               <div class="game-card">
+                    <div class="game-card-image" id="card-peg-solitarie">
+                        <img src="images/pegSolitarie.png" alt="Dragon ball">
                     </div>
-                    <h2 class="game-card-title">Dragon ball</h2>
+                    <h2 class="game-card-title">Peg Solitarie</h2>
                 </div>
 
                 <div class="game-card">
@@ -34,4 +34,6 @@
             </div>
         </div>
     </section>
+    <script src="../js/redireccionamiento.js"></script>
+
 

@@ -49,7 +49,7 @@
             </button>
             <div id="menu-redes" class="menu">
               <ul>
-                <li><a href="logIn.php">Log Out</a><img src="images/iconos_menu_hamb/log-out.png" alt="Salir"></li>
+                <li id="logout-link"><a href="#" >Log Out</a><img src="images/iconos_menu_hamb/log-out.png" alt="Salir"></li>
                 <li><a href="#">Facebook</a><img src="images/iconos_menu_hamb/facebook.png" alt="Facebook"></li>
                 <li><a href="#">Instagram</a><img src="images/iconos_menu_hamb/instagram.png" alt="Instagram"></li>
                 <li><a href="#">Youtube</a><img src="images/iconos_menu_hamb/youtube.png" alt="Youtube"></li>
@@ -61,4 +61,4 @@
       </div>
     </header>
   </section>
-
+<script src="../js/redireccionamiento.js"></script>
