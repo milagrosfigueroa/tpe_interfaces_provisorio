@@ -273,6 +273,7 @@
 
 <script src="js/agregarJuego.js"></script>
 <script src="js/barras.js"></script>
+<script src="js/redireccionamiento.js"></script>
 
 </body>
 </html>

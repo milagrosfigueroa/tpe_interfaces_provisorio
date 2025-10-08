@@ -15,7 +15,7 @@
                     <div class="game-card-image" id="card-peg-solitarie">
                         <img src="images/pegSolitarie.png" alt="Dragon ball">
                     </div>
-                    <h2 class="game-card-title">Peg Solitarie</h2>
+                    <h2 class="game-card-title">Peg Solitaire</h2>
                 </div>
 
                 <div class="game-card">
