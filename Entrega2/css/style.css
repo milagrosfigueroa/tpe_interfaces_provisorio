@@ -255,7 +255,7 @@ header {
 
 
 /* ========================================================== */
-/* 6. MENÚS DESPLEGABLES (Se mantienen) */
+/* 6. MENÚS DESPLEGABLES  */
 /* ========================================================== */
 .menu-container {
     position: relative;
@@ -505,12 +505,12 @@ header {
 }
 
 /* ---------------------------------------------------------- */
-/* 3. SIDEBAR BASE (CÓDIGO CORREGIDO PARA ALTURA DINÁMICA) */
+/* 3. SIDEBAR BASE  */
 /* ---------------------------------------------------------- */
 .sidebar {
     background-color: #02213E;
     width: 40px; 
-    /* ¡CORRECCIÓN CRÍTICA! Altura dinámica para MOBILE FIRST */
+    /*  Altura dinámica para MOBILE FIRST */
     height: calc(100vh - 50px); 
     position: fixed;
     top: 50px; /* Sincronizado con Header de 50px */
