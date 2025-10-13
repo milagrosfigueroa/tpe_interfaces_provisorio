@@ -16,5 +16,6 @@
         <li><a href="#"><i class="active"><img src="images/iconos_nav_bar/maquillaje.png"></i><span>Belleza</span></a></li>
         </ul>
     </nav>
+    <div class="touch-zone"></div>
 </section>
 <script type="text/javascript" src="../js/barras.js"></script>

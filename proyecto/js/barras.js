@@ -26,3 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.querySelector(".sidebar");
+  const touchZone = document.querySelector(".touch-zone");
+
+  // Abrir sidebar al tocar el borde izquierdo
+  touchZone.addEventListener("touchstart", () => {
+    sidebar.classList.add("active");
+  });
+
+  // Cerrar sidebar al tocar fuera
+  document.addEventListener("touchstart", (e) => {
+    if (!sidebar.contains(e.target) && !touchZone.contains(e.target)) {
+      sidebar.classList.remove("active");
+    }
+  });
+});
