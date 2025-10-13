@@ -1,0 +1,666 @@
+/* ======================================= */
+/* 0. VARIABLES Y CONFIGURACIÓN GLOBAL     */
+/* ======================================= */
+
+:root {
+    /* Dimensiones de Diseño */
+    --content-width: 1088px;    /* Ancho del contenido central */
+    --menu-lateral-width: 40px; /* Ancho de la barra lateral fija */
+    --padding-page: 50px;       /* Padding estándar de los lados del header/footer */
+
+    /* Colores */
+    --color-bg-dark: #102641;
+    --color-card-bg: #1F375A;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #AAAAAA;
+    --color-primary-pink: #FA62A5; 
+    
+    /* Colores de Hover/Estados */
+    --color-pink-hover: #FA328A;
+    --color-added-green: #69B469;
+    --color-added-green-hover: #5AA15A;
+    
+    /* FUENTES FINALES */
+    --font-base: 'Outfit', sans-serif;  /* Para cuerpo, botones, subtítulos */
+    --font-heading: 'Montserrat', sans-serif; /* Para títulos principales y secciones */
+    
+    /* TAMAÑOS BASE */
+    --font-size-base: 16px;
+}
+
+/* ======================================= */
+/* 1. AJUSTES DEL BODY Y ALINEACIÓN GLOBAL */
+/* ======================================= */
+
+body {
+    /* Mantenemos el margen para la barra lateral fija */
+    margin-left: var(--menu-lateral-width); 
+    margin-top: 20px; 
+    padding: 0px;
+    
+    background-color: var(--color-bg-dark);
+    
+    /* FUENTE BASE: OUTFIT */
+    color: var(--color-text-primary);
+    font-family: var(--font-base);
+    font-size: var(--font-size-base);
+}
+
+.game-page {
+    /* Mantenemos el ancho fijo */
+    width: var(--content-width); 
+    
+    /* Eliminamos el centrado */
+    margin: 0; 
+    
+    /* Empujamos el contenido a la derecha para separarlo de la barra lateral. */
+    margin-left: 40px; 
+    
+    /* Espacio superior para separar del header superior */
+    padding-top: 50px; 
+}
+
+/* ======== HEADER SUPERIOR ======== */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+/* ======== BARRA LATERAL / SIDEBAR ======== */
+.sidebar {
+    height: 94%;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 1000;
+}
+
+/* ======================================= */
+/* 2. SECCIÓN 1: BREADCRUMB Y SHARE        */
+/* ======================================= */
+
+.game-breadcrumb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 29px;
+}
+
+/* BREADCRUMB: PARTE "Nuevos /" (Color Gris Sutil y Delgado) */
+.breadcrumb {
+    font-family: var(--font-base); /* Outfit */
+    
+    /* Usamos el peso Regular (400) para el aspecto delgado */
+    font-weight: 400; 
+    
+    /* Aplicamos el color secundario (Gris Sutil) que imita la sutileza de la descripción */
+    color: var(--color-text-secondary); 
+    
+    font-size: 0.90rem;
+}
+
+/* SPAN: PARTE "Peg Solitaire" (Bold y Color Blanco)  */
+.breadcrumb span {
+    font-family: var(--font-heading); /* Montserrat */
+    font-weight: 800; /* BOLD para el nombre del juego */
+    
+    color: var(--color-text-primary); 
+}
+
+.share-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* ======================================= */
+/* 3. SECCIÓN 2: BANNER Y BOTONES */
+/* ======================================= */
+
+.game-banner-container {
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.game-banner-card {
+    position: relative;
+    border-radius: 15px; 
+    overflow: hidden;
+    height: 476px; 
+    z-index: 1; 
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+}
+
+/* Centrado del Botón "Jugar" */
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;  
+}
+
+/* ========================================================== */
+/* ESTILOS BASE: BOTÓN JUGAR (.btn-primary-play) */
+/* ========================================================== */
+
+.btn-primary-play {
+    /* FUENTE: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600; 
+    
+    padding: 15px 40px; 
+    font-size: 1.1rem;  
+    border-radius: 8px; 
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    
+    background: linear-gradient(135deg, #e74c8c 0%, #FA328A 100%); 
+    box-shadow: 0 4px 15px rgba(231, 76, 140, 0.4);
+    
+    transition: 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease, 
+        background 0.3s ease;
+    
+    animation: pulse 1.5s infinite alternate; 
+}
+
+/* ESTADO HOVER */
+.btn-primary-play:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(231, 76, 140, 0.6);
+    background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%);
+    animation: none;
+}
+
+/* ESTADO ACTIVO */
+.btn-primary-play:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(231, 76, 140, 0.5);
+}
+
+/* Barra inferior del Banner */
+.card-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background: var(--color-bg-dark); 
+    padding: 20px 10px;
+}
+
+/* TÍTULO DENTRO DEL FOOTER: MONTSERRAT */
+.card-footer h2 {
+    /* Mantenemos el font-size de la propuesta inicial del título */
+    font-family: var(--font-heading); 
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+    margin: 0; 
+}
+
+/* ========================================================== */
+/* ESTILOS BASE: BOTÓN AGREGAR A MIS JUEGOS (.btn-add-game) */
+/* ========================================================== */
+.btn-add-game {
+    /* FUENTE: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600;
+    
+    margin: 0; 
+    border-radius: 8px; 
+    padding: 8px 18px; 
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--color-primary-pink); 
+    color: #ffffff; 
+    border: none;
+  
+    box-shadow: 0 0 0 transparent; 
+    animation: none !important;
+    
+    transition: 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease, 
+        background-color 0.4s ease;
+    
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; 
+}
+
+/* Icono (Font Awesome) */
+.btn-add-game i {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+/* ESTADO HOVER (Normal: Agregar a mis juegos) */
+.btn-add-game:not(.added):hover { 
+    transform: translateY(-3px) scale(1.02); 
+    background-color: var(--color-pink-hover);
+    color: #A70046; 
+}
+
+/* BLOQUE PARA CAMBIAR EL COLOR DEL CORAZÓN */
+.btn-add-game:not(.added):hover i {
+    color:  #A70046;
+    transition: color 0.3s ease;
+}
+
+/* ESTADO "AGREGADO" (.added) */
+.btn-add-game.added {
+    background-color: var(--color-added-green);
+    color: #ffffff; 
+}
+
+/* ESTADO HOVER (Agregado) */
+.btn-add-game.added:hover {
+    background-color: var(--color-added-green-hover);
+    transform: translateY(-3px) scale(1.02); 
+    color: #ffffff;
+}
+    
+/* ======================================= */
+/* 4. SECCIÓN 3: REGLAS Y CONTROLES        */
+/* ======================================= */
+
+/* Contenedor General de la Información */
+.game-info-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px; 
+    margin-bottom: 20px;
+}
+
+.info-section {
+    width: 50%; 
+    background-color: var(--color-card-bg);
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    border: 1px solid var(--color-primary-pink); 
+}
+
+/* SUBTÍTULOS (REGLAS, VICTORIA, CONTROLES): OUTFIT */
+.info-section h3 {
+    font-family: var(--font-base); /* Outfit */
+    font-weight: 600;
+    color: var(--color-primary-pink);
+    margin-top: 0;
+    font-size: 1.3rem; 
+    margin-bottom: 10px; 
+}
+
+.info-section ul {
+    list-style: disc; 
+    padding-left: 20px; 
+    margin-top: 5px; 
+}
+
+/* Texto de la Lista */
+.info-section li {
+    font-size: 0.95rem; 
+    margin-bottom: 6px; 
+    color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------------- */
+/* AJUSTE PARA CENTRAR ICONOS DE CONTROLES */
+/* ---------------------------------------------------- */
+
+/* Contenedor de los iconos  */
+.info-section div.controls {
+    text-align: center; /* Centra los elementos de línea dentro */
+    margin-top: 25px;   /* Espacio superior para separar de la lista */
+    margin-bottom: 15px;
+}
+
+/* Estilo para todas las imágenes de control */
+.control-image {
+    width: 50px;
+    height: auto; 
+    
+    /* Aseguramos que se comporten como elementos en línea para que text-align: center funcione */
+    display: inline-block;
+    vertical-align: middle; 
+    margin: 0 10px; /* Espacio entre los dos iconos */
+    
+
+}
+
+/* Estilo para el icono de la mano/seleccionar */
+.hand-icon {
+    /* Mantenemos la rotación sutil que pediste */
+    transform: rotate(-10deg); 
+    position: relative;
+    top: -5px; /* Ajuste sutil */
+}
+
+/* ======================================= */
+/* 5. SECCIÓN COMENTARIOS                  */
+/* ======================================= */
+
+/* Títulos de Sección (ej. COMENTARIOS) */
+.comments-section h2 {
+    /* TÍTULO DE SECCIÓN: MONTSERRAT */
+    font-family: var(--font-heading); 
+    font-weight: 800;
+    
+    color: var(--color-text-primary);
+    font-size: 1.4rem;
+    margin-bottom: 5px; 
+    padding-top: 40px; 
+}
+
+/* Línea de separación rosa debajo del título "Comentarios" */
+.comments-section h2::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary-pink);
+    margin-top: 5px;
+    margin-bottom: 30px; 
+}
+
+/* ÁREA DE INPUT DE COMENTARIO */
+.comment-input-area {
+    display: flex;
+    align-items: flex-start; 
+    gap: 15px; 
+    margin-bottom: 15px;
+}
+
+.user-avatar {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0; 
+}
+
+.comment-textarea {
+    width: 100%; 
+    min-height: 100px;
+    background-color: var(--color-primary-pink); 
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: 25px; 
+    padding: 15px 20px;
+    box-sizing: border-box;
+    resize: vertical; 
+    font-size: 1rem;
+    font-family: var(--font-base); /* Outfit */
+}
+
+.comment-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* BOTÓN COMENTAR (.btn-comment-submit) */
+.btn-comment-submit {
+    /* FUENTE: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600;
+
+    background-color: var(--color-primary-pink);
+    color: #ffffff;
+    border: none;
+    
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    
+    display: block;
+    margin-left: auto; 
+    margin-bottom: 20px; 
+
+    transition: 
+        transform 0.3s ease, 
+        background-color 0.3s ease;
+}
+
+/* ESTADO HOVER */
+.btn-comment-submit:hover {
+    transform: translateY(-2px); 
+    background-color: var(--color-pink-hover); 
+    color: #A70046; 
+}
+
+/* ESTADO ACTIVO (Al hacer click) */
+.btn-comment-submit:active {
+    transform: translateY(0);
+}
+
+
+/* COMENTARIOS EXISTENTES */
+.comment-item {
+    display: flex; 
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 30px; 
+    padding-top: 10px;
+} 
+
+.comment-item .user-avatar {
+    width: 40px; 
+    height: 40px;
+}
+
+.comment-username {
+    font-weight: 600; /* Outfit Semi-Bold */
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    margin-right: 10px; 
+}
+
+.comment-date {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+}
+
+.comment-content {
+    /* CLAVE: Esto obliga al contenedor de texto a absorber todo el espacio */
+    flex-grow: 1; 
+}
+.comment-text {
+    color: var(--color-text-primary);
+    font-size: 0.95rem; 
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+/* Acciones (Like/Dislike/Reply) */
+.comment-actions {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 15px;
+    margin-right: 5px; 
+    margin-top: 10px; 
+}
+
+.comment-actions i {
+    color: var(--color-text-secondary); 
+    cursor: pointer;
+    font-size: 1.1rem; 
+    transition: color 0.2s;
+}
+
+.comment-actions i:hover {
+    color: var(--color-primary-pink); 
+}
+
+/* ======================================= */
+/* 6. SECCIÓN 5: JUEGOS RELACIONADOS       */
+/* ======================================= */
+
+.related-games-section {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.related-games-section h2 {
+    /* TÍTULO DE SECCIÓN: MONTSERRAT */
+    font-family: var(--font-heading);
+    font-size: 1.35rem; 
+    font-weight: 800;
+    
+    color: #ffffff;
+    padding-bottom: 10px;
+    margin-bottom: 5px ;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    padding: 10px;
+    gap: 30px 20px; 
+}
+
+/* TARJETA DE JUEGO INDIVIDUAL */
+
+.game-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden; 
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+    
+    transition: 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease, 
+        border 0.3s ease;
+    
+    border: 3px solid transparent; 
+}
+
+/* ESTADO HOVER (Borde Rosa y Elevación) */
+.game-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+    border: 3px solid var(--color-primary-pink); 
+}
+
+.game-image {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
+    display: block;
+}
+
+/* Overlay del Título */
+.game-title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 15px;
+    
+    background-color: rgba(22, 60, 100, 0.85); 
+    
+    /* TÍTULO DEL JUEGO EN TARJETA: OUTFIT */
+    font-family: var(--font-base); 
+    font-weight: 600;
+    font-size: 1rem;
+    color: #ffffff;
+    text-align: left;
+}
+
+
+/* ========================================================== */
+/* 7. KEYFRAMES (ANIMACIONES) - CONSOLIDADOS AL FINAL */
+/* ========================================================== */
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px 0px rgba(231, 76, 140, 0.4); 
+    background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%); 
+  }
+  50% {
+    transform: scale(1.08); 
+    box-shadow: 0 0 30px 10px rgba(231, 76, 140, 0.85); 
+    background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%); 
+  }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes slideInBounce {
+  0% { opacity: 0; transform: translateX(100%) scale(0.9); }
+  60% { transform: translateX(-10px) scale(1.02); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(1.15); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.btn-add-game:not(.added):hover {
+    transform: translateY(-3px) scale(1.05); 
+    background-color: var(--color-pink-hover);
+    color: #A70046; 
+    animation: heartbeat 0.8s ease-in-out infinite alternate;
+}
+
+.btn-add-game:not(.added):hover i {
+    color: #A70046;
+    animation: pulseHeart 0.8s ease-in-out infinite alternate;
+}
+
+/* ANIMACIÓN DEL BOTÓN */
+@keyframes heartbeat {
+  0% { transform: translateY(-3px) scale(1.0); box-shadow: 0 0 10px rgba(250, 98, 165, 0.4); }
+  50% { transform: translateY(-3px) scale(1.07); box-shadow: 0 0 25px rgba(250, 98, 165, 0.8); }
+  100% { transform: translateY(-3px) scale(1.0); box-shadow: 0 0 10px rgba(250, 98, 165, 0.4); }
+}
+
+/* ANIMACIÓN DEL CORAZÓN */
+@keyframes pulseHeart {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+
+
+
+
+
+
+
+
+
