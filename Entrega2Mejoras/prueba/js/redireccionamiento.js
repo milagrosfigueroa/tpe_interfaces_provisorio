@@ -34,3 +34,17 @@
             window.location.href = 'home.html';
         });
     }
+
+    // d. CLIC EN EL HOME SIDEBAR (Usa el ID 'enlace-home-sidebar')
+    const enlaceHomeSidebar = document.getElementById('enlace-home-sidebar');
+
+    if (enlaceHomeSidebar) {
+        // Agrega el evento 'click'
+        enlaceHomeSidebar.addEventListener('click', function(e) {
+            // Previene el comportamiento por defecto del enlace (#)
+            e.preventDefault(); 
+            
+            // Redirige al usuario a la página principal
+            window.location.href = 'home.html';
+        });
+    }
