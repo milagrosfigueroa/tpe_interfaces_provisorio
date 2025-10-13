@@ -1,0 +1,132 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Footer general */
+.footer {
+    background-color: #02213E;
+    color: #ffffff;
+    padding: 40px 20px; /* móvil: padding reducido */
+}
+
+.footer-container {
+    max-width: 1366px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 columna */
+    gap: 30px;
+}
+
+.footer-column h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #FA328A;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #ffffff;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.margin-top {
+    margin-top: 32px;
+}
+
+.subscribe-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffffff;
+    font-size: 16px;
+    border-bottom: 0.5px solid #ffffff;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.subscribe-link img {
+    width: 12px;
+    height: 12px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    align-items: center;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.logos {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+
+.logo-text {
+    font-size: 47px;
+    font-weight: bold;
+    font-family: 'Micro 5', sans-serif;
+}
+
+.logo-icon img {
+    width: 86px;
+    height: 57px;
+    display: block;
+}
+
+/* Tablet - >= 641px */
+@media (min-width: 641px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .footer {
+        padding: 50px 30px;
+    }
+}
+
+/* Desktop - >= 1025px */
+@media (min-width: 1025px) {
+    .footer-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+    }
+
+    .footer {
+        padding: 60px 40px;
+    }
+}
