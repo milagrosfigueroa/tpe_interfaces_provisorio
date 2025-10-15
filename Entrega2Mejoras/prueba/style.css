@@ -1073,7 +1073,7 @@ body {
 
 
 /* ============================================ */
-/* Carrusel general */
+/* Carrusel general (AHORA: REJILLA MÓVIL) */
 
 .carousel-container {
   max-width: fit-content;
@@ -1096,19 +1096,20 @@ body {
 /* Wrapper y botones */
 .carousel-wrapper {
   position: relative;
-  display: flex;
+  display: flex; /* Mantenemos flex para que el título y el contenedor de la rejilla se alineen si es necesario */
   align-items: center;
   gap: 8px;
 }
 
+/* 🛑 MODIFICACIÓN: OCULTAR BOTONES DE NAVEGACIÓN EN MÓVIL */
 .carousel-btn {
+  display: none; /* Oculta las flechas del carrusel */
+  /* El resto de estilos para hover y color se mantienen, pero no son visibles */
   background-color: rgba(237, 226, 226, 0.1);
   border: none;
-  width: 28px;             /* más chico */
+  width: 28px;
   height: 28px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
   justify-content: center;
   cursor: pointer;
   color: #ffffff;
@@ -1137,44 +1138,65 @@ body {
   transform: scale(1);
 }
 
-/* Menos espacio vertical en la pista */
+/* Contenedor de la Pista (Ahora Rejilla) */
 .carousel-track-container {
-  overflow: hidden;
+  /* 🛑 MODIFICACIÓN: CAMBIAMOS a visible para que el grid se extienda verticalmente */
+  overflow: visible;
   width: 100%;
-  padding: 4px 0; 
-  padding-left: 4px;    
+  padding: 4px 8px 4px 8px; /* Ajuste de padding alrededor de la rejilla */
 }
 
+/* 🛑 MODIFICACIÓN PRINCIPAL: ESTABLECER EL GRID */
 .carousel-track {
-  display: flex;
-  gap: 8px;
-  transition: transform 0.5s ease-in-out;
+  display: grid; /* Cambia de flex a grid */
+  
+  /* REJILLA RESPONSIVA: 3 a 4 columnas que ocupen al menos 100px */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  
+  gap: 15px; /* Espacio entre las tarjetas */
+  
+  /* 🛑 MODIFICACIÓN: ELIMINAR PROPIEDADES DE DESLIZAMIENTO */
+  transition: none;
+  transform: none !important; 
 }
 
-/* Cards */
+/* Cards (Ajustes para Rejilla) */
 .game-card {
-  flex: 0 0 160px;
-  min-width: 160px;
-  width: 160px;
+  /* 🛑 MODIFICACIÓN: ANULAR TAMAÑOS FIJOS Y FLEXBOX */
+  flex: none; /* Deshabilita la contracción del flex */
+  min-width: unset;
+  width: 100%; /* Ocupa el 100% de su celda Grid */
   height: auto;
   border-radius: 8px;
   box-sizing: border-box;
+  
+  /* 🛑 MODIFICACIÓN: ELIMINAR TRANSFORMACIÓN DE HOVER DEL CARRUSEL */
   transition: transform 0.3s ease;
+  transform: none; /* Anular cualquier posible transform: translateX() */
+  
   cursor: pointer;
   position: relative;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  
+  text-align: center; /* Centrar título e imagen */
+  align-items: center;
 }
 
 .game-card:hover {
-  transform: translateY(-4px);
+  /* 🛑 MODIFICACIÓN: Anular el efecto de elevación vertical para la rejilla */
+  transform: none; 
 }
 
+/* Imagen del Icono (Ajustes para que se vea como un cuadrado) */
 .game-card-image {
   width: 100%;
-  height: 64px;
-  border-radius: 8px;
+  /* 🛑 MODIFICACIÓN: APLICAR ASPECT-RATIO PARA UN ICONO CUADRADO (1:1) */
+  aspect-ratio: 1 / 1; 
+  height: auto; /* La altura la define el aspect-ratio */
+  
+  border-radius: 12px; /* Ligeramente más redondeado */
   overflow: hidden;
   margin-bottom: 6px;
   border: 2px solid transparent;
@@ -1193,6 +1215,7 @@ body {
 }
 
 .price-tag {
+  /* Mantenemos el estilo de la etiqueta de precio */
   position: absolute;
   top: -4px;
   left: -4px;
@@ -1211,19 +1234,81 @@ body {
 }
 
 .game-card-title {
+  /* Ajuste para que el título se vea bien centrado */
   font-family: "Outfit", sans-serif;
   font-size: 10px;
   font-weight: 600;
   color: #ffffff;
   margin: 0;
-  text-align: start;
+  text-align: center; /* 🛑 MODIFICACIÓN: Centramos el título */
+  /* Propiedades para manejar nombres largos */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-/* Responsive mediano */
+/* ======================================================== */
+/* Responsive mediano (min-width: 640px) */
+/* -------------------------------------------------------- */
+
 @media screen and (min-width: 640px) {
 
+  /* 🎯 ANULACIÓN CLAVE: REVERSIÓN A CARRUSEL (FLEXBOX) */
+  
+  .carousel-wrapper {
+    gap: 10px;
+    /* Aseguramos que el contenedor wrapper vuelva a ser flex para centrar las flechas */
+    display: flex; 
+  }
+
+  /* 1. REINSTAURAR LOS BOTONES */
+  .carousel-wrapper > .carousel-btn {
+    display: flex; /* Vuelve a mostrar los botones de navegación */
+    align-items: center; /* Asegura que el contenido (SVG) esté centrado */
+  }
+
+  /* 2. REINSTAURAR LA PISTA DEL CARRUSEL */
+  .carousel-track-container {
+    /* Vuelve a ocultar el contenido para que solo se vea la "pista" */
+    overflow: hidden; 
+    width: 100%;
+    padding: 6px 0;        
+    padding-left: 6px;
+  }
+  
+  .carousel-track {
+    /* Vuelve a ser FLEX para la disposición horizontal */
+    display: flex; 
+    
+    /* ANULA LAS PROPIEDADES GRID del móvil */
+    grid-template-columns: unset; 
+    
+    /* REINSTAURAR la transición y deslizamiento */
+    transition: transform 0.4s ease-in-out;
+    transform: none; /* Resetear cualquier transform previo */
+    
+    gap: 12px;
+  }
+
+  /* 3. REINSTAURAR EL TAMAÑO FIJO DE LAS TARJETAS */
+  .game-card {
+    /* REINSTAURAR las reglas de carrusel */
+    flex: 0 0 calc(33.333% - 8px); /* Vuelve a fijar el ancho */
+    min-width: calc(33.333% - 8px);
+    width: calc(33.333% - 8px);
+    
+    /* REINSTAURAR el efecto de hover */
+    transform: none; /* Se reestablece con el hover:hover más abajo si aplica */
+  }
+  
+  /* 4. REINSTAURAR ALTURA ORIGINAL DE IMAGEN Y ANULAR ASPECT RATIO */
+  .game-card-image {
+    height: 80px; /* Vuelve a la altura fija */
+    aspect-ratio: unset; /* Anula el 1/1 del móvil */
+  }
+
   .carousel-container {
-    max-width: 100%; /* */
+    max-width: 100%; 
     padding: 10px 8px; 
     margin-bottom: 12px;   
   }
@@ -1243,32 +1328,9 @@ body {
     height: 18px;
   }
 
-  .carousel-wrapper {
-    gap: 10px;
-  }
-
-  .carousel-track {
-    gap: 12px;
-    transition: transform 0.4s ease-in-out;
-  }
-
-  .carousel-track-container {
-    padding: 6px 0;        
-    padding-left: 6px;
-  }
-
-  .game-card {
-    flex: 0 0 calc(33.333% - 8px);
-    min-width: calc(33.333% - 8px);
-    width: calc(33.333% - 8px);
-  }
-
-  .game-card-image {
-    height: 80px;
-  }
-
   .game-card-title {
     font-size: 12px;
+    text-align: start; /* Vuelve a alinear el título a la izquierda (como en el carrusel) */
   }
 
   .price-tag {
@@ -1277,8 +1339,14 @@ body {
   }
 }
 
-/* Responsive grande */
+/* ======================================================== */
+/* Responsive grande (min-width: 1024px) */
+/* -------------------------------------------------------- */
+
 @media screen and (min-width: 1024px) {
+
+  /* 🛑 NOTA: Este bloque no necesita grandes cambios, ya que ahora el bloque de 640px */
+  /* se encarga de cambiar el track a FLEX, y este lo refina. */
 
   .carousel-container {
     max-width: 1324px;
@@ -1329,6 +1397,7 @@ body {
 
   .game-card-image {
     height: 106px;
+    aspect-ratio: unset; /* Aseguramos que se mantenga deshabilitado */
     border-radius: 10px;
     margin-bottom: 8px;
   }
