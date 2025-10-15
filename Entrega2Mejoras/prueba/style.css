@@ -1073,7 +1073,7 @@ body {
 
 
 /* ============================================ */
-/* Carrusel general (AHORA: REJILLA MÓVIL) */
+/* Carrusel General Mobile First (GRID) */
 
 .carousel-container {
   max-width: fit-content;
@@ -1101,7 +1101,7 @@ body {
   gap: 8px;
 }
 
-/* 🛑 MODIFICACIÓN: OCULTAR BOTONES DE NAVEGACIÓN EN MÓVIL */
+/*  OCULTAR BOTONES DE NAVEGACIÓN EN MÓVIL */
 .carousel-btn {
   display: none; /* Oculta las flechas del carrusel */
   /* El resto de estilos para hover y color se mantienen, pero no son visibles */
@@ -1140,13 +1140,13 @@ body {
 
 /* Contenedor de la Pista (Ahora Rejilla) */
 .carousel-track-container {
-  /* 🛑 MODIFICACIÓN: CAMBIAMOS a visible para que el grid se extienda verticalmente */
+  /* CAMBIAMOS a visible para que el grid se extienda verticalmente */
   overflow: visible;
   width: 100%;
   padding: 4px 8px 4px 8px; /* Ajuste de padding alrededor de la rejilla */
 }
 
-/* 🛑 MODIFICACIÓN PRINCIPAL: ESTABLECER EL GRID */
+/*  ESTABLECER EL GRID */
 .carousel-track {
   display: grid; /* Cambia de flex a grid */
   
@@ -1155,14 +1155,14 @@ body {
   
   gap: 15px; /* Espacio entre las tarjetas */
   
-  /* 🛑 MODIFICACIÓN: ELIMINAR PROPIEDADES DE DESLIZAMIENTO */
+  /* ELIMINAR PROPIEDADES DE DESLIZAMIENTO */
   transition: none;
   transform: none !important; 
 }
 
 /* Cards (Ajustes para Rejilla) */
 .game-card {
-  /* 🛑 MODIFICACIÓN: ANULAR TAMAÑOS FIJOS Y FLEXBOX */
+  /* ANULAR TAMAÑOS FIJOS Y FLEXBOX */
   flex: none; /* Deshabilita la contracción del flex */
   min-width: unset;
   width: 100%; /* Ocupa el 100% de su celda Grid */
@@ -1170,7 +1170,7 @@ body {
   border-radius: 8px;
   box-sizing: border-box;
   
-  /* 🛑 MODIFICACIÓN: ELIMINAR TRANSFORMACIÓN DE HOVER DEL CARRUSEL */
+  /* ELIMINAR TRANSFORMACIÓN DE HOVER DEL CARRUSEL */
   transition: transform 0.3s ease;
   transform: none; /* Anular cualquier posible transform: translateX() */
   
@@ -1185,14 +1185,14 @@ body {
 }
 
 .game-card:hover {
-  /* 🛑 MODIFICACIÓN: Anular el efecto de elevación vertical para la rejilla */
+  /* Anular el efecto de elevación vertical para la rejilla */
   transform: none; 
 }
 
 /* Imagen del Icono (Ajustes para que se vea como un cuadrado) */
 .game-card-image {
   width: 100%;
-  /* 🛑 MODIFICACIÓN: APLICAR ASPECT-RATIO PARA UN ICONO CUADRADO (1:1) */
+  /* APLICAR ASPECT-RATIO PARA UN ICONO CUADRADO (1:1) */
   aspect-ratio: 1 / 1; 
   height: auto; /* La altura la define el aspect-ratio */
   
@@ -1240,7 +1240,7 @@ body {
   font-weight: 600;
   color: #ffffff;
   margin: 0;
-  text-align: center; /* 🛑 MODIFICACIÓN: Centramos el título */
+  text-align: center; /* Centramos el título */
   /* Propiedades para manejar nombres largos */
   overflow: hidden;
   white-space: nowrap;
@@ -1253,7 +1253,7 @@ body {
 
 @media screen and (min-width: 640px) {
 
-  /* 🎯 ANULACIÓN CLAVE: REVERSIÓN A CARRUSEL (FLEXBOX) */
+  /* REVERSIÓN A CARRUSEL (FLEXBOX) */
   
   .carousel-wrapper {
     gap: 10px;
@@ -1345,8 +1345,6 @@ body {
 
 @media screen and (min-width: 1024px) {
 
-  /* 🛑 NOTA: Este bloque no necesita grandes cambios, ya que ahora el bloque de 640px */
-  /* se encarga de cambiar el track a FLEX, y este lo refina. */
 
   .carousel-container {
     max-width: 1324px;
