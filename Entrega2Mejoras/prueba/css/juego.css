@@ -60,23 +60,6 @@ body {
     padding-top: 50px; 
 }
 
-/* ======== HEADER SUPERIOR ======== */
-header {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-/* ======== BARRA LATERAL / SIDEBAR ======== */
-.sidebar {
-    height: 94%;
-    position: fixed;
-    top: 50px;
-    left: 0;
-    z-index: 1000;
-}
 
 /* ======================================= */
 /* 2. SECCIÓN 1: BREADCRUMB Y SHARE        */
