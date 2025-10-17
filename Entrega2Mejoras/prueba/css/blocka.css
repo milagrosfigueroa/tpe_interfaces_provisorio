@@ -34,6 +34,10 @@ body {
 }
 
 /* === MENÚ PRINCIPAL === */
+.menu-principal{
+    display:flex;
+    flex-direction: column;
+}
 .menu-principal h1 {
   color: #e94560;
   font-size: 3em;
@@ -48,7 +52,7 @@ body {
   line-height: 1.6;
 }
 
-.btn-jugar {
+.btn-jugar{
   background: #e94560;
   color: white;
   border: none;
@@ -130,7 +134,7 @@ body {
   margin-top: 20px;
 }
 
-.controles button {
+.controles button, .btn-volver {
   padding: 10px 20px;
   border: none;
   background-color: #e94560;
