@@ -1,0 +1,175 @@
+/* === RESET === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === GENERAL === */
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--color-bg-dark);
+  min-height: 100vh;
+  margin: 0;
+  margin-left: 30px;
+}
+
+/* Contenedor principal del juego */
+.blocka-container {
+  background: #16213e;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  width: 100%; /* antes era max-width: 800px */
+  height: 100%;
+  max-width: none; /* eliminar el límite */
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row; /* antes era column */
+  justify-content: space-around;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+/* === MENÚ PRINCIPAL === */
+.menu-principal h1 {
+  color: #e94560;
+  font-size: 3em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.menu-principal p {
+  color: #f1f1f1;
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.btn-jugar {
+  background: #e94560;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 15px 40px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-jugar:hover {
+  background: #d63651;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+}
+
+/* === NIVELES === */
+.niveles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.niveles h2 {
+  color: #e94560;
+  margin-bottom: 10px;
+}
+
+.niveles-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.nivel {
+  background: #0f3460;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 180px;
+}
+
+.nivel:hover {
+  background: #1a4d7a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(26, 77, 122, 0.4);
+  border: 2px;
+  border-color: #e94560;
+}
+
+/* CONTAINER DEL JUEGO: PIEZAS, TEMPORIZADOR, AYUDA*/
+.juego {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.puzzle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.puzzle img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.controles {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.controles button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #e94560;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.controles button:hover {
+  background-color: #d63651;
+}
+
+/* SECCIÓN DE NOMBRE JUEGO Y AÑADIR A FAVS*/
+.card-footer {
+  width: 100%;
+  background-color: #0f3460;
+  color: white;
+  border-radius: 10px;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-footer h2 {
+  font-size: 1.3rem;
+}
+.card-footer .btn-add-game {
+  background-color: #e94560;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/*INSTRUCCIONES DEL JUEGO */
+.game-info-details{
+    display: flex;
+    margin-top: 400px; /* BUSCAR OTRA SOLUCION QUE SEA APTA PARA CUALQUIER TAMAÑO DE JUEGO*/
+}
+
