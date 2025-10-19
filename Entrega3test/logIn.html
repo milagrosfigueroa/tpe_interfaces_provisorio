@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Outfit&family=Micro+5&display=swap" rel="stylesheet">
+    <link href="./css/login.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio de Sesión</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="image-side">
+        <img src="./img/imgInicioSesion/logoAcostado.png" alt="GameHub" class="side-image">
+        <p class="brand-text">GameHub</p>
+      </div>
+
+      <!-- PANEL DERECHO -->
+      <div class="right-side">
+        <!-- LOGIN -->
+        <div class="form-side" id="login-form">
+          <h2>Inicio de sesión</h2>
+          <p class="subtitle">Inicia sesión con tu cuenta de <span class="name">GameHub</span></p>
+
+          <form id="inicioSesion">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="user@tuemail.com" required>
+
+            <label for="login-password">Contraseña</label>
+            <input type="password" id="login-password" placeholder="••••••••••" required>
+
+            <button type="submit" class="btn-primary">Inicia sesión</button>
+          </form>
+
+          <p class="bottom-text">¿No tienes cuenta? <a href="#" id="ir-a-registro">Regístrate.</a></p>
+        </div>
+
+        <!-- REGISTRO -->
+        <div class="form-side hidden" id="register-form">
+          <h2>Registrarse</h2>
+
+          <form id="form-registro"> 
+              <label for="register-name">Nombre y apellido*</label> 
+              <input type="text" id="register-name" required> 
+
+              <label for="register-nickname">Nickname</label> 
+              <input type="text" id="register-nickname">
+
+              <label for="register-age">Edad*</label> 
+              <input type="number" id="register-age" required> 
+
+              <label for="register-email">Email*</label> 
+              <input type="email" id="register-email" required> 
+              
+              <label for="register-password">Contraseña*</label> 
+              <input type="password" id="register-password" required> 
+              
+              <label for="register-confirm">Repetir contraseña*</label> 
+              <input type="password" id="register-confirm" required> 
+              
+              <div class="recaptcha-container"> 
+                  <img src="./img/imgInicioSesion/captcha.jpg" alt="reCAPTCHA" class="recaptcha-image"> 
+              </div> 
+              
+              <button type="submit" class="btn-primary">Regístrate</button> 
+          </form>
+
+          <p class="bottom-text">¿Ya tienes cuenta? <a href="#" id="ir-a-login">Inicia sesión.</a></p>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-message hidden" id="success-message">
+          <div class="success-icon">✓</div>
+          <h2>¡Registro Exitoso!</h2>
+          <p>Tu cuenta ha sido creada correctamente</p>
+        </div>
+      </div>
+    </div>
+
+  
+   <script src="./js/login.js"></script>
+  
+  </body>
+</html>
