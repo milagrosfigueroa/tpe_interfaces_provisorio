@@ -760,7 +760,113 @@
 #selector-nivel h2{
     margin-top: 30px;
 }
+/* =============================================== */
+/* NUEVOS ESTILOS PARA #pantalla-pre-juego         */
+/* =============================================== */
 
+#pantalla-pre-juego {
+    /* Centrado en el contenedor-juego */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+#pantalla-pre-juego h2 {
+    color: var(--color-primary-pink);
+    font-size: 2em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: var(--font-heading);
+}
+
+#nivel-seleccionado-info {
+    font-size: 1.2em;
+    color: var(--color-text-primary);
+    margin: 20px 0 30px 0;
+}
+
+/* Contenedor de las imágenes de previsualización */
+#imagenes-preview-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 15px;
+    max-width: 600px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color-bg-dark);
+}
+
+/* Estilo base de cada imagen (sin cambios) */
+.imagen-preview {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    cursor: default;
+    border-radius: 8px;
+    object-fit: cover;
+    opacity: 0.5;
+    /* La transición se mantiene para suavizar el paso de un estado a otro */
+    transition: all 0.2s ease-in-out; 
+    border: 3px solid var(--color-bg-dark); 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 🟢 MODIFICACIÓN CLAVE: Mayor brillo y escala durante la selección (carrusel) */
+.imagen-preview.seleccionada {
+    opacity: 1;
+    /* Aumento de escala sutil para hacerlo más prominente */
+    transform: scale(1.05); 
+    /* Borde más grueso y vibrante (usa el color primario de GameHub) */
+    border-color: var(--color-primary-pink); 
+    /* Box-shadow con un color brillante (blanco/rosa) para simular la luz */
+    box-shadow: 
+        0 0 10px var(--color-primary-pink), 
+        0 0 18px rgba(255, 255, 255, 0.8), /* ✨ Este es el efecto de luz blanca */
+        0 0 30px var(--color-primary-pink);
+    
+    /* Le damos un pulso rápido y notable */
+    animation: flash-pulse 0.4s ease-in-out forwards;
+}
+
+/* 🟢 NUEVO KEYFRAME: Parpadeo rápido para el carrusel de selección */
+@keyframes flash-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+    50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 15px var(--color-primary-pink); }
+    100% { transform: scale(1.05); }
+}
+
+
+/* Estilo para la imagen final que se agranda (animación) (Se mantiene la animación original, pero revisamos los valores) */
+.imagen-preview.final-zoom {
+    opacity: 1;
+    border-color: var(--color-primary-pink);
+    /* Aseguramos que el box-shadow inicial sea visible antes de que comience el keyframe */
+    box-shadow: 0 0 20px var(--color-primary-pink); 
+    animation: zoom-pulse 2s forwards; 
+}
+
+/* Keyframe para la animación de Zoom y Pulse (Se mantiene, pero revisamos los valores) */
+@keyframes zoom-pulse {
+    0% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px var(--color-primary-pink);
+    }
+    50% {
+        /* Aumentamos el zoom y el brillo al 50% */
+        transform: scale(1.25);
+        box-shadow: 0 0 35px var(--color-pink-hover), 0 0 50px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px var(--color-primary-pink);
+    }
+}
 
 /* ------------------------------------------- */
 /* 8. PIE DE PÁGINA Y BOTÓN FAVORITOS (No modificada) */
