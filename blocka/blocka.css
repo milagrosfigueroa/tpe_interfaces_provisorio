@@ -27,6 +27,11 @@ body {
 #menu-principal {
   text-align: center;
 }
+.menu-principal,
+.niveles,
+.juego {
+  flex: 1;
+}
 
 #menu-principal h1 {
   color: #e94560;
