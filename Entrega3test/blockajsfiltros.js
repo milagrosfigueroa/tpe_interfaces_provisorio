@@ -3,14 +3,14 @@
 // ====================
 
 const BANCO_IMAGENES = [
-  "https://picsum.photos/id/10/600/600",
-  "https://picsum.photos/id/20/600/600",
-  "https://picsum.photos/id/30/600/600",
-  "https://picsum.photos/id/40/600/600",
-  "https://picsum.photos/id/50/600/600",
-  "https://picsum.photos/id/60/600/600",
-  "https://picsum.photos/id/70/600/600",
-  "https://picsum.photos/id/80/600/600",
+  './img/blocka/img1.jpeg',
+  './img/blocka/img2.jpg',
+  './img/blocka/img3.jpg',
+  './img/blocka/img4.jpg',
+  './img/blocka/img5.jpeg',
+  './img/blocka/img6.jpg',
+  './img/blocka/img7.jpeg',
+  './img/blocka/img8.jpg'
 ];
 
 const NIVELES = [
@@ -19,7 +19,14 @@ const NIVELES = [
   { id: 3, nombre: "Nivel 3", filtro: "negativo" },
 ];
 
-const PANTALLAS = ["menu-principal", "instrucciones", "selector-nivel", "selector-piezas", "pantalla-juego", "pantalla-victoria"];
+const PANTALLAS = [
+  "menu-principal",
+  "instrucciones",
+  "selector-nivel",
+  "pantalla-pre-juego",
+  "pantalla-juego",
+  "pantalla-victoria"
+];
 
 // ===================================
 // FUNCIONES PURAS PARA LOS FILTROS 🎨
@@ -64,14 +71,10 @@ const juego = {
   estaPausado: false,
   ayuditaUsada: false,
 
-  // Nueva configuración de filas/columnas (por defecto 2x2)
   filasSeleccionadas: 2,
   columnasSeleccionadas: 2,
 
-  // UTILERÍAS DE NAVEGACIÓN Y CONFIGURACIÓN
-
   ocultarTodasPantallas() {
-    // Asegurarse de no fallar si la pantalla no existe
     PANTALLAS.forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.add("oculto");
@@ -84,20 +87,18 @@ const juego = {
     if (el) el.classList.remove("oculto");
   },
 
-  // INICIALIZACIÓN
-
   inicializar() {
     this.renderizarSelectorNivel();
     this.mostrarPantalla("menu-principal");
     this.detenerTemporizador();
 
-    // Asignar eventos de navegación
+    // Navegación
     document.getElementById("btn-jugar-inicio").onclick = () => this.mostrarPantalla("selector-nivel");
     document.getElementById("btn-instrucciones").onclick = () => this.mostrarPantalla("instrucciones");
     document.getElementById("btn-volver-menu-instrucciones").onclick = () => this.mostrarPantalla("menu-principal");
     document.getElementById("btn-volver-menu-selector").onclick = () => this.mostrarPantalla("menu-principal");
 
-    // Controles de juego y victoria
+    // Juego y victoria
     document.getElementById("btn-menu-juego").onclick = () => this.mostrarPantalla("menu-principal");
     document.getElementById("btn-menu-victoria").onclick = () => this.mostrarPantalla("menu-principal");
     document.getElementById("boton-siguiente-nivel").onclick = this.siguienteNivel.bind(this);
@@ -105,14 +106,9 @@ const juego = {
     document.getElementById("boton-ayudita").onclick = this.usarAyudita.bind(this);
     document.getElementById("btn-seleccionar-nivel-victoria").onclick = () => this.mostrarPantalla("selector-nivel");
 
-    // Inicializar selector de piezas (si la pantalla ya está en el DOM)
-    this.setupSelectorPiezasUI();
-
-    // Crear botón "Cambiar piezas" fijo si no existe
-    this.crearBotonCambiarPiezas();
+    this.setupSelectorPiezasUI?.();
+    this.crearBotonCambiarPiezas?.();
   },
-
-  // SELECTOR DE NIVELES
 
   renderizarSelectorNivel() {
     const grilla = document.getElementById("grilla-niveles");
@@ -131,12 +127,11 @@ const juego = {
         <p class="tiempo-record">${textoRecord}</p>
       `;
       tarjeta.setAttribute("data-nivel", nivel.id);
-      tarjeta.onclick = (e) => this.iniciarNivel(parseInt(e.currentTarget.getAttribute("data-nivel")));
+      tarjeta.onclick = e => this.iniciarNivel(parseInt(e.currentTarget.getAttribute("data-nivel")));
       grilla.appendChild(tarjeta);
     });
   },
 
-  // INICIAR NIVEL
   iniciarNivel(idNivel) {
     this.nivelActual = idNivel;
     this.estaPausado = false;
@@ -156,206 +151,183 @@ const juego = {
 
     const indice = Math.floor(Math.random() * BANCO_IMAGENES.length);
     this.imagenActual = BANCO_IMAGENES[indice];
-
-    document.getElementById("titulo-nivel").textContent = "Nivel " + idNivel;
-
-    // Mostrar la pantalla para elegir la cantidad de piezas (según tu pedido)
-    this.mostrarPantalla("selector-piezas");
+    this.configurarPreJuego();
   },
 
-  // Configuración del selector de piezas (listeners)
-  setupSelectorPiezasUI() {
-    const selector = document.getElementById("selector-piezas");
-    if (!selector) {
-      // Si el HTML no tiene la pantalla, la creamos dinámicamente y la insertamos después de selector-nivel
-      const wrapper = document.getElementById("selector-nivel");
-      const nuevo = document.createElement("div");
-      nuevo.id = "selector-piezas";
-      nuevo.className = "oculto";
-      nuevo.innerHTML = `
-        <h2>Selecciona la cantidad de piezas</h2>
-        <div class="grilla-piezas">
-            <button class="boton boton-primario btn-piezas" data-filas="2" data-columnas="2">4 piezas (2x2)</button>
-            <button class="boton boton-primario btn-piezas" data-filas="2" data-columnas="3">6 piezas (2x3)</button>
-            <button class="boton boton-primario btn-piezas" data-filas="2" data-columnas="4">8 piezas (2x4)</button>
-        </div>
-        <button class="boton boton-secundario" id="btn-volver-selector-piezas">Volver</button>
-      `;
-      if (wrapper && wrapper.parentNode) wrapper.parentNode.insertBefore(nuevo, wrapper.nextSibling);
+  configurarPreJuego() {
+    this.mostrarPantalla("pantalla-pre-juego");
+
+    const nivelConfig = NIVELES.find(n => n.id === this.nivelActual);
+    const infoText = `${nivelConfig.nombre} | Filtro: ${this.obtenerNombreFiltro(nivelConfig.filtro)}`;
+    document.getElementById("nivel-seleccionado-info").textContent = infoText;
+
+    const previewContainer = document.getElementById("imagenes-preview-container");
+    previewContainer.innerHTML = "";
+
+    const numPreviews = Math.min(8, BANCO_IMAGENES.length);
+    const imagenesParaPreview = BANCO_IMAGENES.slice(0, numPreviews);
+
+    imagenesParaPreview.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "imagen-preview";
+      img.onerror = () => { img.src = 'img/placeholder.png'; };
+      previewContainer.appendChild(img);
+    });
+
+    setTimeout(() => this.animarSeleccionImagen(), 500);
+  },
+
+  animarSeleccionImagen() {
+    const previews = Array.from(document.querySelectorAll(".imagen-preview"));
+    let imagenFinalIndex = BANCO_IMAGENES.indexOf(this.imagenActual);
+
+    if (imagenFinalIndex >= previews.length) {
+      imagenFinalIndex = previews.length - 1;
+      previews[imagenFinalIndex].src = this.imagenActual;
     }
 
-    // Delegación: asignar listeners a cualquier .btn-piezas existente
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest && e.target.closest(".btn-piezas");
-      if (btn) {
-        const f = parseInt(btn.dataset.filas, 10);
-        const c = parseInt(btn.dataset.columnas, 10);
-        if (isFinite(f) && isFinite(c)) {
-          this.filasSeleccionadas = f;
-          this.columnasSeleccionadas = c;
-          // cargar imagen y configurar (esto iniciará el temporizador)
-          this.cargarImagenYConfigurar();
-        }
+    previews.forEach(p => p.classList.remove("seleccionada", "final-zoom"));
+
+    let currentIndex = 0;
+    const intervalTime = 120;
+    const totalCarruselTime = previews.length * 2 + imagenFinalIndex;
+
+    const carrusel = setInterval(() => {
+      if (currentIndex > 0) {
+        const prevIndex = (currentIndex - 1) % previews.length;
+        previews[prevIndex].classList.remove("seleccionada");
+      } else if (currentIndex === 0 && previews.length > 0) {
+        previews[previews.length - 1].classList.remove("seleccionada");
       }
-    });
 
-    // Volver desde selector-piezas al selector-nivel
-    document.addEventListener("click", (e) => {
-      if (e.target && e.target.id === "btn-volver-selector-piezas") {
-        this.mostrarPantalla("selector-nivel");
+      if (currentIndex > totalCarruselTime) {
+        clearInterval(carrusel);
+        const imagenFinalElement = previews[imagenFinalIndex];
+        imagenFinalElement.classList.remove("seleccionada");
+        imagenFinalElement.classList.add("final-zoom");
+        setTimeout(() => this.cargarImagenYConfigurar(), 1500);
+        return;
       }
-    });
-  },
 
-  // crear botón cambiar piezas (esquina inferior izquierda)
-  crearBotonCambiarPiezas() {
-    if (document.getElementById("btn-cambiar-piezas")) return; // ya existe
-
-    const btn = document.createElement("button");
-    btn.id = "btn-cambiar-piezas";
-    btn.className = "boton boton-secundario";
-    btn.textContent = "Cambiar piezas";
-    // estilo por defecto (el CSS adicional se encargará de posicionarlo)
-    // Insertarlo dentro del wrapper para que se muestre encima del contenido
-    const wrapper = document.getElementById("blocka-wrapper") || document.body;
-    wrapper.appendChild(btn);
-
-    btn.addEventListener("click", () => {
-      // Pausar y mostrar selector de piezas
-      this.estaPausado = true;
-      // Cambiar texto del botón pausar a "Reanudar" visualmente pero sin cambiar estado del jugador
-      const botonPausar = document.getElementById("boton-pausar-juego");
-      if (botonPausar) {
-        botonPausar.textContent = "Reanudar";
-        botonPausar.classList.add("activo");
-      }
-      this.mostrarPantalla("selector-piezas");
-    });
+      const currentElement = previews[currentIndex % previews.length];
+      currentElement.classList.add("seleccionada");
+      currentIndex++;
+    }, intervalTime);
   },
 
   cargarImagenYConfigurar() {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
+    const botonPausar = document.getElementById("boton-pausar-juego");
+    if (botonPausar) {
+      botonPausar.textContent = "Pausar";
+      botonPausar.classList.remove("activo");
+    }
 
-        img.onload = () => {
-            this.configurarPiezas(img);
-            this.mostrarPantalla("pantalla-juego");
-            // reiniciar temporizador desde cero
-            this.iniciarTemporizador();
-            // asegurar que el juego no esté pausado por defecto
-            this.estaPausado = false;
+    const botonAyudita = document.getElementById("boton-ayudita");
+    if (botonAyudita) {
+      botonAyudita.disabled = false;
+      botonAyudita.classList.remove("deshabilitado");
+    }
 
-            // 🔹 Ajuste: restablecer el botón de pausar
-            const botonPausar = document.getElementById("boton-pausar-juego");
-            if (botonPausar) {
-            botonPausar.textContent = "Pausar";
-            botonPausar.classList.remove("activo");
-            }
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+
+    img.onload = () => {
+      this.configurarPiezas(img);
+      this.mostrarPantalla("pantalla-juego");
+      this.iniciarTemporizador();
+      this.estaPausado = false;
+    };
+
+    img.onerror = () => {
+      alert("Error al cargar la imagen. Intenta de nuevo.");
+      this.mostrarPantalla("selector-nivel");
+    };
+
+    img.src = this.imagenActual;
+  },
+
+  configurarPiezas(img) {
+    // --- RESET ESTADO ---
+    this.estaPausado = false;
+    const botonPausar = document.getElementById("boton-pausar-juego");
+    if (botonPausar) {
+      botonPausar.textContent = "Pausar";
+      botonPausar.classList.remove("activo");
+    }
+    this.tiempoInicio = Date.now();
+    this.tiempoTranscurrido = 0;
+    this.actualizarTemporizador();
+    // --------------------
+
+    const grilla = document.getElementById("grilla-blocka");
+    if (!grilla) return;
+    grilla.innerHTML = "";
+    this.piezas = [];
+
+    const filas = this.filasSeleccionadas;
+    const columnas = this.columnasSeleccionadas;
+
+    grilla.style.gridTemplateColumns = `repeat(${columnas}, 1fr)`;
+
+    const anchoPieza = Math.floor(img.width / columnas);
+    const altoPieza = Math.floor(img.height / filas);
+
+    let indice = 0;
+    for (let y = 0; y < filas; y++) {
+      for (let x = 0; x < columnas; x++) {
+        const divPieza = document.createElement("div");
+        divPieza.className = "pieza-blocka";
+
+        const canvas = document.createElement("canvas");
+        canvas.width = anchoPieza;
+        canvas.height = altoPieza;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, x * anchoPieza, y * altoPieza, anchoPieza, altoPieza, 0, 0, anchoPieza, altoPieza);
+        this.aplicarFiltro(canvas);
+
+        divPieza.appendChild(canvas);
+
+        const rotaciones = [0, 90, 180, 270];
+        const rotacionInicial = rotaciones[Math.floor(Math.random() * 4)];
+
+        const pieza = {
+          elemento: divPieza,
+          rotacion: rotacionInicial,
+          estaFija: false,
+          fila: y,
+          columna: x,
+          indice: indice,
         };
 
-        img.onerror = () => {
-            alert("Error al cargar la imagen. Intenta de nuevo.");
-            this.mostrarPantalla("selector-nivel");
-        };
+        this.piezas.push(pieza);
+        this.actualizarRotacion(pieza);
 
-        img.src = this.imagenActual;
-    },
+        divPieza.dataset.indice = indice;
+        divPieza.addEventListener("click", e => {
+          e.preventDefault();
+          const i = parseInt(divPieza.dataset.indice, 10);
+          if (!isNaN(i)) this.rotarPieza(this.piezas[i], -90, e);
+        });
 
+        divPieza.addEventListener("contextmenu", e => {
+          e.preventDefault();
+          const i = parseInt(divPieza.dataset.indice, 10);
+          if (!isNaN(i)) this.rotarPieza(this.piezas[i], 90, e);
+        });
 
-  // CONFIGURAR PIEZAS (ahora dinámico según filas/columnas)
-    configurarPiezas(img) {
-        const grilla = document.getElementById("grilla-blocka");
-        if (!grilla) return;
-        grilla.innerHTML = "";
-        this.piezas = [];
+        grilla.appendChild(divPieza);
+        indice++;
+      }
+    }
 
-        const filas = this.filasSeleccionadas;
-        const columnas = this.columnasSeleccionadas;
+    const mensaje = document.getElementById("mensaje-completado");
+    if (mensaje) {
+      mensaje.classList.add("oculto");
+      mensaje.classList.remove("mostrar");
+    }
+  },
 
-        // Ajustar estilo de la grilla para reflejar columnas seleccionadas
-        grilla.style.gridTemplateColumns = `repeat(${columnas}, 1fr)`;
-        // ancho/alto de cada pieza en pixels según la imagen original
-        const anchoPieza = Math.floor(img.width / columnas);
-        const altoPieza = Math.floor(img.height / filas);
-
-        // Crear piezas
-        let indice = 0;
-        for (let y = 0; y < filas; y++) {
-            for (let x = 0; x < columnas; x++) {
-                const divPieza = document.createElement("div");
-                divPieza.className = "pieza-blocka";
-
-                const canvas = document.createElement("canvas");
-                // canvas en pixeles = tamaño real de la porción de imagen
-                canvas.width = anchoPieza;
-                canvas.height = altoPieza;
-                const ctx = canvas.getContext("2d");
-
-                // Dibujar la porción adecuada de la imagen dentro del canvas
-                ctx.drawImage(
-                img,
-                x * anchoPieza,
-                y * altoPieza,
-                anchoPieza,
-                altoPieza,
-                0,
-                0,
-                anchoPieza,
-                altoPieza
-                );
-
-                // Aplicar filtro según el nivel
-                this.aplicarFiltro(canvas);
-
-                divPieza.appendChild(canvas);
-
-                const rotaciones = [0, 90, 180, 270];
-                const rotacionInicial = rotaciones[Math.floor(Math.random() * 4)];
-
-                const pieza = {
-                elemento: divPieza,
-                rotacion: rotacionInicial,
-                estaFija: false,
-                fila: y,
-                columna: x,
-                indice: indice,
-                };
-
-                this.piezas.push(pieza);
-                this.actualizarRotacion(pieza);
-
-                divPieza.setAttribute("data-indice", indice);
-
-                // Eventos de rotación
-                divPieza.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const i = parseInt(divPieza.dataset.indice, 10);
-                    if (!isNaN(i)) this.rotarPieza(this.piezas[i], -90, e);
-                    });
-
-                    divPieza.addEventListener("contextmenu", (e) => {
-                    e.preventDefault();
-                    const i = parseInt(divPieza.dataset.indice, 10);
-                    if (!isNaN(i)) this.rotarPieza(this.piezas[i], 90, e);
-                });
-
-
-                divPieza.classList.remove("pieza-fija");
-
-                grilla.appendChild(divPieza);
-                indice++;
-            }
-        }
-
-        // ocultar mensaje completado si estaba visible
-        const mensaje = document.getElementById("mensaje-completado");
-        if (mensaje) {
-        mensaje.classList.add("oculto");
-        mensaje.classList.remove("mostrar");
-        }
-    },
-
-  // APLICAR FILTROS
   aplicarFiltro(canvas) {
     const ctx = canvas.getContext("2d");
     const datosImagen = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -368,12 +340,7 @@ const juego = {
     if (!funcionFiltro) return;
 
     for (let i = 0; i < datos.length; i += 4) {
-      let r = datos[i];
-      let g = datos[i + 1];
-      let b = datos[i + 2];
-
-      const [r_nuevo, g_nuevo, b_nuevo] = funcionFiltro(r, g, b);
-
+      const [r_nuevo, g_nuevo, b_nuevo] = funcionFiltro(datos[i], datos[i + 1], datos[i + 2]);
       datos[i] = r_nuevo;
       datos[i + 1] = g_nuevo;
       datos[i + 2] = b_nuevo;
@@ -382,14 +349,11 @@ const juego = {
     ctx.putImageData(datosImagen, 0, 0);
   },
 
-  // ROTAR PIEZA
   rotarPieza(pieza, grados, evento) {
     evento.preventDefault();
     if (this.estaPausado || pieza.estaFija) return;
 
-    pieza.rotacion = (pieza.rotacion + grados) % 360;
-    if (pieza.rotacion < 0) pieza.rotacion += 360;
-
+    pieza.rotacion = (pieza.rotacion + grados + 360) % 360;
     this.actualizarRotacion(pieza);
     this.verificarVictoria();
   },
@@ -398,7 +362,6 @@ const juego = {
     pieza.elemento.style.transform = `rotate(${pieza.rotacion}deg)`;
   },
 
-  // AYUDITA
   usarAyudita() {
     if (this.estaPausado || this.ayuditaUsada) return;
 
@@ -406,13 +369,12 @@ const juego = {
     if (incorrectas.length === 0) return;
 
     const pieza = incorrectas[Math.floor(Math.random() * incorrectas.length)];
-
     pieza.rotacion = 0;
     pieza.estaFija = true;
     this.actualizarRotacion(pieza);
     pieza.elemento.classList.add("pieza-fija");
 
-    // penalización: restar 5 segundos al tiempo inicio
+    if (!this.tiempoInicio) this.tiempoInicio = Date.now();
     this.tiempoInicio -= 5000;
     this.ayuditaUsada = true;
 
@@ -425,7 +387,6 @@ const juego = {
     this.verificarVictoria();
   },
 
-  // VERIFICAR VICTORIA
   verificarVictoria() {
     const resuelto = this.piezas.length > 0 && this.piezas.every(p => p.rotacion === 0);
     if (resuelto) {
@@ -433,8 +394,8 @@ const juego = {
       this.quitarFiltros();
 
       this.piezas.forEach(pieza => {
-        pieza.elemento.onclick = (e) => e.preventDefault();
-        pieza.elemento.oncontextmenu = (e) => e.preventDefault();
+        pieza.elemento.onclick = e => e.preventDefault();
+        pieza.elemento.oncontextmenu = e => e.preventDefault();
       });
 
       const mensaje = document.getElementById("mensaje-completado");
@@ -454,7 +415,6 @@ const juego = {
   },
 
   quitarFiltros() {
-    // Redibujar sin filtro usando la imagen original y la configuración actual filas/columnas
     const img = new Image();
     img.crossOrigin = "anonymous";
 
@@ -464,15 +424,13 @@ const juego = {
       const anchoPieza = Math.floor(img.width / columnas);
       const altoPieza = Math.floor(img.height / filas);
 
-      this.piezas.forEach((pieza) => {
-        const fila = pieza.fila;
-        const columna = pieza.columna;
+      this.piezas.forEach(pieza => {
         const ctx = pieza.elemento.querySelector('canvas').getContext("2d");
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.drawImage(
           img,
-          columna * anchoPieza,
-          fila * altoPieza,
+          pieza.columna * anchoPieza,
+          pieza.fila * altoPieza,
           anchoPieza,
           altoPieza,
           0,
@@ -486,7 +444,6 @@ const juego = {
     img.src = this.imagenActual;
   },
 
-  // VICTORIA
   manejarVictoria() {
     const tiempoFinal = this.tiempoTranscurrido;
     const record = this.obtenerRecord(this.nivelActual);
@@ -520,20 +477,18 @@ const juego = {
     }
   },
 
-  // TEMPORIZADOR Y TIEMPO
-
   iniciarTemporizador() {
+    this.detenerTemporizador();
     this.tiempoInicio = Date.now();
     this.tiempoTranscurrido = 0;
     this.actualizarTemporizador();
 
-    this.detenerTemporizador();
     this.intervaloTemporizador = setInterval(() => {
       if (!this.estaPausado) {
         this.tiempoTranscurrido = Math.floor((Date.now() - this.tiempoInicio) / 1000);
         this.actualizarTemporizador();
       }
-    }, 100);
+    }, 1000);
   },
 
   detenerTemporizador() {
@@ -546,51 +501,47 @@ const juego = {
   pausarJuego() {
     this.estaPausado = !this.estaPausado;
     const boton = document.getElementById("boton-pausar-juego");
-
     if (this.estaPausado) {
-      if (boton) {
-        boton.textContent = "Reanudar";
-        boton.classList.add("activo");
-      }
+      boton.textContent = "Reanudar";
+      boton.classList.add("activo");
     } else {
-      if (boton) {
-        boton.textContent = "Pausar";
-        boton.classList.remove("activo");
-      }
+      boton.textContent = "Pausar";
+      boton.classList.remove("activo");
+      this.tiempoInicio = Date.now() - this.tiempoTranscurrido * 1000;
     }
   },
 
   actualizarTemporizador() {
-    const t = document.getElementById("temporizador");
-    if (t) t.textContent = this.formatearTiempo(this.tiempoTranscurrido);
+    const el = document.getElementById("temporizador");
+    if (el) el.textContent = this.formatearTiempo(this.tiempoTranscurrido);
   },
 
   formatearTiempo(segundos) {
-    const minutos = Math.floor(segundos / 60);
-    const segs = segundos % 60;
-    const pad = n => (n < 10 ? "0" : "") + n;
-    return `${pad(minutos)}:${pad(segs)}`;
+    const min = Math.floor(segundos / 60).toString().padStart(2, "0");
+    const seg = (segundos % 60).toString().padStart(2, "0");
+    return `${min}:${seg}`;
   },
 
-  // RÉCORDS
-  guardarRecord(nivel, tiempo) {
-    localStorage.setItem(`blocka_record_${nivel}`, tiempo);
+  obtenerRecord(nivelId) {
+    const recordStr = localStorage.getItem(`record_nivel_${nivelId}`);
+    return recordStr ? parseInt(recordStr, 10) : null;
   },
 
-  obtenerRecord(nivel) {
-    const record = localStorage.getItem(`blocka_record_${nivel}`);
-    return record ? parseInt(record) : null;
+  guardarRecord(nivelId, tiempo) {
+    localStorage.setItem(`record_nivel_${nivelId}`, tiempo);
   },
 
   obtenerNombreFiltro(filtro) {
-    const nombres = {
-      escalaGrises: "Escala de Grises",
-      brillo: "Brillo 30%",
-      negativo: "Negativo",
-    };
-    return nombres[filtro] || filtro;
+    switch (filtro) {
+      case "escalaGrises": return "Escala de grises";
+      case "brillo": return "Brillo";
+      case "negativo": return "Negativo";
+      default: return filtro;
+    }
   },
 };
 
-// INICIAR
-window.onload = () => juego.inicializar();
+// ====================
+// INICIO
+// ====================
+document.addEventListener("DOMContentLoaded", () => juego.inicializar());

@@ -179,7 +179,7 @@ header {
         box-shadow 0.3s ease, 
         background 0.3s ease;
     
-    animation: pulse 1.5s infinite alternate; 
+        animation: pulse 1.5s infinite alternate; 
 }
 
 /* ESTADO HOVER */
@@ -240,13 +240,13 @@ header {
     animation: none !important;
     
     transition: 
-        transform 0.3s ease, 
-        box-shadow 0.3s ease, 
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
         background-color 0.4s ease;
     
     display: inline-flex;
     align-items: center;
-    gap: 8px; 
+        gap: 8px; 
 }
 
 /* Icono (Font Awesome) */

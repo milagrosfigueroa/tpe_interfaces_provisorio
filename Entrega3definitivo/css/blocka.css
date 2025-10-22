@@ -1,0 +1,1016 @@
+/* ========================================================== */
+/* BLOCKA.CSS - ESTILOS FINALES Y CONSOLIDADOS */
+/* AJUSTE: Diseño de Instrucciones 3x2 (6 imágenes) - TAMAÑOS FINALIZADOS */
+/* ========================================================== */
+
+/* ------------------------------------------- */
+/* 0. VARIABLES Y UTILIDADES                   */
+/* ------------------------------------------- */
+
+:root {
+    --color-bg-dark: #102641; /* Color de fondo de la página */
+    --color-card-bg: #1F375A; /* Color de fondo de la tarjeta principal */
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #c6c3c3;
+    --color-primary-pink: #FA62A5;
+    --color-pink-hover: #FA328A;
+    --color-success-green: #69B469;
+    --color-success-green-hover: #5AA15A;
+    
+    /* Variables para el estado "Agregado" */
+    --color-added-green: #69B469; 
+    --color-added-green-hover: #5AA15A; 
+
+    /* 🟢 VARIABLES CLAVE PARA BOTONES DE CONTROL Y MENÚ */
+    --color-azul-secundario: #6CC3D5;       /* Azul Claro (borde/texto Salir) */
+    --color-azul-hover-bg: #1A7B9B;         /* Azul Marino (fondo hover Salir) */
+    --color-rosa-hover-pausar: #A70046;     /* Rosa Oscuro (hover Pausar en estado normal) */
+    --color-rosa-hover-instrucciones: #E42274; /* Rosa Magenta (hover Instrucciones/Volver) */
+    
+    --font-base: 'Outfit', sans-serif;
+    --font-heading: 'Montserrat', sans-serif;
+    --transicion-rapida: all 0.3s ease-in-out;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* ------------------------------------------- */
+/* 0. CONTENEDOR SUPERIOR DE CONTROL (#blocka-wrapper) */
+/* ------------------------------------------- */
+
+#blocka-wrapper {
+    /* AJUSTADO: Ancho total de la aplicación para el diseño 3x2 + texto. */
+    width: 1100px;
+    margin: 0 auto 20px; 
+}
+
+/* ------------------------------------------- */
+/* 1. CONTENEDOR PRINCIPAL Y BASE DEL JUEGO    */
+/* ------------------------------------------- */
+
+/* 1. CONTENEDOR JUEGO (Parte Superior)       */
+#contenedor-juego {
+    background: var(--color-card-bg) !important;
+    width: 100% !important; 
+    margin: 0 0 0 0 !important; 
+    position: initial !important; 
+    border-radius: 15px 15px 0 0 !important; 
+    height: 470px !important;     
+    padding: 30px !important; 
+    box-sizing: border-box; 
+    overflow: hidden; 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------- */
+/* 2. ESTILOS DE MENÚS Y TÍTULOS               */
+/* ------------------------------------------- */
+
+#menu-principal {
+    text-align: center;
+}
+
+#menu-principal h1 {
+    color: var(--color-primary-pink);
+    font-size: 4.5em;
+    margin-bottom: 20px;
+    font-family: 'Freckle Face', sans-serif;
+}
+
+#menu-principal p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+
+/* =============================================== */
+/* AJUSTES PARA #INSTRUCCIONES (ESTRUCTURA SIMPLE) */
+/* =============================================== */
+
+/* 1. Contenedor principal: Centrado y Espaciado Vertical */
+#instrucciones {
+    display: flex;
+    flex-direction: column;
+    /* 🔥 CLAVE DE CENTRADO: space-evenly distribuye el espacio verticalmente */
+    justify-content: space-evenly;
+    align-items: center;       
+    height: 100%;              
+    text-align: center;        
+    box-sizing: border-box;
+    /* 🔴 AJUSTE: Reducir el espacio entre los bloques principales */
+    gap: 0px; 
+    padding: 20px; 
+}
+
+/* 2. Títulos (h2, h3, h4) y Párrafos */
+
+#instrucciones h2 {
+    /* Título principal "Instrucciones" */
+    margin-bottom: 5px; 
+    font-size: 1.8em;
+    color: var(--color-primary-pink);
+    font-family: var(--font-heading);
+}
+
+#instrucciones h3 {
+    /* Objetivo: Rotar todas las piezas... */
+    /* 🔴 AJUSTE: Reducido de 10px a 5px */
+    margin: 5px 0 5px 0; 
+    font-size: 1.2em;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    font-family: var(--font-base); 
+    line-height: 1.3;
+}
+
+/* 3. Contenedor de la Imagen del Mouse (TAMAÑO Y ESPACIADO) */
+.contenedor-mouse-control {
+    text-align: center; 
+    /* 🔴 AJUSTE: Reducido de 15px a 10px */
+    margin: 5px auto 10px auto; 
+    /* 🔥 TAMAÑO FINAL: 90px (Ajusta este valor si quieres un tamaño diferente) */
+    max-width: 150px; 
+    padding: 5px; 
+}
+.contenedor-mouse-control .img-esquema {
+    /* El nombre de la clase de la imagen según tu HTML */
+    max-width: 100%; 
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--color-text-secondary);
+}
+
+/* 4. Estilos para los párrafos de Clicks */
+#instrucciones p {
+    text-align: center; 
+    line-height: 1.4;
+    font-size: 1em;
+    color: var(--color-text-primary);
+    /* 🔴 AJUSTE: Reducido de 3px a 2px */
+    margin: 2px 0; 
+    font-family: var(--font-base);
+}
+
+/* 5. Título de Ayuda (h4) */
+#instrucciones h4 {
+    /* Ayuda: Si el nivel es difícil... */
+    /* 🔴 AJUSTE: Reducido de 25px a 15px */
+    margin: 15px 0 15px 0; 
+    font-size: 1.05em;
+    font-weight: 400; 
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    padding: 0 10px; 
+}
+
+/* 6. Contenedor del Botón */
+.botones-menu-instrucciones {
+    /* Aseguramos suficiente espacio sobre el botón */
+    /* 🔴 AJUSTE: Reducido de 15px a 10px */
+    margin-top: 10px; 
+}
+
+
+/* ------------------------------------------- */
+/* 2.1. ESTILOS DE INSTRUCCIONES (Tarjeta Única) */
+/* ------------------------------------------- */
+
+/* 🟢 El contenedor principal de la información se convierte en la tarjeta (Game-info-details) */
+.game-info-details.card-instrucciones-completa {
+    /* Estética de tarjeta */
+    background: var(--color-card-bg); 
+    border: 3px solid var(--color-primary-pink); 
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    margin-top: 20px; 
+    
+    /* 🟢 Configuración de Flexbox para las dos columnas */
+    display: flex;
+    gap: 40px; 
+    /* Ancho de la tarjeta para el diseño 3x2 + texto. */
+    max-width: 1100px; 
+    width: 100%; 
+    
+    text-align: left;
+    color: var(--color-text-secondary);
+    box-sizing: border-box;
+}
+
+/* Columna de Texto/Info (Características y Controles) */
+.info-wrapper {
+    flex: 1; 
+    min-width: 350px; 
+    max-width: 450px; 
+}
+
+/* Columna de Imágenes (Las 6 miniaturas) */
+.imagenes-wrapper {
+    flex: 2; 
+    display: grid;
+    /* CAMBIO CRÍTICO: 3 COLUMNAS IGUALES (Diseño 3x2) */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    align-content: start; 
+    justify-items: center; 
+    min-width: 500px; 
+}
+
+/* 🟢 Imágenes de esquema (Fila 1) */
+.imagenes-wrapper .img-esquema {
+    width: 100%;
+    /* Altura fija ligeramente reducida para un "contorno" más fino */
+    height: 135px; 
+    object-fit: contain; 
+    background-color: var(--color-bg-dark); 
+
+    display: block;
+    border-radius: 6px;
+    border: 1px solid var(--color-text-secondary); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    /* 🛑 IMPORTANTE: Quitamos la transición 'transform' para que no haya efecto hover */
+    transition: transform 0.2s ease; 
+    
+    max-width: 280px; 
+}
+
+/* 🟢 Imágenes de puzzle (Fila 2) */
+.imagenes-wrapper .img-puzzle-ejemplo {
+    width: 100%;
+    height: auto; 
+    display: block;
+    border-radius: 6px;
+    border: 1px solid var(--color-text-secondary); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    /* 🛑 IMPORTANTE: Quitamos la transición 'transform' para que no haya efecto hover */
+    transition: transform 0.2s ease;
+    
+    max-width: 160px; 
+    margin-top: 15px; 
+}
+
+/* Estilos de texto específicos en la tarjeta */
+/* AJUSTE CLAVE 1: Título a la izquierda */
+.info-wrapper h3 {
+    color: var(--color-primary-pink);
+    font-size: 2em;
+    text-align: left; /* Título alineado a la izquierda */
+    margin-top: 0;
+}
+.info-wrapper h4 {
+    color: var(--color-text-primary);
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+/* AJUSTE CLAVE 2: Fuente diferente para párrafos y listas (Usamos la fuente base: 'Outfit') */
+.info-wrapper p,
+.info-wrapper li {
+    font-family: var(--font-base); 
+}
+
+.info-wrapper ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.info-wrapper li {
+    color: var(--color-text-primary);
+    margin-bottom: 8px;
+}
+
+/* 🟢 RESPONSIVE: Apilar las columnas en pantallas más pequeñas */
+@media (max-width: 1250px) { 
+    .game-info-details.card-instrucciones-completa {
+        flex-direction: column; 
+        gap: 30px;
+        max-width: 700px; 
+        padding: 20px;
+    }
+    .game-info-details .imagenes-wrapper {
+        min-width: auto;
+        /* El auto-fit se encargará de ajustarlas a 2 o 3 columnas */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    }
+    .imagenes-wrapper .img-esquema {
+        height: 120px; /* Reducir altura en responsive */
+        max-width: 220px; /* Mantener un buen tamaño */
+        margin-top: 0; 
+    }
+    .imagenes-wrapper .img-puzzle-ejemplo {
+        max-width: 160px; /* Reducir tamaño para tablet */
+        margin-top: 0;
+    }
+}
+@media (max-width: 600px) {
+    .game-info-details.card-instrucciones-completa {
+        padding: 15px;
+        max-width: 90%;
+    }
+    .imagenes-wrapper {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en móviles muy pequeños */
+        gap: 8px;
+    }
+    .imagenes-wrapper .img-esquema {
+        height: 90px;
+        max-width: 120px;
+    }
+    .imagenes-wrapper .img-puzzle-ejemplo {
+        max-width: 100px;
+    }
+}
+
+
+/* ------------------------------------------- */
+/* 3. ESTILOS DE BOTONES Y ANIMACIONES         */
+/* ------------------------------------------- */
+
+.boton {
+    /* Base de todos los botones */
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transicion-rapida);
+    font-weight: 600;
+    font-family: var(--font-base);
+}
+
+.boton-primario {
+    color: #ffffff;
+    background: linear-gradient(135deg, #e74c8c 0%, var(--color-pink-hover) 100%);
+    box-shadow: 0 4px 15px rgba(231, 76, 140, 0.4);
+}
+
+.boton-primario:hover {
+    /* Efecto de levantamiento y crecimiento sutil */
+    transform: translateY(-4px) scale(1.02);
+    
+    /* Restaurar el box-shadow llamativo para el brillo/sombra */
+    box-shadow: 0 12px 28px rgba(231, 76, 140, 0.6); 
+    
+    /* Restaurar el cambio de degradado de color */
+    background: linear-gradient(135deg, var(--color-pink-hover) 0%, #e74c8c 100%);
+    
+    /* 🔥 APLICACIÓN CLAVE: Iniciar la animación 'pulse' en el hover */
+    animation: pulse 1.5s infinite alternate;
+}
+
+.boton-principal-jugar {
+    animation: pulse 1.5s infinite alternate;
+    width: 300px;
+}
+
+/* 🛑 BOTÓN SECUNDARIO (Instrucciones/Volver) */
+.boton-secundario {
+    background: var(--color-bg-dark); 
+    color: var(--color-primary-pink);
+    border: 2px solid var(--color-primary-pink);
+    
+    width: 250px; 
+    padding: 12px 25px; 
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* 🛑 HOVER de Instrucciones/Volver (Rosa Magenta) */
+.boton-secundario:hover {
+    background: var(--color-rosa-hover-instrucciones); 
+    color: white; 
+    border: 2px solid var(--color-rosa-hover-instrucciones);
+    
+    transform: translateY(-2px);
+    
+    box-shadow: 0 0 10px rgba(228, 34, 116, 0.6); 
+}
+
+/* --------------------------------------------- */
+/* ESTILOS DE BOTONES DE CONTROL EN PANTALLA DE JUEGO (Ayuda, Pausar, Salir) */
+/* --------------------------------------------- */
+
+/* BOTÓN AYUDA (Se mantiene sin cambios, color verde) */
+.boton-ayuda {
+    background-color: var(--color-success-green);
+    color: var(--color-bg-dark);
+    font-weight: 700;
+    padding: 10px 20px; 
+    font-size: 1em;
+    transition: var(--transicion-rapida);
+}
+
+.boton-ayuda:hover {
+    background-color: var(--color-success-green-hover);
+    transform: scale(1.05);
+}
+
+.boton-ayuda.deshabilitado {
+    background: var(--color-bg-dark); 
+    color: var(--color-text-secondary);
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+}
+
+/* 🛑 BOTÓN PAUSAR (Estado Normal: dice "Pausar") */
+.boton-pausar {
+    background: var(--color-bg-dark); 
+    color: var(--color-primary-pink);
+    border: 2px solid var(--color-primary-pink);
+    padding: 10px 20px; 
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transicion-rapida);
+}
+
+/* 🛑 HOVER de PAUSAR (Rosa Oscuro) */
+.boton-pausar:hover {
+    background: var(--color-rosa-hover-pausar); 
+    color: white; 
+    border-color: var(--color-rosa-hover-pausar);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(167, 0, 70, 0.6); 
+}
+
+/* 🟢 ESTADO CLAVE: BOTÓN REANUDAR (.activo) */
+.boton-pausar.activo {
+    /* Base del botón REANUDAR: Borde/Texto Verde */
+    background: var(--color-bg-dark); 
+    color: var(--color-success-green); 
+    border: 2px solid var(--color-success-green); 
+}
+
+/* 🟢 HOVER de REANUDAR (Fondo Verde Sólido) */
+.boton-pausar.activo:hover {
+    background-color: var(--color-success-green-hover); 
+    color: white;
+    border-color: var(--color-success-green-hover);
+    
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(105, 180, 105, 0.6); 
+}
+
+
+/* 🛑 BOTÓN SALIR (Color Azul) */
+.boton-salir {
+    background: var(--color-bg-dark); 
+    color: var(--color-azul-secundario); 
+    border: 2px solid var(--color-azul-secundario); 
+    
+    padding: 10px 15px; 
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transicion-rapida);
+}
+
+.boton-salir:hover {
+    background-color: var(--color-azul-hover-bg); 
+    color: white; 
+    border-color: var(--color-azul-hover-bg);
+    
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(108, 195, 213, 0.6); 
+}
+/* Fin de estilos de botones de control */
+/* --------------------------------------------- */
+
+
+.botones-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 300px;
+    margin: 0 auto;
+    /* Alinea los botones Instrucciones */
+    align-items: center;
+}
+
+
+/* ------------------------------------------- */
+/* 4. SELECTOR DE NIVEL Y TARJETAS             */
+/* ------------------------------------------- */
+
+.grilla-niveles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    justify-items: center;
+    margin-top: 90px;
+    margin-bottom: 30px;
+}
+
+.tarjeta-nivel {
+    background: var(--color-bg-dark);
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    text-align: left;
+    transition: var(--transicion-rapida);
+    width: 200px;
+}
+
+.tarjeta-nivel:hover {
+    border-color: var(--color-primary-pink);
+    transform: translateY(-5px);
+}
+
+.tarjeta-nivel h3 {
+    color: var(--color-primary-pink);
+    font-size: 1.5em;
+    font-family: var(--font-heading);
+    margin: 0 0 5px 0;
+}
+
+.tarjeta-nivel p {
+    color: var(--color-text-secondary);
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+.record {
+    font-weight: 700;
+    color: var(--color-success-green);
+}
+
+#btn-volver-menu-selector {
+    display: block; 
+    margin: 60px auto 0; 
+    max-width: 250px; 
+}
+
+/* ------------------------------------------- */
+/* 5. PANTALLA DE JUEGO Y GRILLA               */
+/* ------------------------------------------- */
+
+#pantalla-juego {
+    text-align: center;
+}
+
+#encabezado-juego {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* 🛑 AJUSTE: Info de juego (Título y Tiempo) */
+#info-juego {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    flex-grow: 1; 
+}
+
+#info-juego h2 {
+    color: var(--color-primary-pink);
+    margin-bottom: 5px;
+    font-family: var(--font-heading);
+}
+
+#temporizador {
+    font-size: 1.5em;
+    color: var(--color-success-green);
+    font-weight: 800;
+    font-family: var(--font-heading);
+}
+
+#controles-juego {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+#grilla-blocka {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px; 
+    padding: 10px; 
+    max-width: 350px; 
+    width: 70vmin; 
+    margin: 0 auto 30px;
+    background: var(--color-bg-dark);
+    border-radius: 10px;
+}
+
+.pieza-blocka {
+    width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform 0.3s ease-out, border-color var(--transicion-rapida);
+    border: 2px solid var(--color-bg-dark); 
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.pieza-blocka:hover {
+    border-color: var(--color-primary-pink); 
+}
+
+.pieza-blocka.pieza-fija {
+    border-color: var(--color-success-green); 
+    border-width: 3px;
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+.pieza-blocka canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ------------------------------------------- */
+/* 6. PANTALLA DE VICTORIA (No modificada)     */
+/* ------------------------------------------- */
+#pantalla-victoria {
+    position: relative;      
+    top: 50%;                
+    left: 50%;               
+    transform: translate(-50%, -50%); 
+    width: 100%;             
+    max-width: 750px;        
+    height: 400px;
+    /* 🟢 AÑADIDO / VERIFICADO: Centra todos los elementos de texto (h2, p, etc.) */
+    text-align: center;
+}
+#pantalla-victoria h2 {
+    color: var(--color-success-green);
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    font-family: 'Poppins',sans-serif;
+}
+
+#pantalla-victoria p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.tiempo-victoria {
+    color: var(--color-primary-pink);
+    font-weight: 800;
+    font-size: 1.4em;
+}
+
+#pantalla-victoria .botones-menu{
+    display: flex;
+    flex-direction: column;
+    
+  /* 🟢 PROPIEDAD CLAVE: Define un espaciado uniforme entre todos los hijos */
+    gap: 15px;
+    
+    /* 🔴 CAMBIO CLAVE 2: Reducir el ancho máximo para achicar los botones */
+    max-width: 250px; /* Reducido de 280px a 250px */
+    
+    margin: 0 auto;
+    /* 🔴 AJUSTE: Aumentar el margen superior */
+    margin-top: 50px; 
+}
+
+/* Estilo para el botón de Siguiente Nivel (Primer botón) */
+#pantalla-victoria .botones-menu > .boton-secundario:first-child {
+    /* 🔴 CAMBIO CLAVE 3: Separación entre el primer y segundo botón */
+    margin-bottom: 25px; /* Crea una separación mayor a la que era el 'gap: 20px' */
+}
+
+
+/* ------------------------------------------- */
+/* 7. ANIMACIONES Y KEYFRAMES (No modificada)  */
+/* ------------------------------------------- */
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px 0px rgba(231, 76, 140, 0.4);
+    background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 30px 10px rgba(231, 76, 140, 0.85);
+    background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%);
+  }
+}
+
+@keyframes brilloFavorito {
+    0% {
+        box-shadow: 0 0 5px var(--color-added-green), 0 0 0px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 15px var(--color-added-green), 0 0 5px rgba(255, 255, 255, 0.7);
+    }
+}
+
+@keyframes brillo-pink {
+    0% {
+        box-shadow: 0 0 10px rgba(250, 98, 165, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(250, 98, 165, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+}
+
+@keyframes brillo-pink {
+    0% {
+        /* Brillo inicial (más pequeño y menos intenso) */
+        box-shadow: 0 0 5px rgba(250, 98, 165, 0.5);
+    }
+    50% {
+        /* Pico de brillo (más grande y más intenso) */
+        /* Sombra interior para simular que el centro es más brillante */
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.4), 
+                    0 0 25px rgba(250, 98, 165, 1), /* Brillo Rosa Intenso */
+                    0 0 40px rgba(255, 255, 255, 0.6); /* Halo Blanco/Suave */
+        /* Quitamos el transform: scale() que causa el cambio de tamaño del botón. */
+    }
+    100% {
+        /* Vuelve a un brillo intermedio (más grande que el 0% pero más suave que el 50%) */
+        box-shadow: 0 0 15px rgba(250, 98, 165, 0.6);
+    }
+}
+
+
+#pantalla-victoria .botones-menu > .boton-secundario:first-child {
+    margin-bottom: 25px; 
+    animation: none;
+}
+
+#mensaje-completado {
+    position: absolute;
+    top: 55.5%;
+    left: 41.5%;
+    transform: translate(-50%, -50%) scale(0.5);
+    width: 100px;
+    height: 100px;
+    background-color: var(--color-success-green, #37df7d); 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; 
+    font-size: 60px;
+    font-weight: bold;
+    box-shadow: 0 0 25px var(--color-success-green, #48eb8c);
+    opacity: 0;
+    transition: all 0.8s ease-out;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Estado visible */
+#mensaje-completado.mostrar {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* =============================================== */
+/* CENTRADO PERFECTO DE CONTENIDO DENTRO DEL JUEGO (Modificado para instrucciones) */
+/* =============================================== */
+
+/* Aplica a cualquier pantalla dentro del contenedor */
+#menu-principal,
+#instrucciones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    align-items: center;       
+    height: 100%;              
+    text-align: center;        
+    box-sizing: border-box;
+    /* 🔥 AJUSTE CLAVE 1: Reducir el espacio entre elementos (título, mouse, lista) */
+    gap: 0px; /* Reducido para compactar */
+    padding: 20px; /* Asegura que no se pegue a los bordes */
+
+}
+
+#menu-principal{
+    background-image: url('../img/blocka/fondoblocka.png');
+    background-repeat: repeat;
+    background-size: 40%; 
+}
+/* ------------------------------------------- */
+/* CENTRADO PANTALLA SELECTOR NIVEL (No modificada) */
+/* ------------------------------------------- */
+#selector-nivel {
+    position: relative;      
+    top: 50%;                
+    left: 50%;               
+    transform: translate(-50%, -50%); 
+    width: 100%;             
+    height: 100%;
+    
+}
+#selector-nivel h2{
+    margin-top: 30px;
+}
+/* =============================================== */
+/* NUEVOS ESTILOS PARA #pantalla-pre-juego         */
+/* =============================================== */
+
+#pantalla-pre-juego {
+    /* Centrado en el contenedor-juego */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+#pantalla-pre-juego h2 {
+    color: var(--color-primary-pink);
+    font-size: 2em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: var(--font-heading);
+}
+
+#nivel-seleccionado-info {
+    font-size: 1.2em;
+    color: var(--color-text-primary);
+    margin: 20px 0 30px 0;
+}
+
+/* Contenedor de las imágenes de previsualización */
+#imagenes-preview-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 15px;
+    max-width: 600px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--color-bg-dark);
+}
+
+/* Estilo base de cada imagen (sin cambios) */
+.imagen-preview {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    cursor: default;
+    border-radius: 8px;
+    object-fit: cover;
+    opacity: 0.5;
+    /* La transición se mantiene para suavizar el paso de un estado a otro */
+    transition: all 0.2s ease-in-out; 
+    border: 3px solid var(--color-bg-dark); 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 🟢 MODIFICACIÓN CLAVE: Mayor brillo y escala durante la selección (carrusel) */
+.imagen-preview.seleccionada {
+    opacity: 1;
+    /* Aumento de escala sutil para hacerlo más prominente */
+    transform: scale(1.05); 
+    /* Borde más grueso y vibrante (usa el color primario de GameHub) */
+    border-color: var(--color-primary-pink); 
+    /* Box-shadow con un color brillante (blanco/rosa) para simular la luz */
+    box-shadow: 
+        0 0 10px var(--color-primary-pink), 
+        0 0 18px rgba(255, 255, 255, 0.8), /* ✨ Este es el efecto de luz blanca */
+        0 0 30px var(--color-primary-pink);
+    
+    /* Le damos un pulso rápido y notable */
+    animation: flash-pulse 0.4s ease-in-out forwards;
+}
+
+/* 🟢 NUEVO KEYFRAME: Parpadeo rápido para el carrusel de selección */
+@keyframes flash-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); }
+    50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 15px var(--color-primary-pink); }
+    100% { transform: scale(1.05); }
+}
+
+
+/* Estilo para la imagen final que se agranda (animación) (Se mantiene la animación original, pero revisamos los valores) */
+.imagen-preview.final-zoom {
+    opacity: 1;
+    border-color: var(--color-primary-pink);
+    /* Aseguramos que el box-shadow inicial sea visible antes de que comience el keyframe */
+    box-shadow: 0 0 20px var(--color-primary-pink); 
+    animation: zoom-pulse 2s forwards; 
+}
+
+/* Keyframe para la animación de Zoom y Pulse (Se mantiene, pero revisamos los valores) */
+@keyframes zoom-pulse {
+    0% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px var(--color-primary-pink);
+    }
+    50% {
+        /* Aumentamos el zoom y el brillo al 50% */
+        transform: scale(1.25);
+        box-shadow: 0 0 35px var(--color-pink-hover), 0 0 50px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px var(--color-primary-pink);
+    }
+}
+
+/* ------------------------------------------- */
+/* 8. PIE DE PÁGINA Y BOTÓN FAVORITOS (No modificada) */
+/* ------------------------------------------- */
+
+/* 2. CARD FOOTER (Parte Inferior - FONDO INVISIBLE / COLOR DE PÁGINA) */
+.card-footer {
+    /* 🔥 AJUSTE CRÍTICO: Usamos el color de fondo de la PÁGINA para que se "funda". */
+    background: var(--color-bg-dark) !important; 
+    
+    /* Desactivamos ancho, centrado y posición (ahora lo maneja #blocka-wrapper) */
+    position: initial !important;
+    max-width: none !important; 
+    width: 100% !important; 
+    margin: 0 !important; 
+    
+    /* Bordes redondeados solo ABAJO, recto arriba */
+    border-radius: 0 0 15px 15px !important; 
+    
+    padding: 20px 30px !important; 
+    
+    /* 🔥 AJUSTE CRÍTICO: Eliminamos la sombra para que parezca una extensión del fondo. */
+    box-shadow: none !important; 
+
+    /* Estilos de contenido */
+    display: flex !important;
+    justify-content: flex-end !important; 
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+}
+
+/* Ocultar el h2 */
+.card-footer h2 {
+    display: none !important;
+}
+
+
+/* ========================================================== */
+/* ESTILOS BASE: BOTÓN AGREGAR A MIS JUEGOS (.btn-add-game) (No modificada) */
+/* ========================================================== */
+.btn-add-game {
+    font-family: var(--font-base); 
+    font-weight: 600;
+    
+    margin: 0; 
+    border-radius: 8px; 
+    padding: 8px 18px; 
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--color-primary-pink); 
+    color: #ffffff; 
+    border: none;
+  
+    box-shadow: 0 0 0 transparent; 
+    animation: none !important;
+    
+    transition: 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease, 
+        background-color 0.4s ease;
+    
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; 
+}
+
+.btn-add-game i {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.btn-add-game:not(.added):hover { 
+    transform: translateY(-3px) scale(1.02); 
+    background-color: var(--color-pink-hover);
+    color: #A70046; 
+}
+
+.btn-add-game:not(.added):hover i {
+    color:  #A70046;
+    transition: color 0.3s ease;
+}
+
+.btn-add-game.added {
+    background-color: var(--color-added-green);
+    color: #ffffff; 
+    animation: brilloFavorito 1.5s infinite alternate; 
+    box-shadow: 0 0 10px var(--color-added-green);
+}
+
+.btn-add-game.added:hover {
+    background-color: var(--color-added-green-hover);
+    transform: translateY(-3px) scale(1.02); 
+    color: #ffffff;
+    box-shadow: 0 0 15px var(--color-added-green);
+}
