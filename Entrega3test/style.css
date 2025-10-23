@@ -698,13 +698,7 @@ body {
     /* Aplicamos una transición suave a la propiedad 'transform' */
     transition: transform 0.3s ease;
 }
-.misjuegos-card :hover{
-   /* Aumenta el tamaño de la tarjeta un 3% (sutil) */
-    transform: scale(1.03); 
-    
-    /* Sombra hace que se eleve un poco */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-}
+
 
 .misjuegos-card-image {
     width: 100%;

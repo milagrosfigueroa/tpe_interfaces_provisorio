@@ -598,6 +598,18 @@
     transform: translateY(-5px);
 }
 
+.botones-piezas-opciones {
+    display: flex;
+    justify-content: center;
+    gap: 40px; 
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto; 
+    
+    /* 🔥 AJUSTE CLAVE: Añadir margen inferior para separar de "Comenzar" */
+    margin-bottom: 50px; 
+}
+
 /* Estado seleccionado */
 .boton-piezas.seleccionado {
     border-color: var(--color-primary-pink);
@@ -631,24 +643,27 @@
     box-shadow: 0 0 10px rgba(228, 34, 116, 0.6);
 }
 
-/* ------------------------------------------- */
-/* 5. PANTALLA DE JUEGO Y GRILLA               */
-/* ------------------------------------------- */
+/* ... (Resto del CSS anterior sin cambios) ... */
+
+/* ================================================================= */
+/* 5. PANTALLA DE JUEGO Y GRILLA - SOLUCIÓN SINCORNIZADA */
+/* ================================================================= */
 
 #pantalla-juego {
     text-align: center;
+    max-width: 100%; 
+    box-sizing: border-box;
 }
 
 #encabezado-juego {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 8px; 
     flex-wrap: wrap;
     gap: 15px;
 }
 
-/* 🛑 AJUSTE: Info de juego (Título y Tiempo) */
 #info-juego {
     display: flex;
     flex-direction: column; 
@@ -676,27 +691,58 @@
     flex-wrap: wrap;
 }
 
+/* 🔥 GRILLA PRINCIPAL DE PIEZAS - (Asegurando 2 FILAS y 280px de ancho) */
+/* 🔥 GRILLA PRINCIPAL DE PIEZAS - Configuración Base (para 4 piezas) */
 #grilla-blocka {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3px; 
-    padding: 10px; 
-    max-width: 350px; 
-    width: 70vmin; 
-    margin: 0 auto 30px;
+    display: grid !important; 
+    
+    /* CLAVE: FIJAR SIEMPRE 2 FILAS */
+    grid-template-rows: repeat(2, 1fr) !important; 
+    
+    /* BASE (4 PIEZAS / 2X2) -> 2 COLUMNAS POR DEFECTO */
+    grid-template-columns: repeat(2, 1fr) !important; 
+    
+    /* TAMAÑO PARA 4 PIEZAS (Se mantiene el tamaño anterior que te gusta) */
+    max-width: 280px !important; 
+    
+    /* Espaciado del recuadro */
+    gap: 1px !important;   
+    padding: 8px !important; 
+    
+    width: 90vw; 
+    margin: 0 auto 10px;
     background: var(--color-bg-dark);
     border-radius: 10px;
+    box-sizing: border-box; 
+    justify-content: center;
+    align-items: center; 
+}
+
+/* 🟢 CLASE PARA 6 PIEZAS (2x3) -> 3 COLUMNAS */
+#grilla-blocka.grilla-6 {
+    grid-template-columns: repeat(3, 1fr) !important; 
+    /* 🔥 AUMENTO GRANDE: Para 3 columnas. Cada pieza será ~180px (550/3) */
+    max-width: 420px !important; /* Cada pieza será ~140px */
+}
+
+/* 🟢 CLASE PARA 8 PIEZAS (2x4) -> 4 COLUMNAS */
+#grilla-blocka.grilla-8 {
+    grid-template-columns: repeat(4, 1fr) !important; 
+    /* 🔥 REDUCIDO a un valor más seguro */
+    max-width: 500px !important; /* Cada pieza será ~125px */
 }
 
 .pieza-blocka {
     width: 100%;
-    aspect-ratio: 1;
+    aspect-ratio: 1; 
     cursor: pointer;
     transition: transform 0.3s ease-out, border-color var(--transicion-rapida);
-    border: 2px solid var(--color-bg-dark); 
+    border: 1px solid var(--color-bg-dark); 
     position: relative;
     overflow: hidden;
     line-height: 0;
+    min-width: 0; 
+    min-height: 0; 
 }
 
 .pieza-blocka:hover {
@@ -705,7 +751,7 @@
 
 .pieza-blocka.pieza-fija {
     border-color: var(--color-success-green); 
-    border-width: 3px;
+    border-width: 2px; 
     cursor: not-allowed;
     opacity: 0.9;
 }
@@ -715,6 +761,7 @@
     height: 100%;
     display: block;
 }
+
 
 /* ------------------------------------------- */
 /* 6. PANTALLA DE VICTORIA (No modificada)     */
@@ -1101,10 +1148,4 @@
     color: #ffffff;
     box-shadow: 0 0 15px var(--color-added-green);
 }
-
-
-
-
-
-
 

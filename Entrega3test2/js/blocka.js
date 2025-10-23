@@ -57,7 +57,7 @@ const FILTROS_MAP = {
 };
 
 // ====================
-// OBJETO JUEGO (Cambios abajo)
+// OBJETO JUEGO
 // ====================
 
 const juego = {
@@ -199,15 +199,11 @@ const juego = {
         setTimeout(() => this.animarSeleccionImagen(), 500);
     },
 
-    // ==============================================
-    // CORRECCIÓN 1: Lógica de animación para seleccionar 1 imagen
-    // ==============================================
     animarSeleccionImagen() {
         const previews = Array.from(document.querySelectorAll(".imagen-preview"));
         let imagenFinalIndex = BANCO_IMAGENES.indexOf(this.imagenActual);
         const numPreviews = previews.length;
         
-        // Si la imagen seleccionada no está entre los previews iniciales, mostramos una
         if (imagenFinalIndex >= numPreviews) {
             imagenFinalIndex = numPreviews - 1;
             previews[imagenFinalIndex].src = this.imagenActual;
@@ -217,49 +213,36 @@ const juego = {
 
         let counter = 0;
         const intervalTime = 120;
-        // Hacemos que la animación dure 3 ciclos completos + la posición final
         const totalCarruselSteps = numPreviews * 3 + imagenFinalIndex; 
 
         const carrusel = setInterval(() => {
-            // Eliminar la clase 'seleccionada' del elemento anterior
             if (counter > 0) {
                  const prevIndex = (counter - 1) % numPreviews;
                  previews[prevIndex].classList.remove("seleccionada");
             }
             
-            // Si hemos pasado la cantidad total de pasos
             if (counter >= totalCarruselSteps) {
                 clearInterval(carrusel);
                 
-                // Asegurarse de que SÓLO la imagen final tiene la clase 'seleccionada'
                 previews.forEach(p => p.classList.remove("seleccionada"));
                 
                 const imagenFinalElement = previews[imagenFinalIndex];
-                imagenFinalElement.classList.add("seleccionada"); // Se queda seleccionada
+                imagenFinalElement.classList.add("seleccionada");
                 imagenFinalElement.classList.add("final-zoom");
                 
-                // Pasar a la carga de imagen
                 setTimeout(() => this.cargarImagenYConfigurar(), 1500);
                 
                 return;
             }
 
-            // Aplicar la clase 'seleccionada' al elemento actual del carrusel
             const currentElement = previews[counter % numPreviews];
             currentElement.classList.add("seleccionada");
 
             counter++;
         }, intervalTime);
     },
-    // ==============================================
-    // FIN CORRECCIÓN 1
-    // ==============================================
 
-    // ==============================================
-    // CORRECCIÓN 2: Manejo de carga de imagen para evitar el error de alert
-    // ==============================================
     cargarImagenYConfigurar() {
-        // Restaurar botones (Ya estaba bien)
         document.getElementById("boton-pausar-juego").textContent = "Pausar";
         document.getElementById("boton-pausar-juego").classList.remove("activo");
         document.getElementById("boton-ayudita").disabled = false;
@@ -269,49 +252,41 @@ const juego = {
         img.crossOrigin = "anonymous";
         
         img.onload = () => {
-            // El proceso de configuración de piezas y inicio de juego se ejecuta SOLO si la imagen carga bien
             this.configurarPiezas(img);
             this.mostrarPantalla("pantalla-juego");
             this.iniciarTemporizador();
         };
         
         img.onerror = () => {
-             // Esto se dispara si hay un problema con la URL de la imagen (Ej. no existe)
-             // El código ya está bien aquí, el problema anterior era de concurrencia.
              alert("Error al cargar la imagen. Intenta de nuevo."); 
              this.mostrarPantalla("selector-nivel");
         };
         
-        // Iniciar la carga de la imagen
         img.src = this.imagenActual;
     },
-    // ==============================================
-    // FIN CORRECCIÓN 2
-    // ==============================================
 
+    // ==========================================================
+    // 🔥 FUNCIÓN CLAVE MODIFICADA: CONFIGURACIÓN DE PIEZAS
+    // ==========================================================
     configurarPiezas(img) {
         const grilla = document.getElementById("grilla-blocka");
-        grilla.innerHTML = "";
+        grilla.innerHTML = ""; // Limpia completamente la grilla antes de añadir
         this.piezas = [];
 
         const total = this.cantidadPiezas;
-        let columnas = 0;
-        let filas = 0;
+        const filas = 2; // ✅ FIJAMOS: Siempre 2 filas
+        const columnas = total / filas; // ✅ CALCULAMOS: Columnas (2, 3 o 4)
         
-        if (total === 4) {
-            columnas = 2;
-            filas = 2;
-        } else if (total === 6) {
-            columnas = 2; 
-            filas = 3;
+        // 1. Limpiar cualquier clase de grilla anterior
+        grilla.classList.remove('grilla-6', 'grilla-8');
+        
+        // 2. Aplicar la clase CSS para que el grid use las columnas correctas
+        if (total === 6) {
+            grilla.classList.add('grilla-6');
         } else if (total === 8) {
-            columnas = 2; 
-            filas = 4;
-        } else {
-            columnas = 2;
-            filas = 2;
+            grilla.classList.add('grilla-8');
         }
-
+        
         const anchoPieza = img.width / columnas;
         const altoPieza = img.height / filas;
 
@@ -327,7 +302,14 @@ const juego = {
             canvas.height = altoPieza;
             const ctx = canvas.getContext("2d");
             
-            ctx.drawImage(img, columna * anchoPieza, fila * altoPieza, anchoPieza, altoPieza, 0, 0, anchoPieza, altoPieza);
+            // Dibuja el corte correcto de la imagen (usa filas y columnas calculadas)
+            ctx.drawImage(img, 
+                columna * anchoPieza, // Posición X de inicio de corte
+                fila * altoPieza,     // Posición Y de inicio de corte 
+                anchoPieza, altoPieza, 
+                0, 0, 
+                anchoPieza, altoPieza
+            );
             
             this.aplicarFiltro(canvas);
             divPieza.appendChild(canvas);
@@ -344,9 +326,6 @@ const juego = {
             
             grilla.appendChild(divPieza);
         }
-
-        grilla.style.gridTemplateColumns = `repeat(${columnas}, 1fr)`;
-        grilla.style.gridTemplateRows = `repeat(${filas}, 1fr)`;
     },
 
     aplicarFiltro(canvas) {
@@ -425,12 +404,15 @@ const juego = {
         }
     },
     
+    // ==========================================================
+    // 🔥 FUNCIÓN CLAVE MODIFICADA: QUITAR FILTROS
+    // ==========================================================
     quitarFiltros() {
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.onload = () => {
-             const columnas = this.cantidadPiezas === 4 ? 2 : 2; 
-             const filas = this.cantidadPiezas === 4 ? 2 : this.cantidadPiezas / columnas;
+             const filas = 2; // ✅ FIJAMOS: Siempre 2 filas
+             const columnas = this.cantidadPiezas / filas; // ✅ CALCULAMOS: Columnas
 
              const anchoPieza = img.width / columnas;
              const altoPieza = img.height / filas;
@@ -534,3 +516,6 @@ const juego = {
 };
 
 window.onload = () => juego.inicializar();
+
+
+
