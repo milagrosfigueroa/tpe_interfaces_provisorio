@@ -12,18 +12,30 @@
         });
     }
 
-    // b. CLIC EN LA TARJETA DEL JUEGO 'PEG SOLITAIRE' (Usa el ID 'card-peg-solitarie')
-    const cardPegSolitaire = document.getElementById('card-peg-solitarie');
+    // b. CLIC EN LA TARJETA DEL JUEGO 'PEG SOLITAIRE' (Usa el ID 'card-peg')
+    const cardPegSolitaire = document.getElementById('card-peg');
     
     if (cardPegSolitaire) {
         cardPegSolitaire.addEventListener('click', function() {
-            window.location.href = 'blocka.html'; // Redirige al juego
+            window.location.href = 'juegoPeg.html'; // Redirige al juego
         });        
         cardPegSolitaire.style.cursor = 'pointer'; 
     }
 
+    // c. CLIC EN LA TARJETA DEL JUEGO 'BLOCKA' (Usa el ID 'card-blocka')
+
+        const cardBlocka = document.getElementById('card-blocka');
     
-    // c. CLIC EN EL LOGO GAMEHUB (Usa el ID 'logo-inicio')
+    if (cardBlocka) {
+        cardBlocka.addEventListener('click', function() {
+            window.location.href = 'blocka.html'; // Redirige al juego
+        });        
+        cardBlocka.style.cursor = 'pointer'; 
+    }
+
+
+    
+    // d. CLIC EN EL LOGO GAMEHUB (Usa el ID 'logo-inicio')
     const logoInicio = document.getElementById('logo-inicio');
 
     // Verifica que el elemento exista antes de agregar el listener
@@ -35,7 +47,7 @@
         });
     }
 
-    // d. CLIC EN EL HOME SIDEBAR (Usa el ID 'enlace-home-sidebar')
+    // e. CLIC EN EL HOME SIDEBAR (Usa el ID 'enlace-home-sidebar')
     const enlaceHomeSidebar = document.getElementById('enlace-home-sidebar');
 
     if (enlaceHomeSidebar) {

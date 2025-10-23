@@ -1,5 +1,5 @@
 // ====================
-// CONFIGURACIÓN GLOBAL (Sin cambios)
+// CONFIGURACIÓN GLOBAL
 // ====================
 
 const BANCO_IMAGENES = [
@@ -29,9 +29,9 @@ const PANTALLAS = [
     "pantalla-victoria"
 ];
 
-// ===================================
-// FUNCIONES DE FILTROS 🎨 (Sin cambios)
-// ===================================
+// =====================
+// FUNCIONES DE FILTROS 
+// =====================
 
 const BRIGHTNESS_FACTOR = 1.3;
 
@@ -93,7 +93,7 @@ const juego = {
         document.getElementById("btn-menu-juego").onclick = () => this.mostrarPantalla("menu-principal");
         document.getElementById("btn-menu-victoria").onclick = () => this.mostrarPantalla("menu-principal");
 
-        // Listeners que requieren bind
+    
         document.getElementById("boton-siguiente-nivel").onclick = this.siguienteNivel.bind(this);
         document.getElementById("boton-pausar-juego").onclick = this.pausarJuego.bind(this);
         document.getElementById("boton-ayudita").onclick = this.usarAyudita.bind(this);
@@ -265,22 +265,18 @@ const juego = {
         img.src = this.imagenActual;
     },
 
-    // ==========================================================
-    // 🔥 FUNCIÓN CLAVE MODIFICADA: CONFIGURACIÓN DE PIEZAS
-    // ==========================================================
+
     configurarPiezas(img) {
         const grilla = document.getElementById("grilla-blocka");
-        grilla.innerHTML = ""; // Limpia completamente la grilla antes de añadir
+        grilla.innerHTML = ""; 
         this.piezas = [];
 
         const total = this.cantidadPiezas;
-        const filas = 2; // ✅ FIJAMOS: Siempre 2 filas
-        const columnas = total / filas; // ✅ CALCULAMOS: Columnas (2, 3 o 4)
+        const filas = 2; 
+        const columnas = total / filas; 
         
-        // 1. Limpiar cualquier clase de grilla anterior
         grilla.classList.remove('grilla-6', 'grilla-8');
         
-        // 2. Aplicar la clase CSS para que el grid use las columnas correctas
         if (total === 6) {
             grilla.classList.add('grilla-6');
         } else if (total === 8) {
@@ -302,10 +298,9 @@ const juego = {
             canvas.height = altoPieza;
             const ctx = canvas.getContext("2d");
             
-            // Dibuja el corte correcto de la imagen (usa filas y columnas calculadas)
             ctx.drawImage(img, 
-                columna * anchoPieza, // Posición X de inicio de corte
-                fila * altoPieza,     // Posición Y de inicio de corte 
+                columna * anchoPieza, 
+                fila * altoPieza,     
                 anchoPieza, altoPieza, 
                 0, 0, 
                 anchoPieza, altoPieza
@@ -404,15 +399,13 @@ const juego = {
         }
     },
     
-    // ==========================================================
-    // 🔥 FUNCIÓN CLAVE MODIFICADA: QUITAR FILTROS
-    // ==========================================================
+
     quitarFiltros() {
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.onload = () => {
-             const filas = 2; // ✅ FIJAMOS: Siempre 2 filas
-             const columnas = this.cantidadPiezas / filas; // ✅ CALCULAMOS: Columnas
+             const filas = 2; 
+             const columnas = this.cantidadPiezas / filas; 
 
              const anchoPieza = img.width / columnas;
              const altoPieza = img.height / filas;
