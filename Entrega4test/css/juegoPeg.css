@@ -1,0 +1,250 @@
+/* Nuevo CSS para el contenedor del juego */
+.game-area-wrapper {
+    position: relative; /* Para posicionar el juego dentro de esta área */
+    /* Ajusta el ancho y alto máximo si es necesario, 
+       pero se adaptará automáticamente al tamaño del .game-banner-card */
+}
+
+/* Estilo para la vista del juego (el iframe) */
+#game-view {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Ajusta este ratio si tu imagen o juego tiene otro aspect ratio */
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#gameIframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px; /* Para que coincida con el borde de la card */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: block;
+}
+.game-banner-card {
+    /* CRÍTICO: Asegura que el contenedor tiene un comportamiento de bloque o flex
+       para que sus hijos (game-content) puedan centrarse. */
+    display: flex;
+    flex-direction: column; /* Apila los elementos (imagen/juego, footer) verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente (incluyendo #game-content) */
+    
+    /* CRÍTICO: Asegura una altura mínima para el tablero + HUD */
+    /* El tablero mide ~490px de alto, así que 550px es seguro */
+    min-height: 550px; 
+    
+    /* Si tienes más estilos para la tarjeta (fondo, borde, etc.), déjalos aquí. */
+    position: relative; 
+
+}
+#game-content {
+    /* Este contenedor se convierte en el área de juego */
+    width: 100%;
+    
+    /* Configuración de Flexbox para organizar el HUD y el tablero */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Esto centra el HUD y el #board horizontalmente */
+    
+    /* Espacio superior para separar el HUD del borde superior de la tarjeta */
+    padding-top: 15px; 
+    --color-card-bg: #1F375A; /* Color de fondo de la tarjeta principal */
+
+}
+/* Clase para ocultar o mostrar la card/juego */
+#bannerCard {
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.card-hidden {
+    display: none; /* Oculta la card cuando el juego está activo */
+}
+
+/* Clase para ocultar o mostrar la vista del juego */
+#game-view {
+    display: none; /* Inicialmente oculto */
+}
+
+.game-view-visible {
+    display: block !important;
+}
+
+/* Estilo para el botón de cerrar */
+.close-game-btn {
+    position: absolute;
+    top: -40px; /* Posición encima de la vista del juego */
+    right: 0;
+    padding: 5px 10px;
+    z-index: 10;
+    background-color: fuchsia;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.close-game-btn:hover {
+    background-color: #ff4aff;
+}
+
+#hud {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(7, 55px);
+    grid-template-rows: repeat(7, 55px);
+    gap: 6px;
+    background-color: #001a33;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px fuchsia;
+    position: relative;
+    
+    /* ¡CAMBIO CLAVE! */
+    margin: 0; /* Elimina el margen automático que podría desalinearlo */
+}
+
+.cell {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #0a284d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    position: relative;
+}
+
+.invalid {
+    visibility: hidden;
+}
+
+.piece {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-size: cover;
+    cursor: grab;
+    transition: transform 0.2s;
+}
+
+.piece[data-type="fire"] {
+    box-shadow: 0 0 25px rgba(255, 80, 0, 0.9);
+    animation: glowFire 1.5s infinite alternate;
+}
+
+.piece[data-type="water"] {
+    box-shadow: 0 0 25px rgba(0, 120, 255, 0.9);
+    animation: glowWater 1.5s infinite alternate;
+}
+
+@keyframes glowFire {
+    from { box-shadow: 0 0 15px rgba(255, 100, 0, 0.7); }
+    to { box-shadow: 0 0 35px rgba(255, 40, 0, 1); }
+}
+
+@keyframes glowWater {
+    from { box-shadow: 0 0 15px rgba(0, 140, 255, 0.7); }
+    to { box-shadow: 0 0 35px rgba(0, 60, 255, 1); }
+}
+
+button {
+    background-color: fuchsia;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ff4aff;
+}
+
+/* 💡 Flechas animadas de hints */
+.hint {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/32/32195.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatHint 1s infinite ease-in-out;
+    pointer-events: none;
+    opacity: 0.9;
+    transform-origin: center center;
+}
+
+@keyframes floatHint {
+    0%, 100% { transform: translateY(0); opacity: 0.8; }
+    50% { transform: translateY(-6px); opacity: 1; }
+}
+
+.hint.fire {
+    filter: drop-shadow(0 0 12px orange) brightness(1.5);
+    animation: glowHintFire 1s infinite ease-in-out;
+}
+
+.hint.water {
+    filter: drop-shadow(0 0 12px cyan) brightness(1.5);
+    animation: glowHintWater 1.5s infinite ease-in-out;
+}
+
+@keyframes glowHintFire {
+    0%, 100% { filter: drop-shadow(0 0 12px orangered); }
+    50% { filter: drop-shadow(0 0 25px yellow); }
+}
+
+@keyframes glowHintWater {
+    0%, 100% { filter: drop-shadow(0 0 12px cyan); }
+    50% { filter: drop-shadow(0 0 25px deepskyblue); }
+}
+
+#message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(2, 19, 43, 0.9);
+    color: fuchsia;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+}
+
+#message.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+/* Escala automática del tablero dentro del área de juego */
+#board {
+    transform-origin: center center;
+    transition: transform 0.3s ease;
+}
+
+/* Contenedor flexible para escalar el tablero dinámicamente */
+#game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    overflow: hidden;
+}
