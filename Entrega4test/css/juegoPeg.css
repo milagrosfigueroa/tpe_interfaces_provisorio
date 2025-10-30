@@ -101,6 +101,26 @@
   transform: scale(1.1);
 }
 
+.btn-peg {
+  background: #2c2f3b;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 12px;
+  border: 2px solid #00d0ff;
+  color: white;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.btn-peg:hover {
+  background: #004e74;
+  transform: scale(1.05);
+}
+
+.btn-exit {
+  border-color: #ff4b4b;
+}
+
 /* --- Tablero del Peg Solitaire --- */
 #board {
   display: grid;
@@ -337,4 +357,59 @@
     transform: translateY(-3px) scale(1.02); 
     color: #ffffff;
     box-shadow: 0 0 15px var(--color-added-green);
+}
+/* ===== MODAL SALIR DEL JUEGO ===== */
+#modal-salir {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none; /* 🔥 oculto por defecto */
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 9999; /* 🔥 por encima de todo */
+}
+
+.modal-content {
+  background: #0b1736;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 35px rgba(255, 0, 184, 0.7);
+  width: 300px;
+  animation: fadeInScale .3s ease;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-buttons .btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  transition: .2s;
+}
+
+.btn.salir {
+  background: #ff4b4b;
+}
+
+.btn.cancelar {
+  background: #008cff;
+}
+
+/* animación popup */
+@keyframes fadeInScale {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }

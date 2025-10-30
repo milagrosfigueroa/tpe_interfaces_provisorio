@@ -220,8 +220,9 @@
                 <div id="hud">
                     <div id="timer">Tiempo: 60s</div>
                     <div id="score">Puntaje: 0</div>
-                    <button id="pauseBtn">Pausar</button>
-                    <button id="resetBtn">Reiniciar</button>
+                    <button id="pauseBtn" class="btn-peg">Pausar</button>
+                    <button id="resetBtn" class="btn-peg">Reiniciar</button>
+                    <button id="exitBtn" class="btn-peg btn-exit">Salir</button>
                 </div>
                 
                 <div id="board"></div>
@@ -239,6 +240,23 @@
             </div>
         </div>
     </section>
+    </section>
+
+    <!-- 🔥 Modal para salir del juego -->
+    <div id="modal-salir" class="modal">
+        <div class="modal-content">
+            <h2>¿Seguro que querés salir?</h2>
+            <p>Perderás tu progreso actual.</p>
+
+            <div class="modal-buttons">
+                <button id="btn-confirmar-salir" class="btn salir">Salir del juego</button>
+                <button id="btn-cancelar-salir" class="btn cancelar">Seguir jugando</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
 
     <section class="game-info-details">
         <div class="info-section how-to-play">

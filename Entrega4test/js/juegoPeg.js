@@ -1,45 +1,6 @@
-// ====================
-// CONTROL DE VISTA
-// ====================
-
-const playButton = document.getElementById('playButton');
-const bannerCardOverlay = document.getElementById('bannerCard');
-const gameContent = document.getElementById('game-content');
-
-// HUD (interfaz del juego)
-const boardEl = document.getElementById("board");
-const timerEl = document.getElementById("timer");
-const scoreEl = document.getElementById("score");
-const pauseBtn = document.getElementById("pauseBtn");
-const resetBtn = document.getElementById("resetBtn");
-const messageBox = document.getElementById("message");
-
-// Función para iniciar el juego
-function startGame() {
-    if (bannerCardOverlay) bannerCardOverlay.style.display = 'none';
-    const bannerImage = document.querySelector('.game-banner-card > .banner-image');
-    if (bannerImage) bannerImage.style.display = 'none';
-
-    if (gameContent) {
-        gameContent.style.display = 'flex';
-        gameContent.style.flexDirection = 'column';
-        gameContent.style.alignItems = 'center';
-        gameContent.style.justifyContent = 'center';
-    }
-
-    resetGame();
-}
-
-// Evento del botón "Jugar"
-if (playButton) playButton.addEventListener('click', startGame);
-
-
-// ====================
-// LÓGICA DEL JUEGO PEG
-// ====================
-
-const rows = 7;
-const cols = 7;
+// ===============================
+// CONFIGURACIÓN
+// ===============================
 const types = ["fire", "water"];
 const images = {
     fire: "img/img_juego_peg/pieza_fuego.png",
@@ -56,322 +17,316 @@ const pattern = [
     [0,0,1,1,1,0,0]
 ];
 
-let board = [];
-let score = 0;
-let timer = 60;
-let interval = null;
-let paused = false;
-let dragged = null;
+
+// ===============================
+// CLASS: PIEZA
+// ===============================
+class Piece {
+    constructor(type) {
+        this.type = type;
+        this.element = document.createElement("div");
+        this.element.classList.add("piece");
+        this.element.dataset.type = type;
+        this.element.style.backgroundImage = `url(${images[type]})`;
+        this.element.draggable = true;
+
+        // Drag events
+        this.element.addEventListener("dragstart", (e) => game.board.onDragStart(e, this));
+        this.element.addEventListener("dragend", () => game.board.onDragEnd());
+    }
+}
 
 
-// ====================
-// INICIALIZAR TABLERO
-// ====================
+// ===============================
+// CLASS: TABLERO
+// ===============================
+class Board {
+    constructor(rows, cols) {
+        this.rows = rows;
+        this.cols = cols;
+        this.element = document.getElementById("board");
+        this.board = [];
+        this.dragged = null;
+    }
 
-function initBoard() {
-    if (!boardEl) return;
+    init() {
+        this.board = [];
+        this.element.innerHTML = "";
+        this.element.style.display = 'grid';
+        this.element.style.gridTemplateRows = `repeat(${this.rows}, 1fr)`;
+        this.element.style.gridTemplateColumns = `repeat(${this.cols}, 1fr)`;
 
-    board = [];
-    boardEl.innerHTML = "";
-    boardEl.style.display = 'grid';
-    boardEl.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-    boardEl.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        for (let r = 0; r < this.rows; r++) {
+            const row = [];
+            for (let c = 0; c < this.cols; c++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.dataset.row = r;
+                cell.dataset.col = c;
 
-    for (let r = 0; r < rows; r++) {
-        const row = [];
-        for (let c = 0; c < cols; c++) {
-            const cell = document.createElement("div");
-            cell.classList.add("cell");
-            cell.dataset.row = r;
-            cell.dataset.col = c;
+                if (pattern[r][c] === 0) {
+                    cell.classList.add("invalid");
+                } else if (!(r === 3 && c === 3)) {
+                    const piece = new Piece(types[Math.floor(Math.random() * types.length)]);
+                    cell.appendChild(piece.element);
+                }
 
-            if (pattern[r][c] === 0) {
-                cell.classList.add("invalid");
-            } else if (!(r === 3 && c === 3)) {
-                const piece = document.createElement("div");
-                const type = types[Math.floor(Math.random() * types.length)];
-                piece.classList.add("piece");
-                piece.dataset.type = type;
-                piece.style.backgroundImage = `url(${images[type]})`;
-                piece.draggable = true;
-                cell.appendChild(piece);
+                cell.addEventListener("dragover", (e) => e.preventDefault());
+                cell.addEventListener("drop", (e) => this.onDrop(e));
+
+                this.element.appendChild(cell);
+                row.push(cell);
             }
-
-            boardEl.appendChild(cell);
-            row.push(cell);
+            this.board.push(row);
         }
-        board.push(row);
+        this.scaleBoard();
     }
 
-    enableDrag();
-}
-
-
-// ====================
-// DRAG & DROP
-// ====================
-
-function enableDrag() {
-    document.querySelectorAll(".piece").forEach(p => {
-        p.addEventListener("dragstart", dragStart);
-        p.addEventListener("dragend", dragEnd);
-    });
-
-    document.querySelectorAll(".cell").forEach(c => {
-        c.addEventListener("dragover", dragOver);
-        c.addEventListener("drop", drop);
-    });
-}
-
-function dragStart(e) {
-    dragged = e.target.closest(".piece");
-    const cell = dragged.parentElement;
-    const r = +cell.dataset.row;
-    const c = +cell.dataset.col;
-    showHints(r, c, dragged.dataset.type);
-    setTimeout(() => { dragged.style.visibility = "hidden"; }, 0);
-}
-
-function dragEnd() {
-    if (dragged) dragged.style.visibility = "visible";
-    dragged = null;
-    clearHints();
-}
-
-function dragOver(e) {
-    e.preventDefault();
-}
-
-function drop(e) {
-    e.preventDefault();
-    const targetCell = e.target.closest(".cell");
-    if (!dragged || !targetCell) return;
-
-    const fromR = +dragged.parentElement.dataset.row;
-    const fromC = +dragged.parentElement.dataset.col;
-    const toR = +targetCell.dataset.row;
-    const toC = +targetCell.dataset.col;
-
-    if (isValidMove(fromR, fromC, toR, toC)) {
-        const midR = (fromR + toR) / 2;
-        const midC = (fromC + toC) / 2;
-        const midCell = board[midR][midC];
-
-        midCell.innerHTML = "";
-        targetCell.appendChild(dragged);
-
-        score += 10;
-        if (scoreEl) scoreEl.textContent = `Puntaje: ${score}`;
-
-        checkVictory();
-        checkBlocked();
-    }
-    clearHints();
-}
-
-
-// ====================
-// VALIDACIÓN DE MOVIMIENTOS
-// ====================
-
-function isValidMove(fromR, fromC, toR, toC) {
-    const fromPiece = board[fromR][fromC].querySelector('.piece');
-    if (!fromPiece) return false;
-
-    let midR, midC;
-    if (Math.abs(fromR - toR) === 2 && fromC === toC) {
-        midR = (fromR + toR) / 2;
-        midC = fromC;
-    } else if (Math.abs(fromC - toC) === 2 && fromR === toR) {
-        midR = fromR;
-        midC = (fromC + toC) / 2;
-    } else return false;
-
-    const midCell = board[midR][midC];
-    const targetCell = board[toR][toC];
-    if (targetCell.children.length !== 0) return false;
-    const jumpedPiece = midCell.querySelector('.piece');
-    if (!jumpedPiece) return false;
-
-    return true;
-}
-
-
-// ====================
-// HINTS (FLECHAS ANIMADAS)
-// ====================
-
-function showHints(r, c, type) {
-    clearHints();
-    const moves = [
-        { r: r - 2, c, midR: r - 1, midC: c, transform: "rotate(-90deg)" },
-        { r: r + 2, c, midR: r + 1, midC: c, transform: "rotate(90deg)" },
-        { r, c: c - 2, midR: r, midC: c - 1, transform: "rotate(180deg)" },
-        { r, c: c + 2, midR: r, midC: c + 1, transform: "rotate(0deg)" }
-    ];
-
-    if (!boardEl) return;
-    const boardRect = boardEl.getBoundingClientRect();
-
-    moves.forEach(m => {
-        if (
-            m.r >= 0 && m.c >= 0 &&
-            m.r < rows && m.c < cols &&
-            !board[m.r][m.c].classList.contains("invalid") &&
-            board[m.r][m.c].children.length === 0 &&
-            board[m.midR][m.midC].children.length > 0
-        ) {
-            const targetCell = board[m.r][m.c];
-            const targetRect = targetCell.getBoundingClientRect();
-            const hint = document.createElement("div");
-            hint.classList.add("hint", type);
-            const top = targetRect.top - boardRect.top + (targetCell.offsetHeight / 4);
-            const left = targetRect.left - boardRect.left + (targetCell.offsetWidth / 4);
-            hint.style.top = `${top}px`;
-            hint.style.left = `${left}px`;
-            hint.style.transform = m.transform;
-            boardEl.appendChild(hint);
-        }
-    });
-}
-
-function clearHints() {
-    document.querySelectorAll(".hint").forEach(h => h.remove());
-}
-
-
-// ====================
-// CONTROL DE ESTADO
-// ====================
-
-function checkVictory() {
-    const piecesLeft = document.querySelectorAll("#board .piece").length;
-    if (piecesLeft === 1) {
-        clearInterval(interval);
-        showMessage(`🏆 ¡Victoria!<br>Puntaje final: ${score}`);
-    }
-}
-
-function checkBlocked() {
-    const pieces = document.querySelectorAll("#board .piece");
-    let hasMove = false;
-
-    for (const piece of pieces) {
-        const cell = piece.parentElement;
+    // Drag & Drop
+    onDragStart(e, piece) {
+        this.dragged = piece.element;
+        const cell = this.dragged.parentElement;
         const r = +cell.dataset.row;
         const c = +cell.dataset.col;
+        this.showHints(r, c);
+        setTimeout(() => (this.dragged.style.visibility = "hidden"), 0);
+    }
+
+    onDragEnd() {
+        if (this.dragged) this.dragged.style.visibility = "visible";
+        this.dragged = null;
+        this.clearHints();
+    }
+
+    onDrop(e) {
+        e.preventDefault();
+        const targetCell = e.target.closest(".cell");
+        if (!this.dragged || !targetCell) return;
+
+        const fromR = +this.dragged.parentElement.dataset.row;
+        const fromC = +this.dragged.parentElement.dataset.col;
+        const toR = +targetCell.dataset.row;
+        const toC = +targetCell.dataset.col;
+
+        if (this.isValidMove(fromR, fromC, toR, toC)) {
+            const midR = (fromR + toR) / 2;
+            const midC = (fromC + toC) / 2;
+            this.board[midR][midC].innerHTML = "";
+            targetCell.appendChild(this.dragged);
+
+            game.addScore(10);
+            game.board.clearHints();
+            game.checkVictory();
+            game.checkBlocked();
+        }
+    }
+
+    isValidMove(fromR, fromC, toR, toC) {
+        const fromPiece = this.board[fromR][fromC].querySelector(".piece");
+        if (!fromPiece) return false;
+
+        let midR, midC;
+        if (Math.abs(fromR - toR) === 2 && fromC === toC) {
+            midR = (fromR + toR) / 2;
+            midC = fromC;
+        } else if (Math.abs(fromC - toC) === 2 && fromR === toR) {
+            midR = fromR;
+            midC = (fromC + toC) / 2;
+        } else return false;
+
+        const midCell = this.board[midR][midC];
+        const targetCell = this.board[toR][toC];
+        if (targetCell.children.length !== 0 || !midCell.querySelector(".piece")) return false;
+
+        return true;
+    }
+
+    showHints(r, c) {
+        this.clearHints();
         const moves = [
-            { r: r - 2, c, midR: r - 1, midC: c },
-            { r: r + 2, c, midR: r + 1, midC: c },
-            { r, c: c - 2, midR: r, midC: c - 1 },
-            { r, c: c + 2, midR: r, midC: c + 1 }
+            { r: r - 2, c, midR: r - 1, midC: c, rot: "-90deg" },
+            { r: r + 2, c, midR: r + 1, midC: c, rot: "90deg" },
+            { r, c: c - 2, midR: r, midC: c - 1, rot: "180deg" },
+            { r, c: c + 2, midR: r, midC: c + 1, rot: "0deg" }
         ];
-        for (const m of moves) {
+
+        const rect = this.element.getBoundingClientRect();
+
+        moves.forEach(m => {
             if (
                 m.r >= 0 && m.c >= 0 &&
-                m.r < rows && m.c < cols &&
-                !board[m.r][m.c].classList.contains("invalid") &&
-                board[m.r][m.c].children.length === 0 &&
-                board[m.midR][m.midC].children.length > 0
+                m.r < this.rows && m.c < this.cols &&
+                !this.board[m.r][m.c].classList.contains("invalid") &&
+                this.board[m.r][m.c].children.length === 0 &&
+                this.board[m.midR][m.midC].children.length > 0
             ) {
-                hasMove = true;
-                break;
+                const targetRect = this.board[m.r][m.c].getBoundingClientRect();
+                const hint = document.createElement("div");
+                hint.classList.add("hint");
+                hint.style.top = `${targetRect.top - rect.top + 20}px`;
+                hint.style.left = `${targetRect.left - rect.left + 20}px`;
+                hint.style.transform = `rotate(${m.rot})`;
+                this.element.appendChild(hint);
             }
-        }
-        if (hasMove) break;
+        });
     }
 
-    if (!hasMove) {
-        clearInterval(interval);
-        showMessage(`🚫 Sin movimientos posibles<br>Puntaje final: ${score}`);
+    clearHints() {
+        this.element.querySelectorAll(".hint").forEach(h => h.remove());
+    }
+
+    scaleBoard() {
+        this.element.style.transform = "scale(1)";
+        const rect = this.element.getBoundingClientRect();
+        const containerRect = document.getElementById("game-content").getBoundingClientRect();
+        const scale = Math.min(
+            containerRect.width / rect.width,
+            containerRect.height / rect.height,
+            1
+        );
+        this.element.style.transform = `scale(${scale})`;
     }
 }
 
 
-// ====================
-// TIMER Y MENSAJES
-// ====================
+// ===============================
+// CLASS: JUEGO
+// ===============================
+class Game {
+    constructor() {
+        this.score = 0;
+        this.timer = 60;
+        this.paused = false;
+        this.interval = null;
 
-function startTimer() {
-    if (!timerEl) return;
-    clearInterval(interval);
-    interval = setInterval(() => {
-        if (!paused) {
-            timer--;
-            timerEl.textContent = `Tiempo: ${timer}s`;
-            if (timer <= 0) {
-                clearInterval(interval);
-                showMessage(`⏰ ¡Tiempo terminado!<br>Puntaje final: ${score}`);
+        this.board = new Board(7, 7);
+
+        this.playBtn = document.getElementById("playButton");
+        this.gameContent = document.getElementById("game-content");
+        this.bannerOverlay = document.getElementById("bannerCard");
+        this.bannerImg = document.querySelector('.game-banner-card > .banner-image');
+        this.timerEl = document.getElementById("timer");
+        this.scoreEl = document.getElementById("score");
+        this.pauseBtn = document.getElementById("pauseBtn");
+        this.resetBtn = document.getElementById("resetBtn");
+        this.exitBtn = document.getElementById("exitBtn");
+        this.modalSalir = document.getElementById("modal-salir");
+        this.btnConfirmarSalir = document.getElementById("btn-confirmar-salir");
+        this.btnCancelarSalir = document.getElementById("btn-cancelar-salir");
+        this.messageBox = document.getElementById("message");
+
+        this.initEvents();
+    }
+
+    initEvents() {
+        this.playBtn.addEventListener("click", () => this.start());
+        this.pauseBtn.addEventListener("click", () => this.togglePause());
+        this.resetBtn.addEventListener("click", () => this.reset());
+        this.exitBtn.addEventListener("click", () => this.showExitModal());
+        this.btnCancelarSalir.addEventListener("click", () => this.hideExitModal());
+        this.btnConfirmarSalir.addEventListener("click", () => this.exitGame());
+
+        window.addEventListener("load", () => this.board.scaleBoard());
+        window.addEventListener("resize", () => this.board.scaleBoard());
+    }
+
+    start() {
+        this.bannerOverlay.style.display = "none";
+        this.bannerImg.style.display = "none";
+        this.gameContent.style.display = "flex";
+        this.reset();
+    }
+
+    reset() {
+        this.messageBox.classList.remove("visible");
+        this.timer = 60;
+        this.score = 0;
+        this.paused = false;
+        this.pauseBtn.textContent = "Pausar";
+        this.timerEl.textContent = "Tiempo: 60s";
+        this.scoreEl.textContent = "Puntaje: 0";
+
+        this.board.init();
+        this.startTimer();
+    }
+
+    startTimer() {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+            if (!this.paused) {
+                this.timer--;
+                this.timerEl.textContent = `Tiempo: ${this.timer}s`;
+                if (this.timer <= 0) {
+                    clearInterval(this.interval);
+                    this.showMessage(`⏰ ¡Tiempo terminado!<br>Puntaje: ${this.score}`);
+                }
+            }
+        }, 1000);
+    }
+
+    togglePause() {
+        this.paused = !this.paused;
+        this.pauseBtn.textContent = this.paused ? "Reanudar" : "Pausar";
+    }
+
+    addScore(value) {
+        this.score += value;
+        this.scoreEl.textContent = `Puntaje: ${this.score}`;
+    }
+
+    checkVictory() {
+        const pieces = document.querySelectorAll("#board .piece").length;
+        if (pieces === 1) {
+            clearInterval(this.interval);
+            this.showMessage(`🏆 ¡Victoria!<br>Puntaje: ${this.score}`);
+        }
+    }
+
+    checkBlocked() {
+        const pieces = document.querySelectorAll("#board .piece");
+        for (const piece of pieces) {
+            const r = +piece.parentElement.dataset.row;
+            const c = +piece.parentElement.dataset.col;
+            const moves = [
+                { r: r - 2, c, midR: r - 1, midC: c },
+                { r: r + 2, c, midR: r + 1, midC: c },
+                { r, c: c - 2, midR: r, midC: c - 1 },
+                { r, c: c + 2, midR: r, midC: c + 1 }
+            ];
+            for (const m of moves) {
+                if (
+                    m.r >= 0 && m.c >= 0 &&
+                    m.r < 7 && m.c < 7 &&
+                    !this.board.board[m.r][m.c].classList.contains("invalid") &&
+                    this.board.board[m.r][m.c].children.length === 0 &&
+                    this.board.board[m.midR][m.midC].children.length > 0
+                ) return;
             }
         }
-    }, 1000);
-}
 
-function showMessage(text) {
-    if (!messageBox) return;
-    messageBox.innerHTML = `<div>${text}</div><button onclick="window.resetGame()">Jugar de nuevo</button>`;
-    messageBox.classList.add("visible");
-}
+        clearInterval(this.interval);
+        this.showMessage(`🚫 Sin movimientos<br>Puntaje: ${this.score}`);
+    }
 
+    showMessage(text) {
+        this.messageBox.innerHTML = `<div>${text}</div><button onclick="game.reset()">Jugar de nuevo</button>`;
+        this.messageBox.classList.add("visible");
+    }
 
-// ====================
-// REINICIO DEL JUEGO
-// ====================
+    showExitModal() { this.modalSalir.style.display = "flex"; }
+    hideExitModal() { this.modalSalir.style.display = "none"; }
 
-window.resetGame = resetGame;
-
-function resetGame() {
-    if (messageBox) messageBox.classList.remove("visible");
-    clearInterval(interval);
-    timer = 60;
-    score = 0;
-    paused = false;
-    if (pauseBtn) pauseBtn.textContent = "Pausar";
-    if (timerEl) timerEl.textContent = "Tiempo: 60s";
-    if (scoreEl) scoreEl.textContent = "Puntaje: 0";
-    initBoard();
-    startTimer();
+    exitGame() {
+        this.hideExitModal();
+        this.gameContent.style.display = "none";
+        this.bannerOverlay.style.display = "flex";
+        this.bannerImg.style.display = "block";
+        this.reset();
+    }
 }
 
 
-// ====================
-// BOTONES HUD
-// ====================
-
-if (pauseBtn) {
-    pauseBtn.addEventListener("click", () => {
-        paused = !paused;
-        pauseBtn.textContent = paused ? "Reanudar" : "Pausar";
-    });
-}
-
-if (resetBtn) {
-    resetBtn.addEventListener("click", resetGame);
-}
-
-
-// ====================
-// ESCALADO AUTOMÁTICO (AJUSTA TAMAÑOS)
-// ====================
-
-function scaleBoard() {
-    if (!boardEl || !gameContent) return;
-    boardEl.style.transform = "scale(1)";
-    const boardRect = boardEl.getBoundingClientRect();
-    const containerRect = gameContent.getBoundingClientRect();
-    const scale = Math.min(
-        containerRect.width / boardRect.width,
-        containerRect.height / boardRect.height,
-        1
-    );
-    boardEl.style.transform = `scale(${scale})`;
-}
-
-window.addEventListener('load', scaleBoard);
-window.addEventListener('resize', scaleBoard);
-
-const originalInitBoard = initBoard;
-initBoard = function() {
-    originalInitBoard();
-    requestAnimationFrame(scaleBoard);
-};
+// ===============================
+// INICIAR JUEGO
+// ===============================
+const game = new Game();
