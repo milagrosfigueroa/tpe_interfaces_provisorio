@@ -19,6 +19,8 @@
     --color-pink-hover: #FA328A;
     --color-added-green: #69B469;
     --color-added-green-hover: #5AA15A;
+    --color-azul-secundario: #6CC3D5;      
+    --color-azul-hover-bg: #1A7B9B;   
     
     /* FUENTES */
     --font-base: 'Outfit', sans-serif;
@@ -139,30 +141,69 @@ body {
 
 /* Pantalla inicial */
 .pantalla-inicio h2 {
-    color: #ffffff;
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    margin-bottom: 20px;
+    color: var(--color-pink-hover);
+    font-family: 'Sigmar One', sans-serif;
+    font-size: 60px;
+    margin-bottom: 100px;
+}
+.pantalla-inicio .btn-primary-play{
+    width: 300px;
+}
+.pantalla-inicio{
+    background-image: url('../img/img_juego_peg/fondopeg.png');
+
 }
 .pantalla-juego {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;  /* Centrado horizontal */
+    align-items: center;      /* Centrado vertical */
     width: 100%;
     height: 100%;
+    padding: 20px;            
+    box-sizing: border-box;
+    position: relative;
 }
-/* Pantalla de juego */
-.pantalla-juego canvas {
-    display: block;
-    background-color: transparent;
-    
-    width: 48%; 
-    height: 90%; 
-    
-    max-height: 100%;
+.boton-salir {
+    position: absolute;
+    bottom: 20px;      
+    right: 20px;       
+    background: var(--color-bg-dark); 
+    color: var(--color-azul-secundario); 
+    border: 2px solid var(--color-azul-secundario); 
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
 
-    aspect-ratio: 16 / 9; 
+.boton-salir:hover {
+    background-color: var(--color-azul-hover-bg); 
+    color: white; 
+    border-color: var(--color-azul-hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(108, 195, 213, 0.6); 
 }
+
+.contenedorTablero {
+    width: 800px;             
+    height: 450px;            
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedorTablero canvas {
+    width: 100%;              
+    height: 100%;             
+    max-width: 100%;
+    max-height: 100%;
+    background-color: transparent;
+    display: block;
+    object-fit: contain;
+}
+
 
 .info-juego {
     position: absolute;
@@ -210,7 +251,6 @@ body {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 12px 28px rgba(231, 76, 140, 0.6);
     background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%);
-    animation: none;
 }
 
 .btn-primary-play:active {

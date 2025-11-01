@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rosario:wght@400;700&family=Roboto:wght@400;600&family=Micro+5&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rosario:wght@400;700&family=Roboto:wght@400;600&family=Micro+5&family=Sigmar+One&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -217,18 +217,23 @@
                 <button class="btn-primary-play" id="botonIniciar">Jugar</button>
             </div>
 
-            <!-- 2. Pantalla del juego en ejecución -->
+            <!-- 2. Pantalla del juego -->
             <div class="pantalla-juego" id="paginaJuego">
-                <canvas id="pegCanvas" width="1920" height="1080" ></canvas>
+                <button class="boton-salir" id="botonSalir">Salir</button>
+
+                <div class="contenedorTablero">
+                    <canvas id="pegCanvas" width="1920" height="1080"></canvas>
+                </div>
+
                 <div class="info-juego">
-                    <p id="movimientosRestantes">Movimientos: 0</p>
+                    <p id="movimientosRestantes">Movimientos: 45</p>
                 </div>
             </div>
 
             <!-- 3. Pantalla final -->
             <div class="pantalla-final" id="paginaFinal">
                 <h2>¡Juego terminado!</h2>
-                <p id="puntajeFinal">Movimientos restantes: 0</p>
+                <p id="puntajeFinal">Movimientos restantes: </p>
                 <button class="btn-primary-play" id="botonReiniciar">Reiniciar</button>
             </div>
 
@@ -540,4 +545,3 @@
 
 </body>
 </html>
-
