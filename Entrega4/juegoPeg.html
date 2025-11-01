@@ -219,14 +219,22 @@
 
             <!-- 2. Pantalla del juego -->
             <div class="pantalla-juego" id="paginaJuego">
-                <button class="boton-salir" id="botonSalir">Salir</button>
+                <div class="temporizador-display" id="temporizadorDisplay">02:00</div>
+
+                <div class="temporizador-controles">
+                    <button id="btnPausar">Pausar</button>
+                    <button id="btnReiniciar">Reiniciar</button>
+                    <button id="botonSalir">Salir</button>
+
+                </div>
+
 
                 <div class="contenedorTablero">
                     <canvas id="pegCanvas" width="1920" height="1080"></canvas>
                 </div>
 
                 <div class="info-juego">
-                    <p id="movimientosRestantes">Movimientos: 45</p>
+                    <p>Movimientos: <span id="movimientosRestantes">45</span></p> 
                 </div>
             </div>
 
@@ -268,7 +276,7 @@
             <h3>Controles:</h3>
             <ul>
                 <li>Clic izquierdo sobre una ficha: seleccionarla.</li>
-                <li>Clic izquierdo sobre un espacio vacío válido: mover o saltar la ficha.</li>
+                <li>Manten el mouse presionado y arrastra la ficha hasta un casillero válido.</li>
             </ul>
             <div class="controls">
                 <img src="img/img_juego_peg/mouseBtnIzq.PNG" alt="Icono de Control de Mouse" class="control-image">

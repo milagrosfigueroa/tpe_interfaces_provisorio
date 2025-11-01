@@ -150,41 +150,63 @@ body {
     width: 300px;
 }
 .pantalla-inicio{
-    background-image: url('../img/img_juego_peg/fondopeg.png');
+    background-image: url('../img/img_juego_peg/fondoportadapeg.png');
+    background-size: 100%; 
+
 
 }
 .pantalla-juego {
     display: flex;
-    justify-content: center;  /* Centrado horizontal */
-    align-items: center;      /* Centrado vertical */
+    justify-content: center;  
+    align-items: center;      
     width: 100%;
     height: 100%;
     padding: 20px;            
     box-sizing: border-box;
     position: relative;
 }
-.boton-salir {
+
+.temporizador-controles {
     position: absolute;
-    bottom: 20px;      
-    right: 20px;       
-    background: var(--color-bg-dark); 
-    color: var(--color-azul-secundario); 
-    border: 2px solid var(--color-azul-secundario); 
-    padding: 10px 15px;
-    font-size: 1em;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s ease;
+    bottom: 15px;  
+    right: 15px;   
+    display: flex;
+    gap: 5px;      
+    flex-wrap: nowrap;
 }
 
-.boton-salir:hover {
-    background-color: var(--color-azul-hover-bg); 
-    color: white; 
-    border-color: var(--color-azul-hover-bg);
-    transform: translateY(-2px);
-    box-shadow: 0 0 10px rgba(108, 195, 213, 0.6); 
+.temporizador-controles button {
+    padding: 4px 8px;        
+    font-size: 0.8rem;       
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    background-color: var(--color-azul-secundario);
+    min-width: 60px;         
+    text-align: center;
 }
+
+.temporizador-controles button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 4px rgba(108, 195, 213, 0.6);
+}
+#btnPausar.pausado{
+    background-color: #5AA15A;
+    border-color:#69B469;
+    color: white;
+}
+#btnPausar { background-color: #e74c8c; border-color: #e74c8c; color: white; }
+#btnReiniciar { background-color: #e74c8c; border-color: #e74c8c; color: white; }
+#boton-salir { background-color: #e74c8c; border-color: #e74c8c; color: white; }
+
+#btnPausar:hover { background-color: red; border-color: #b93329; }
+#btnPausar.pausado:hover{background-color: #497e49; border-color:#497e49; color: white; }
+#btnReiniciar:hover { background-color: #f39c12; border-color: #f39c12; color: #222; }
+#btnPausar:hover { background-color: red; border-color: #b93329; }
+
+
 
 .contenedorTablero {
     width: 800px;             
@@ -204,7 +226,20 @@ body {
     object-fit: contain;
 }
 
-
+.temporizador-display {
+    position: absolute;
+    top: 10px;        /* Esquina superior izquierda */
+    left: 10px;       
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif; /* Usamos una fuente digital para un efecto cool */
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 5px 15px;
+    border-radius: 10px;
+    border: 2px solid var(--color-azul-secundario);
+    z-index: 10;
+}
 .info-juego {
     position: absolute;
     top: 10px;
