@@ -1,13 +1,13 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-const types = ["fire", "water"];
-const images = {
+const PEG_TYPES = ["fire", "water"];
+const PEG_IMAGES = {
     fire: "img/img_juego_peg/pieza_fuego.png",
-    water: "img/img_juego_peg/pieza_agua.png",
+    water: "img/img_juego_peg/pieza_agua.png"
 };
 
-const pattern = [
+const PEG_PATTERN = [
     [0,0,1,1,1,0,0],
     [0,0,1,1,1,0,0],
     [1,1,1,1,1,1,1],
@@ -19,314 +19,309 @@ const pattern = [
 
 
 // ===============================
-// CLASS: PIEZA
+// OBJETO PRINCIPAL DEL JUEGO
 // ===============================
-class Piece {
-    constructor(type) {
-        this.type = type;
-        this.element = document.createElement("div");
-        this.element.classList.add("piece");
-        this.element.dataset.type = type;
-        this.element.style.backgroundImage = `url(${images[type]})`;
-        this.element.draggable = true;
+const juego = {
+    score: 0,
+    tiempo: 60,
+    pausado: false,
+    intervalo: null,
 
-        // Drag events
-        this.element.addEventListener("dragstart", (e) => game.board.onDragStart(e, this));
-        this.element.addEventListener("dragend", () => game.board.onDragEnd());
-    }
-}
+    // Elementos UI
+    el: {
+        tablero: document.getElementById("board"),
+        contenedor: document.getElementById("game-content"),
+        overlay: document.getElementById("bannerCard"),
+        bannerImg: document.querySelector(".game-banner-card > .banner-image"),
+        timer: document.getElementById("timer"),
+        score: document.getElementById("score"),
+        btnPlay: document.getElementById("playButton"),
+        btnPause: document.getElementById("pauseBtn"),
+        btnReset: document.getElementById("resetBtn"),
+        btnExit: document.getElementById("exitBtn"),
+        modalSalir: document.getElementById("modal-salir"),
+        btnSalirSi: document.getElementById("btn-confirmar-salir"),
+        btnSalirNo: document.getElementById("btn-cancelar-salir"),
+        mensaje: document.getElementById("message")
+    },
 
+    // ===============================
+    // TABLERO / LÓGICA DE JUEGO
+    // ===============================
+    tablero: {
+        rows: 7,
+        cols: 7,
+        casillas: [],
+        piezaArrastrada: null,
 
-// ===============================
-// CLASS: TABLERO
-// ===============================
-class Board {
-    constructor(rows, cols) {
-        this.rows = rows;
-        this.cols = cols;
-        this.element = document.getElementById("board");
-        this.board = [];
-        this.dragged = null;
-    }
+        init() {
+            this.casillas = [];
+            juego.el.tablero.innerHTML = "";
+            juego.el.tablero.style.display = "grid";
+            juego.el.tablero.style.gridTemplateRows = `repeat(${this.rows}, 1fr)`;
+            juego.el.tablero.style.gridTemplateColumns = `repeat(${this.cols}, 1fr)`;
 
-    init() {
-        this.board = [];
-        this.element.innerHTML = "";
-        this.element.style.display = 'grid';
-        this.element.style.gridTemplateRows = `repeat(${this.rows}, 1fr)`;
-        this.element.style.gridTemplateColumns = `repeat(${this.cols}, 1fr)`;
+            for (let r = 0; r < this.rows; r++) {
+                const fila = [];
 
-        for (let r = 0; r < this.rows; r++) {
-            const row = [];
-            for (let c = 0; c < this.cols; c++) {
-                const cell = document.createElement("div");
-                cell.classList.add("cell");
-                cell.dataset.row = r;
-                cell.dataset.col = c;
+                for (let c = 0; c < this.cols; c++) {
+                    const celda = document.createElement("div");
+                    celda.classList.add("cell");
+                    celda.dataset.row = r;
+                    celda.dataset.col = c;
 
-                if (pattern[r][c] === 0) {
-                    cell.classList.add("invalid");
-                } else if (!(r === 3 && c === 3)) {
-                    const piece = new Piece(types[Math.floor(Math.random() * types.length)]);
-                    cell.appendChild(piece.element);
+                    // Celda inválida
+                    if (PEG_PATTERN[r][c] === 0) {
+                        celda.classList.add("invalid");
+                    } 
+                    // Colocar pieza excepto centro
+                    else if (!(r === 3 && c === 3)) {
+                        const tipo = PEG_TYPES[Math.floor(Math.random() * PEG_TYPES.length)];
+                        const pieza = this.crearPieza(tipo);
+                        celda.appendChild(pieza);
+                    }
+
+                    // Drag events
+                    celda.addEventListener("dragover", e => e.preventDefault());
+                    celda.addEventListener("drop", e => this.drop(e));
+
+                    juego.el.tablero.appendChild(celda);
+                    fila.push(celda);
                 }
-
-                cell.addEventListener("dragover", (e) => e.preventDefault());
-                cell.addEventListener("drop", (e) => this.onDrop(e));
-
-                this.element.appendChild(cell);
-                row.push(cell);
+                this.casillas.push(fila);
             }
-            this.board.push(row);
-        }
-        this.scaleBoard();
-    }
 
-    // Drag & Drop
-    onDragStart(e, piece) {
-        this.dragged = piece.element;
-        const cell = this.dragged.parentElement;
-        const r = +cell.dataset.row;
-        const c = +cell.dataset.col;
-        this.showHints(r, c);
-        setTimeout(() => (this.dragged.style.visibility = "hidden"), 0);
-    }
+            this.escalar();
+        },
 
-    onDragEnd() {
-        if (this.dragged) this.dragged.style.visibility = "visible";
-        this.dragged = null;
-        this.clearHints();
-    }
+        crearPieza(tipo) {
+            const el = document.createElement("div");
+            el.classList.add("piece");
+            el.dataset.type = tipo;
+            el.style.backgroundImage = `url(${PEG_IMAGES[tipo]})`;
+            el.draggable = true;
 
-    onDrop(e) {
-        e.preventDefault();
-        const targetCell = e.target.closest(".cell");
-        if (!this.dragged || !targetCell) return;
+            el.addEventListener("dragstart", e => this.startDrag(e, el));
+            el.addEventListener("dragend", () => this.endDrag());
 
-        const fromR = +this.dragged.parentElement.dataset.row;
-        const fromC = +this.dragged.parentElement.dataset.col;
-        const toR = +targetCell.dataset.row;
-        const toC = +targetCell.dataset.col;
+            return el;
+        },
 
-        if (this.isValidMove(fromR, fromC, toR, toC)) {
-            const midR = (fromR + toR) / 2;
-            const midC = (fromC + toC) / 2;
-            this.board[midR][midC].innerHTML = "";
-            targetCell.appendChild(this.dragged);
+        startDrag(e, pieza) {
+            this.piezaArrastrada = pieza;
+            const celda = pieza.parentElement;
+            this.mostrarHints(+celda.dataset.row, +celda.dataset.col);
+            setTimeout(() => pieza.style.visibility = "hidden", 0);
+        },
 
-            game.addScore(10);
-            game.board.clearHints();
-            game.checkVictory();
-            game.checkBlocked();
-        }
-    }
+        endDrag() {
+            if (this.piezaArrastrada) this.piezaArrastrada.style.visibility = "visible";
+            this.piezaArrastrada = null;
+            this.limpiarHints();
+        },
 
-    isValidMove(fromR, fromC, toR, toC) {
-        const fromPiece = this.board[fromR][fromC].querySelector(".piece");
-        if (!fromPiece) return false;
+        drop(e) {
+            e.preventDefault();
+            const destino = e.target.closest(".cell");
+            if (!this.piezaArrastrada || !destino) return;
 
-        let midR, midC;
-        if (Math.abs(fromR - toR) === 2 && fromC === toC) {
-            midR = (fromR + toR) / 2;
-            midC = fromC;
-        } else if (Math.abs(fromC - toC) === 2 && fromR === toR) {
-            midR = fromR;
-            midC = (fromC + toC) / 2;
-        } else return false;
+            const { row: fr, col: fc } = this.piezaArrastrada.parentElement.dataset;
+            const { row: tr, col: tc } = destino.dataset;
 
-        const midCell = this.board[midR][midC];
-        const targetCell = this.board[toR][toC];
-        if (targetCell.children.length !== 0 || !midCell.querySelector(".piece")) return false;
+            const fromR = +fr, fromC = +fc, toR = +tr, toC = +tc;
 
-        return true;
-    }
+            if (this.movimientoValido(fromR, fromC, toR, toC)) {
+                const midR = (fromR + toR) / 2;
+                const midC = (fromC + toC) / 2;
 
-    showHints(r, c) {
-        this.clearHints();
-        const moves = [
-            { r: r - 2, c, midR: r - 1, midC: c, rot: "-90deg" },
-            { r: r + 2, c, midR: r + 1, midC: c, rot: "90deg" },
-            { r, c: c - 2, midR: r, midC: c - 1, rot: "180deg" },
-            { r, c: c + 2, midR: r, midC: c + 1, rot: "0deg" }
-        ];
+                this.casillas[midR][midC].innerHTML = "";
+                destino.appendChild(this.piezaArrastrada);
 
-        const rect = this.element.getBoundingClientRect();
-
-        moves.forEach(m => {
-            if (
-                m.r >= 0 && m.c >= 0 &&
-                m.r < this.rows && m.c < this.cols &&
-                !this.board[m.r][m.c].classList.contains("invalid") &&
-                this.board[m.r][m.c].children.length === 0 &&
-                this.board[m.midR][m.midC].children.length > 0
-            ) {
-                const targetRect = this.board[m.r][m.c].getBoundingClientRect();
-                const hint = document.createElement("div");
-                hint.classList.add("hint");
-                hint.style.top = `${targetRect.top - rect.top + 20}px`;
-                hint.style.left = `${targetRect.left - rect.left + 20}px`;
-                hint.style.transform = `rotate(${m.rot})`;
-                this.element.appendChild(hint);
+                juego.sumarPuntos(10);
+                this.limpiarHints();
+                juego.verificarVictoria();
+                juego.verificarBloqueo();
             }
-        });
-    }
+        },
 
-    clearHints() {
-        this.element.querySelectorAll(".hint").forEach(h => h.remove());
-    }
+        movimientoValido(fr, fc, tr, tc) {
+            const midR = (fr + tr) / 2;
+            const midC = (fc + tc) / 2;
 
-    scaleBoard() {
-        this.element.style.transform = "scale(1)";
-        const rect = this.element.getBoundingClientRect();
-        const containerRect = document.getElementById("game-content").getBoundingClientRect();
-        const scale = Math.min(
-            containerRect.width / rect.width,
-            containerRect.height / rect.height,
-            1
-        );
-        this.element.style.transform = `scale(${scale})`;
-    }
-}
+            // salta 2 celdas en cruz
+            const saltoCorrecto = (
+                (Math.abs(fr - tr) === 2 && fc === tc) ||
+                (Math.abs(fc - tc) === 2 && fr === tr)
+            );
 
+            if (!saltoCorrecto) return false;
+            if (!this.casillas[midR][midC].querySelector(".piece")) return false;
+            if (this.casillas[tr][tc].children.length !== 0) return false;
 
-// ===============================
-// CLASS: JUEGO
-// ===============================
-class Game {
-    constructor() {
-        this.score = 0;
-        this.timer = 60;
-        this.paused = false;
-        this.interval = null;
+            return true;
+        },
 
-        this.board = new Board(7, 7);
+        mostrarHints(r, c) {
+            this.limpiarHints();
 
-        this.playBtn = document.getElementById("playButton");
-        this.gameContent = document.getElementById("game-content");
-        this.bannerOverlay = document.getElementById("bannerCard");
-        this.bannerImg = document.querySelector('.game-banner-card > .banner-image');
-        this.timerEl = document.getElementById("timer");
-        this.scoreEl = document.getElementById("score");
-        this.pauseBtn = document.getElementById("pauseBtn");
-        this.resetBtn = document.getElementById("resetBtn");
-        this.exitBtn = document.getElementById("exitBtn");
-        this.modalSalir = document.getElementById("modal-salir");
-        this.btnConfirmarSalir = document.getElementById("btn-confirmar-salir");
-        this.btnCancelarSalir = document.getElementById("btn-cancelar-salir");
-        this.messageBox = document.getElementById("message");
+            const moves = [
+                { r: r - 2, c, midR: r - 1, midC: c, rot: "-90deg" },
+                { r: r + 2, c, midR: r + 1, midC: c, rot: "90deg" },
+                { r, c: c - 2, midR: r, midC: c - 1, rot: "180deg" },
+                { r, c: c + 2, midR: r, midC: c + 1, rot: "0deg" }
+            ];
 
-        this.initEvents();
-    }
+            const rect = juego.el.tablero.getBoundingClientRect();
 
-    initEvents() {
-        this.playBtn.addEventListener("click", () => this.start());
-        this.pauseBtn.addEventListener("click", () => this.togglePause());
-        this.resetBtn.addEventListener("click", () => this.reset());
-        this.exitBtn.addEventListener("click", () => this.showExitModal());
-        this.btnCancelarSalir.addEventListener("click", () => this.hideExitModal());
-        this.btnConfirmarSalir.addEventListener("click", () => this.exitGame());
+            moves.forEach(m => {
+                if (
+                    m.r >= 0 && m.c >= 0 &&
+                    m.r < this.rows && m.c < this.cols &&
+                    !this.casillas[m.r][m.c].classList.contains("invalid") &&
+                    this.casillas[m.r][m.c].children.length === 0 &&
+                    this.casillas[m.midR][m.midC].children.length > 0
+                ) {
+                    const t = this.casillas[m.r][m.c].getBoundingClientRect();
+                    const hint = document.createElement("div");
+                    hint.classList.add("hint");
+                    hint.style.top = `${t.top - rect.top + 20}px`;
+                    hint.style.left = `${t.left - rect.left + 20}px`;
+                    hint.style.transform = `rotate(${m.rot})`;
+                    juego.el.tablero.appendChild(hint);
+                }
+            });
+        },
 
-        window.addEventListener("load", () => this.board.scaleBoard());
-        window.addEventListener("resize", () => this.board.scaleBoard());
-    }
+        limpiarHints() {
+            juego.el.tablero.querySelectorAll(".hint").forEach(h => h.remove());
+        },
 
-    start() {
-        this.bannerOverlay.style.display = "none";
-        this.bannerImg.style.display = "none";
-        this.gameContent.style.display = "flex";
+        escalar() {
+            juego.el.tablero.style.transform = "scale(1)";
+            const rect = juego.el.tablero.getBoundingClientRect();
+            const cont = juego.el.contenedor.getBoundingClientRect();
+
+            const scale = Math.min(cont.width / rect.width, cont.height / rect.height, 1);
+            juego.el.tablero.style.transform = `scale(${scale})`;
+        }
+    },
+
+    // ===============================
+    // CONTROL DE ESTADO / UI
+    // ===============================
+    iniciar() {
+        this.el.overlay.style.display = "none";
+        this.el.bannerImg.style.display = "none";
+        this.el.contenedor.style.display = "flex";
         this.reset();
-    }
+    },
 
     reset() {
-        this.messageBox.classList.remove("visible");
-        this.timer = 60;
         this.score = 0;
-        this.paused = false;
-        this.pauseBtn.textContent = "Pausar";
-        this.timerEl.textContent = "Tiempo: 60s";
-        this.scoreEl.textContent = "Puntaje: 0";
+        this.tiempo = 60;
+        this.pausado = false;
 
-        this.board.init();
-        this.startTimer();
-    }
+        this.el.mensaje.classList.remove("visible");
+        this.el.timer.textContent = "Tiempo: 60s";
+        this.el.score.textContent = "Puntaje: 0";
+        this.el.btnPause.textContent = "Pausar";
 
-    startTimer() {
-        clearInterval(this.interval);
-        this.interval = setInterval(() => {
-            if (!this.paused) {
-                this.timer--;
-                this.timerEl.textContent = `Tiempo: ${this.timer}s`;
-                if (this.timer <= 0) {
-                    clearInterval(this.interval);
-                    this.showMessage(`⏰ ¡Tiempo terminado!<br>Puntaje: ${this.score}`);
+        this.tablero.init();
+        this.iniciarTimer();
+    },
+
+    iniciarTimer() {
+        clearInterval(this.intervalo);
+        this.intervalo = setInterval(() => {
+            if (!this.pausado) {
+                this.tiempo--;
+                this.el.timer.textContent = `Tiempo: ${this.tiempo}s`;
+
+                if (this.tiempo <= 0) {
+                    clearInterval(this.intervalo);
+                    this.mostrarMensaje(`⏰ ¡Tiempo terminado!<br>Puntaje: ${this.score}`);
                 }
             }
         }, 1000);
-    }
+    },
 
-    togglePause() {
-        this.paused = !this.paused;
-        this.pauseBtn.textContent = this.paused ? "Reanudar" : "Pausar";
-    }
+    pausar() {
+        this.pausado = !this.pausado;
+        this.el.btnPause.textContent = this.pausado ? "Reanudar" : "Pausar";
+    },
 
-    addScore(value) {
-        this.score += value;
-        this.scoreEl.textContent = `Puntaje: ${this.score}`;
-    }
+    sumarPuntos(v) {
+        this.score += v;
+        this.el.score.textContent = `Puntaje: ${this.score}`;
+    },
 
-    checkVictory() {
-        const pieces = document.querySelectorAll("#board .piece").length;
-        if (pieces === 1) {
-            clearInterval(this.interval);
-            this.showMessage(`🏆 ¡Victoria!<br>Puntaje: ${this.score}`);
+    verificarVictoria() {
+        if (document.querySelectorAll("#board .piece").length === 1) {
+            clearInterval(this.intervalo);
+            this.mostrarMensaje(`🏆 ¡Victoria!<br>Puntaje: ${this.score}`);
         }
-    }
+    },
 
-    checkBlocked() {
-        const pieces = document.querySelectorAll("#board .piece");
-        for (const piece of pieces) {
-            const r = +piece.parentElement.dataset.row;
-            const c = +piece.parentElement.dataset.col;
+    verificarBloqueo() {
+        const piezas = document.querySelectorAll("#board .piece");
+
+        for (const p of piezas) {
+            const r = +p.parentElement.dataset.row;
+            const c = +p.parentElement.dataset.col;
+
             const moves = [
                 { r: r - 2, c, midR: r - 1, midC: c },
                 { r: r + 2, c, midR: r + 1, midC: c },
                 { r, c: c - 2, midR: r, midC: c - 1 },
                 { r, c: c + 2, midR: r, midC: c + 1 }
             ];
+
             for (const m of moves) {
                 if (
                     m.r >= 0 && m.c >= 0 &&
                     m.r < 7 && m.c < 7 &&
-                    !this.board.board[m.r][m.c].classList.contains("invalid") &&
-                    this.board.board[m.r][m.c].children.length === 0 &&
-                    this.board.board[m.midR][m.midC].children.length > 0
+                    !this.tablero.casillas[m.r][m.c].classList.contains("invalid") &&
+                    this.tablero.casillas[m.r][m.c].children.length === 0 &&
+                    this.tablero.casillas[m.midR][m.midC].children.length > 0
                 ) return;
             }
         }
 
-        clearInterval(this.interval);
-        this.showMessage(`🚫 Sin movimientos<br>Puntaje: ${this.score}`);
-    }
+        clearInterval(this.intervalo);
+        this.mostrarMensaje(`🚫 Sin movimientos<br>Puntaje: ${this.score}`);
+    },
 
-    showMessage(text) {
-        this.messageBox.innerHTML = `<div>${text}</div><button onclick="game.reset()">Jugar de nuevo</button>`;
-        this.messageBox.classList.add("visible");
-    }
+    mostrarMensaje(txt) {
+        this.el.mensaje.innerHTML = `<div>${txt}</div><button onclick="juego.reset()">Jugar de nuevo</button>`;
+        this.el.mensaje.classList.add("visible");
+    },
 
-    showExitModal() { this.modalSalir.style.display = "flex"; }
-    hideExitModal() { this.modalSalir.style.display = "none"; }
+    // ===============================
+    // EVENTOS
+    // ===============================
+    initEventos() {
+        this.el.btnPlay.addEventListener("click", () => this.iniciar());
+        this.el.btnPause.addEventListener("click", () => this.pausar());
+        this.el.btnReset.addEventListener("click", () => this.reset());
+        this.el.btnExit.addEventListener("click", () => this.el.modalSalir.style.display = "flex");
+        this.el.btnSalirNo.addEventListener("click", () => this.el.modalSalir.style.display = "none");
+        this.el.btnSalirSi.addEventListener("click", () => this.salir());
 
-    exitGame() {
-        this.hideExitModal();
-        this.gameContent.style.display = "none";
-        this.bannerOverlay.style.display = "flex";
-        this.bannerImg.style.display = "block";
+        window.addEventListener("load", () => this.tablero.escalar());
+        window.addEventListener("resize", () => this.tablero.escalar());
+    },
+
+    salir() {
+        this.el.modalSalir.style.display = "none";
+        this.el.contenedor.style.display = "none";
+        this.el.overlay.style.display = "flex";
+        this.el.bannerImg.style.display = "block";
         this.reset();
     }
-}
+};
 
 
 // ===============================
-// INICIAR JUEGO
+// INICIO
 // ===============================
-const game = new Game();
+window.onload = () => juego.initEventos();
