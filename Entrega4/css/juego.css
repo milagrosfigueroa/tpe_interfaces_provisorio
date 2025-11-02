@@ -14,15 +14,19 @@
     --color-text-primary: #FFFFFF;
     --color-text-secondary: #AAAAAA;
     --color-primary-pink: #FA62A5; 
+    --color-orange: #FFA500;    
+    --color-orange-darker: #A36A00; 
+   
     
     /* Colores de Hover/Estados */
     --color-pink-hover: #FA328A;
     --color-added-green: #69B469; /* Color verde de Blocka para movimientos */
     --color-added-green-hover: #5AA15A;
     --color-azul-secundario: #6CC3D5; /* Color azul del borde de Salir */
-    --color-azul-hover-bg: #1A7B9B;   
+    --color-azul-hover-bg: #1A7B9B;  
+     --color-orange-dark: #CC8400;   
     
-    /* MODIFICACIÓN CRÍTICA: Rosa intenso para hover de Pausar */
+   
     --color-rosa-hover-pausar: #A70046; 
     
     /* FUENTES */
@@ -171,8 +175,7 @@ body {
 }
 
 /* ======================================= */
-/* NUEVOS CAMBIOS: ENCABEZADO Y LAYOUT     */
-/* (Z-INDEX CORREGIDO)                     */
+/* ENCABEZADO Y LAYOUT                     */
 /* ======================================= */
 
 .game-header {
@@ -180,8 +183,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    /* MODIFICADO: Aumento de Padding Horizontal para más margen */
-    padding: 15px 30px; /* Incrementado de 20px a 30px */
+    padding: 15px 30px; 
     box-sizing: border-box;
     z-index: 5; 
     
@@ -192,8 +194,7 @@ body {
 
 .botones-derecha-juego {
     display: flex;
-    /* MODIFICADO: Aumento del espacio entre los botones */
-    gap: 8px; /* Reducido de 10px a 8px */
+    gap: 8px;
 }
 
 .info-izquierda {
@@ -210,14 +211,11 @@ body {
     font-family: var(--font-base);
     font-weight: 600; 
     font-size: 1.2rem; 
-    
-    /* Fondo oscuro para que parezca un botón */
+
     background: rgba(0, 0, 0, 0.4); 
-    
-    /* Letra blanca (según tu petición) */
     color: #ffffff; 
     
-    /* Borde verde, similar al temporizador */
+   
     border: 2px solid var(--color-added-green); 
     
     border-radius: 10px; 
@@ -225,7 +223,7 @@ body {
     
     margin: 0; 
     display: inline-block; 
-    min-width: 150px; /* Ancho para contener el texto "Movimientos: 45" */
+    min-width: 150px; 
     text-align: center; 
     box-sizing: border-box; 
 }
@@ -235,12 +233,10 @@ body {
     color: #ffffff;
     font-family: 'Orbitron', sans-serif; 
     font-weight: 700;
-    /* REDUCIDO: Tamaño de fuente más chico */
-    font-size: 1.3rem; /* Reducido de 1.5rem */
+    font-size: 1.3rem;
     
     background: rgba(0, 0, 0, 0.4);
-    /* REDUCIDO: Padding más compacto */
-    padding: 3px 12px; /* Reducido de 5px 15px */
+    padding: 3px 12px; 
     
     border-radius: 10px;
     border: 2px solid var(--color-azul-secundario);
@@ -275,9 +271,9 @@ body {
     font-family: var(--font-base);
     font-weight: 600;
     
-    /* MODIFICADO: TAMAÑO DEFINITIVO - AÚN MÁS COMPACTO */
-    padding: 4px 12px; /* Reducido de 6px 14px */
-    font-size: 0.85em; /* Reducido de 0.9em */
+    
+    padding: 4px 12px; 
+    font-size: 0.85em;
     
     border-radius: 8px; 
     cursor: pointer;
@@ -286,6 +282,51 @@ body {
     border: none;
 
     outline: none !important; 
+}
+
+/* ======================================= */
+/* BOTONES SECUNDARIOS (Reiniciar) */
+/* ======================================= */
+
+/* Estilo Base para el botón Reiniciar (MODIFICADO: Transparente) */
+.btn-secondary-reset {
+    /* HEREDA el estilo base de los otros botones */
+    font-family: var(--font-base); 
+    font-weight: 600;
+    
+    padding: 4px 12px; 
+    font-size: 0.85em;
+    
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+    border: none;
+    outline: none !important; 
+    
+    
+    background: transparent; 
+    color: var(--color-orange);
+    border: 2px solid var(--color-orange); 
+    box-shadow: none; 
+}
+
+/* Efecto Hover para el botón Reiniciar */
+.btn-secondary-reset:hover {
+    background-color: var(--color-orange); 
+    color: var(--color-text-primary); 
+    border-color: var(--color-orange);
+    
+    
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.6); 
+    transform: translateY(-2px); 
+}
+
+/* Efecto Active para el botón Reiniciar  */
+.btn-secondary-reset:active {
+    background-color: var(--color-orange-dark); 
+    box-shadow: 0 0 5px rgba(255, 165, 0, 0.4);
+    transform: translateY(0);
 }
 
 /* --------------------------------------------- */
@@ -299,7 +340,7 @@ button.boton-pausar {
     border: 2px solid var(--color-primary-pink);
 }
 
-/* Pausar: Hover (Fondo y Borde Rosa Intenso) */
+/* Pausar: Hover  */
 button.btn-juego.boton-pausar:hover { 
     background: var(--color-rosa-hover-pausar) !important; 
     color: white !important; 
@@ -315,15 +356,14 @@ button.btn-juego.boton-pausar:hover {
 /* ESTADO REANUDAR  */
 /* --------------------------------------------- */
 
-/* Botón Reanudar (Estado Normal/Activo: Fondo y Borde VERDE) */
+/* Botón Reanudar  */
 button.boton-pausar.activo {
-    /* Fondo VERDE claro y Letra blanca */
     background: var(--color-bg-dark); 
     color: #69B469;
     border: 2px solid var(--color-added-green); 
 }
 
-/* Reanudar: Hover (VERDE más oscuro) */
+/* Reanudar: Hover  */
 button.boton-pausar.activo:hover {
     background-color: var(--color-added-green-hover) !important; 
     color: white !important;
@@ -337,7 +377,7 @@ button.boton-pausar.activo:hover {
 /* BOTÓN SALIR                                   */
 /* --------------------------------------------- */
 
-/* Botón Salir (Estado Normal: Borde Azul) */
+/* Botón Salir  */
 button.boton-salir {
     background: var(--color-bg-dark); 
     color: var(--color-azul-secundario); 
@@ -389,9 +429,8 @@ button.btn-juego.boton-salir:hover {
 /* ESTILOS DE PANTALLA FINAL               */
 /* ======================================= */
 
-/* Estilo Base de la Pantalla Final (sin cambios) */
 .pantalla-final {
-    background-color: rgba(16, 38, 65, 0.95); /* Fondo semitransparente oscuro */
+    background-color: rgba(16, 38, 65, 0.95); 
     z-index: 100;
     display: flex;
     flex-direction: column;
@@ -428,27 +467,27 @@ button.btn-juego.boton-salir:hover {
     text-align: center;
     max-width: 60%;
     
-    /* AÑADIDO: Espacio vertical entre las dos líneas */
+
     line-height: 1.35; 
 }
 
 /* ---------------------------------- */
-/* CLASES DINÁMICAS DE RESULTADO (ÚNICA DEFINICIÓN) */
+/* CLASES DINÁMICAS DE RESULTADO      */
 /* ---------------------------------- */
 
-/* Estilo para el título de VICTORIA (Verde - SIN LÍNEA) */
+/* Estilo para el título de VICTORIA */
 .titulo-victoria {
     color: var(--color-added-green); 
     border-bottom: none !important; 
 }
 
-/* Estilo para el título de DERROTA (Rosa/Rojo - SIN LÍNEA) */
+/* Estilo para el título de DERROTA */
 .titulo-derrota {
     color: var(--color-primary-pink); 
     border-bottom: none !important; 
 }
 
-/* Estilo del botón "JUGAR DE NUEVO" (sin cambios) */
+/* Estilo del botón "JUGAR DE NUEVO"  */
 .pantalla-final .btn-primary-play {
     width: 300px;
     font-size: 1.2rem;

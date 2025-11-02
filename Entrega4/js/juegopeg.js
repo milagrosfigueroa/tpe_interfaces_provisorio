@@ -241,18 +241,18 @@ class Juego {
 
     reiniciarJuego() {
         this.pausado = false;
-        this.temporizador.reiniciar();
         if (this.botonPausar) {
-            // Aseguramos que el botón se vea como 'Pausar' al reiniciar
             this.botonPausar.classList.remove("activo");
             this.botonPausar.textContent = "Pausar";
         }
+
         this.inicializarFichas();
-        
-        //  Resetear contador de movimientos 
         this.movimientosRestantes = 45; 
         this.actualizarContador(); 
         
+        this.temporizador.reiniciar(); 
+ 
+        this.temporizador.iniciar(); 
         
         this.dibujarTodo();
     }
