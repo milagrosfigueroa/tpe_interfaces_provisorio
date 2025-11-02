@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rosario:wght@400;700&family=Roboto:wght@400;600&family=Micro+5&family=Sigmar+One&display=swap" rel="stylesheet">
-
+   
 </head>
 <body>
 
@@ -219,30 +219,32 @@
 
             <!-- 2. Pantalla del juego -->
             <div class="pantalla-juego" id="paginaJuego">
-                <div class="temporizador-display" id="temporizadorDisplay">02:00</div>
-
-                <div class="temporizador-controles">
-                    <button id="btnPausar">Pausar</button>
-                    <button id="btnReiniciar">Reiniciar</button>
-                    <button id="botonSalir">Salir</button>
-
-                </div>
-
+                <div class="game-header">
+                    <div class="info-izquierda">
+                        <div class="temporizador-display" id="temporizadorDisplay">02:00</div>
+                        
+                        <div id="contadorMovimientos" class="contador-movimientos">
+                            Movimientos: <span id="movimientosRestantes">45</span>
+                        </div>
+                    </div>
+                    
+                    <div class="botones-derecha-juego">
+                        <button id="btnPausar" class="btn-juego boton-pausar">Pausar</button>
+                        <button id="botonSalir" class="btn-juego boton-salir">Salir</button>
+                    </div>
+            </div>
 
                 <div class="contenedorTablero">
                     <canvas id="pegCanvas" width="1920" height="1080"></canvas>
                 </div>
-
-                <div class="info-juego">
-                    <p>Movimientos: <span id="movimientosRestantes">45</span></p> 
-                </div>
             </div>
 
             <!-- 3. Pantalla final -->
-            <div class="pantalla-final" id="paginaFinal">
-                <h2>¡Juego terminado!</h2>
-                <p id="puntajeFinal">Movimientos restantes: </p>
-                <button class="btn-primary-play" id="botonReiniciar">Reiniciar</button>
+            <div class="pantalla-final">
+                <h2 id="resultadoTitulo"></h2> 
+                <p id="resultadoMensaje"></p> 
+    
+               <button  class="btn-primary-play"   onclick="juegoPeg.iniciarJuego()"> Jugar de nuevo </button>
             </div>
 
         </div>
