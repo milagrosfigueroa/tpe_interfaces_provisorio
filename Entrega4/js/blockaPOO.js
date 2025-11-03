@@ -40,6 +40,7 @@ const NIVELES = [
     { id: 1, nombre: "Nivel 1", filtro: "escalaGrises" },
     { id: 2, nombre: "Nivel 2", filtro: "brillo" },
     { id: 3, nombre: "Nivel 3", filtro: "negativo" },
+    { id: 4, nombre: "Nivel 4", filtro: "blureado" }, // Filtro Blureado
 ];
 
 const PANTALLAS = [
@@ -60,6 +61,8 @@ const PANTALLAS = [
 const Filtros = (() => {
     const BRIGHTNESS_FACTOR = 1.3; 
 
+    // --- Filtros RGB (Píxel a Píxel) ---
+
     const escalaGrises = (r, g, b) => {
         const promedio = (r + g + b) / 3;
         return [promedio, promedio, promedio];
@@ -75,10 +78,84 @@ const Filtros = (() => {
 
     const negativo = (r, g, b) => [255 - r, 255 - g, 255 - b];
 
+    // --- FILTRO DE IMAGEN (Cross Blur 9x9 Lineal) ---
+    
+    /**
+     * Aplica el filtro de promedio lineal de 9x9 (Cruz de 17 píxeles).
+     * Maneja los bordes promediando solo los píxeles disponibles.
+     */
+    const blureado = (datosOriginales, width, height) => {
+        // Lectura: Copia real de los datos originales.
+        const datosParaLeer = new Uint8ClampedArray(datosOriginales);
+        
+        const radius = 4; // Radio 4 -> 9x9 líneas, 17 píxeles promediados
+        
+        const offsets = [];
+        for (let i = -radius; i <= radius; i++) {
+            offsets.push(i);
+        }
+        
+        // Itera sobre cada píxel del canvas, incluyendo los bordes
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                let rTotal = 0;
+                let gTotal = 0;
+                let bTotal = 0;
+                let pixelCount = 0; // Contador dinámico para los bordes
+                
+                // 1. ITERACIÓN HORIZONTAL (Eje X) - Incluye el píxel central (offset 0)
+                for (const offset of offsets) {
+                    const neighbourX = x + offset;
+                    const neighbourY = y; 
+                    
+                    // CONDICIÓN DE BORDE
+                    if (neighbourX >= 0 && neighbourX < width) {
+                        const index = (neighbourY * width + neighbourX) * 4;
+                        
+                        rTotal += datosParaLeer[index];     
+                        gTotal += datosParaLeer[index + 1]; 
+                        bTotal += datosParaLeer[index + 2]; 
+                        pixelCount++;
+                    }
+                }
+                
+                // 2. ITERACIÓN VERTICAL (Eje Y) - Omitiendo el píxel central (offset 0)
+                const verticalOffsets = offsets.filter(o => o !== 0);
+                
+                for (const offset of verticalOffsets) {
+                    const neighbourX = x; 
+                    const neighbourY = y + offset;
+                    
+                    // CONDICIÓN DE BORDE
+                    if (neighbourY >= 0 && neighbourY < height) {
+                        const index = (neighbourY * width + neighbourX) * 4;
+                        
+                        rTotal += datosParaLeer[index];     
+                        gTotal += datosParaLeer[index + 1]; 
+                        bTotal += datosParaLeer[index + 2]; 
+                        pixelCount++;
+                    }
+                }
+                
+                // CALCULAR PROMEDIOS
+                if (pixelCount > 0) {
+                    const centerIndex = (y * width + x) * 4;
+                    
+                    datosOriginales[centerIndex] = Math.floor(rTotal / pixelCount);
+                    datosOriginales[centerIndex + 1] = Math.floor(gTotal / pixelCount);
+                    datosOriginales[centerIndex + 2] = Math.floor(bTotal / pixelCount);
+                }
+            }
+        }
+        return datosOriginales; 
+    };
+
+    // MAPA que define el TIPO de filtro (rgb o imagen) y su función asociada
     const MAPA = {
-        escalaGrises: escalaGrises,
-        brillo: brillo,
-        negativo: negativo,
+        escalaGrises: { tipo: 'rgb', fn: escalaGrises },
+        brillo: { tipo: 'rgb', fn: brillo },
+        negativo: { tipo: 'rgb', fn: negativo },
+        blureado: { tipo: 'imagen', fn: blureado }, // Añadido Blureado 
     };
     
     const obtenerFuncion = (nombre) => MAPA[nombre];
@@ -88,7 +165,7 @@ const Filtros = (() => {
 
 
 // ===================================
-// OBJETO VISTA (Manejo del DOM)
+// OBJETO VISTA (Manejo del DOM) 
 // ===================================
 
 const Vista = {
@@ -261,7 +338,7 @@ class Pieza {
 
 
 // ====================
-// CLASE JUEGO (Controlador Principal)
+// CLASE JUEGO (Controlador Principal) - 
 // ====================
 
 class Juego {
@@ -375,7 +452,7 @@ class Juego {
         const previewContainer = document.getElementById("imagenes-preview-container");
         previewContainer.innerHTML = "";
         
-        // ✅ Usa el banco actual
+        // Usa el banco actual
         const imagenesParaPreview = this.bancoActual.slice(0, 8);
 
         imagenesParaPreview.forEach(src => {
@@ -513,13 +590,23 @@ class Juego {
         const nivelConfig = NIVELES.find(n => n.id === this.nivelActual);
         if (!nivelConfig) return; 
 
-        const funcionFiltro = Filtros.obtenerFuncion(nivelConfig.filtro);
-        if (!funcionFiltro) return;
+        // Obtenemos TIPO y FUNCION
+        const filtroObj = Filtros.obtenerFuncion(nivelConfig.filtro);
+        if (!filtroObj) return;
 
-        for (let i = 0; i < datos.length; i += 4) {
-            const [r, g, b] = [datos[i], datos[i + 1], datos[i + 2]];
-            const [rN, gN, bN] = funcionFiltro(r, g, b);
-            [datos[i], datos[i + 1], datos[i + 2]] = [rN, gN, bN];
+        const { tipo, fn } = filtroObj;
+
+        // LÓGICA DE APLICACIÓN SEGÚN EL TIPO
+        if (tipo === 'rgb') {
+            // Aplica filtros píxel a píxel
+            for (let i = 0; i < datos.length; i += 4) {
+                const [r, g, b] = [datos[i], datos[i + 1], datos[i + 2]];
+                const [rN, gN, bN] = fn(r, g, b);
+                [datos[i], datos[i + 1], datos[i + 2]] = [rN, gN, bN];
+            }
+        } else if (tipo === 'imagen') {
+            // Aplica filtros a la imagen completa (Cross Blur)
+            fn(datos, canvas.width, canvas.height); 
         }
 
         ctx.putImageData(datosImagen, 0, 0);
@@ -637,6 +724,7 @@ class Juego {
             escalaGrises: "Escala de Grises",
             brillo: "Brillo 30%",
             negativo: "Negativo",
+            blureado: "Blureado", // Filtro Blureado 
         }[filtro] || filtro;
     }
 }
