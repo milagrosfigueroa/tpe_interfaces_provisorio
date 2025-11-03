@@ -150,8 +150,9 @@ body {
 /* Pantalla inicial */
 .pantalla-inicio h2 {
     color: var(--color-pink-hover);
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 60px;
+    font-family: 'Pangolin', sans-serif;
+    font-size: 80px;
+    letter-spacing: 2px;
     margin-bottom: 80px;
 }
 .pantalla-inicio .btn-primary-play{
