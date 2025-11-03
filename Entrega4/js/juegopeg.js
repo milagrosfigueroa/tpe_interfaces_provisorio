@@ -95,24 +95,35 @@ class Pantalla {
         this.pantallaInicio = document.querySelector(".pantalla-inicio");
         this.pantallaJuego = document.querySelector(".pantalla-juego");
         this.pantallaFinal = document.querySelector(".pantalla-final");
+        this.pantallaInstrucciones = document.querySelector(".pantalla-instrucciones");
     }
 
     mostrarInicio() {
         this.pantallaInicio.classList.add("activo");
         this.pantallaJuego.classList.remove("activo");
         this.pantallaFinal.classList.remove("activo");
+        this.pantallaInstrucciones.classList.remove("activo");
     }
 
     mostrarJuego() {
         this.pantallaInicio.classList.remove("activo");
         this.pantallaJuego.classList.add("activo");
         this.pantallaFinal.classList.remove("activo");
+        this.pantallaInstrucciones.classList.remove("activo");
     }
 
     mostrarFinal() {
         this.pantallaInicio.classList.remove("activo");
         this.pantallaJuego.classList.remove("activo");
         this.pantallaFinal.classList.add("activo");
+        this.pantallaInstrucciones.classList.remove("activo");
+    }
+
+    mostrarInstrucciones() { 
+        this.pantallaInicio.classList.remove("activo");
+        this.pantallaJuego.classList.remove("activo");
+        this.pantallaFinal.classList.remove("activo");
+        if (this.pantallaInstrucciones) this.pantallaInstrucciones.classList.add("activo");
     }
 }
 
@@ -177,6 +188,13 @@ class Juego {
         this.botonSalir = document.querySelector("#botonSalir");
         this.botonPausar = document.getElementById("btnPausar"); 
         this.botonReiniciar = document.getElementById("btnReiniciar");
+        this.botonInstrucciones = document.getElementById("btn-instrucciones");
+
+        if (this.botonInstrucciones)
+            this.botonInstrucciones.addEventListener("click", () => this.irAInstrucciones());
+
+        if (this.botonVolverInicio)
+            this.botonVolverInicio.addEventListener("click", () => this.volverInicio());
 
         if (this.botonJugar)
             this.botonJugar.addEventListener("click", () => this.iniciarJuego());
@@ -205,10 +223,7 @@ class Juego {
         this.movimientosRestantes = 45; // 45 movimientos iniciales
         this.movimientosDisplay = document.getElementById("movimientosRestantes"); 
         this.actualizarContador(); // Muestra el valor inicial en el HTML
-        // --- FIN: LÓGICA DE MOVIMIENTOS AÑADIDA ---
-    }
-    
-    // --- NUEVO MÉTODO AÑADIDO PARA ACTUALIZAR EL DISPLAY DE MOVIMIENTOS ---
+}
     actualizarContador() {
         if (this.movimientosDisplay) {
             this.movimientosDisplay.textContent = this.movimientosRestantes;
@@ -249,13 +264,17 @@ class Juego {
         this.inicializarFichas();
         this.movimientosRestantes = 45; 
         this.actualizarContador(); 
-        
+
         this.temporizador.reiniciar(); 
- 
         this.temporizador.iniciar(); 
-        
-        this.dibujarTodo();
+
+        if (this.tablero.imagen.complete) {
+            this.dibujarTodo();
+        } else {
+            this.tablero.imagen.onload = () => this.dibujarTodo();
+        }
     }
+
 
     generarPosiciones() {
         const posiciones = [];
@@ -298,21 +317,30 @@ class Juego {
 
     iniciarJuego() {
         this.pantallas.mostrarJuego();
-        
         this.reiniciarJuego();
+
+        if (this.tablero.imagen.complete) {
+            this.dibujarTodo();
+        } else {
+            this.tablero.imagen.onload = () => this.dibujarTodo();
+        }
 
         this.temporizador.iniciar();
     }
 
 
+
     volverInicio() {
         this.temporizador.reiniciar();
-        // Aseguramos que el botón no esté en estado 'Reanudar' al volver al inicio
         if (this.botonPausar) {
             this.botonPausar.classList.remove("activo");
             this.botonPausar.textContent = "Pausar";
         }
         this.pantallas.mostrarInicio();
+    }
+
+    irAInstrucciones() {
+        this.pantallas.mostrarInstrucciones();
     }
 
     iniciar() {
@@ -520,7 +548,7 @@ class Juego {
             mensaje = "Se agotaron tus movimientos con " + this.fichas.length + " fichas.<br>¡Vuelve a intentarlo!";
         }
         else if (this.temporizador.tiempoRestante <= 0) {
-            mensaje = "El tiempo se ha agotado.<br>¡Sé más rápido!";
+            mensaje = "El tiempo se ha agotado.<br>¡Trata de hacerlo más rápido!";
         }
         // Condición de Derrota: Sin movimientos legales y más de 1 ficha
         else {

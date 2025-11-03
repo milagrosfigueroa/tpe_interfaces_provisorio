@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rosario:wght@400;700&family=Roboto:wght@400;600&family=Micro+5&family=Sigmar+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Outfit:wght@400;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Rosario:wght@400;700&family=Roboto:wght@400;600&family=Micro+5&family=Sigmar+One&family=Zalando+Sans+SemiExpanded&family=Ubuntu&display=swap" rel="stylesheet">
    
 </head>
 <body>
@@ -215,7 +215,54 @@
             <div class="pantalla-inicio" id="paginaInicio">
                 <h2>Peg Solitaire</h2>
                 <button class="btn-primary-play" id="botonIniciar">Jugar</button>
+                <button class="boton boton-secundario" id="btn-instrucciones">Instrucciones</button>
+
             </div>
+            <div class="pantalla-instrucciones" id="paginaInstrucciones">
+                <h2 class="titulo-instrucciones">Cómo jugar al Peg Solitaire</h2>
+
+                <p class="descripcion-instrucciones">
+                    El Peg Solitaire es un juego de estrategia donde debes eliminar fichas saltando sobre otras.  
+                    Tu meta: dejar una sola ficha en el tablero.
+                </p>
+
+                <div class="contenedor-columnas">
+                    <!-- Columna Izquierda -->
+                    <div class="columna-instruccion">
+                        <h3 class="subtitulo-instrucciones">Cómo mover las fichas</h3>
+                        <p class="texto-instrucciones">
+                            1- Selecciona una ficha manteniendo el click sobre ella.<br>
+                            2- Arrástrala hacia un casillero válido.<br>
+                            3- Suéltala, la ficha que saltas desaparece.
+                        </p>
+
+                        <div class="contenedor-imagen-instrucciones">
+                            <img src="./img/pegejecucion/instruccion1.png" alt="Ejemplo de movimiento en Peg Solitaire" class="imagen-instrucciones">
+                            <img src="./img/pegejecucion/instruccion2.png" alt="Ejemplo de movimiento en Peg Solitaire" class="imagen-instrucciones">
+                            <img src="./img/pegejecucion/instruccion3.png" alt="Ejemplo de movimiento en Peg Solitaire" class="imagen-instrucciones">
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha -->
+                    <div class="columna-instruccion columna-instruccion-d">
+                        <h3 class="subtitulo-instrucciones"> El juego finaliza si:</h3>
+                        <p class="texto-instrucciones">
+                            - Se acaba el tiempo.<br>
+                            - Tienes fichas pero no tienes más movimientos válidos.<br>
+                            - Se te acabaron los 45 movimientos.
+                        </p>
+
+                        <h3 class="subtitulo-instrucciones">Cómo ganar</h3>
+                        <p class="texto-instrucciones">
+                            Ganas si logras dejar una sola ficha en el tablero antes de que se acabe el tiempo.<br>
+                            Si esa ficha está en el casillero del medio, es una victoria perfecta!
+                        </p>
+                    </div>
+                </div>
+
+                <button class="boton boton-secundario" id="btn-volver-inicio" onclick="juegoPeg.volverInicio()">Volver al inicio</button>
+            </div>
+
 
             <!-- 2. Pantalla del juego -->
             <div class="pantalla-juego" id="paginaJuego">
@@ -246,6 +293,7 @@
                 <p id="resultadoMensaje"></p> 
     
                <button  class="btn-primary-play"   onclick="juegoPeg.iniciarJuego()"> Jugar de nuevo </button>
+               <button class="boton boton-secundario" id="btn-volver-inicio" onclick="juegoPeg.volverInicio()">Volver al inicio</button>
             </div>
 
         </div>

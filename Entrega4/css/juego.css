@@ -24,9 +24,8 @@
     --color-added-green-hover: #5AA15A;
     --color-azul-secundario: #6CC3D5; /* Color azul del borde de Salir */
     --color-azul-hover-bg: #1A7B9B;  
-     --color-orange-dark: #CC8400;   
-    
-   
+    --color-orange-dark: #CC8400;   
+    --color-rosa-hover-instrucciones: #E42274;
     --color-rosa-hover-pausar: #A70046; 
     
     /* FUENTES */
@@ -35,6 +34,8 @@
     
     /* TAMAÑOS BASE */
     --font-size-base: 16px;
+
+    --transicion-rapida: all 0.3s ease-in-out;
 }
 
 /* ======================================= */
@@ -149,9 +150,9 @@ body {
 /* Pantalla inicial */
 .pantalla-inicio h2 {
     color: var(--color-pink-hover);
-    font-family: 'Sigmar One', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 60px;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
 }
 .pantalla-inicio .btn-primary-play{
     width: 300px;
@@ -173,6 +174,124 @@ body {
     box-sizing: border-box;
     position: relative;
 }
+/* ======================================= */
+/* PANTALLA DE INSTRUCCIONES               */
+/* ======================================= */
+.pantalla-instrucciones #btn-volver-inicio{
+    margin-top: 23px; 
+}
+.pantalla-instrucciones {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-dark);
+    padding: 50px 40px;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.pantalla-instrucciones.activo {
+    display: flex;
+}
+
+/* ==== TÍTULOS ==== */
+.titulo-instrucciones {
+    margin-bottom: 10px;
+    font-size: 1.9rem;
+    color: var(--color-primary-pink);
+    font-family: var(--font-heading);
+}
+
+.descripcion-instrucciones {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 600px;
+    color: #dfe7f3;
+    margin-bottom: 20px;
+}
+
+/* ==== COLUMNAS ==== */
+.contenedor-columnas {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    flex-wrap: wrap;
+    max-width: 850px;
+}
+
+.columna-instruccion {
+    flex: 1 1 380px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    text-align: center;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.columna-instruccion-d .texto-instrucciones {
+    margin-bottom: 10px;
+}
+.columna-instruccion-d .subtitulo-instrucciones {
+    margin-top: 10px;
+}
+
+/* ==== SUBTÍTULOS ==== */
+.subtitulo-instrucciones {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--color-primary-pink);
+    font-family: var(--font-heading);
+}
+
+/* ==== TEXTO ==== */
+.texto-instrucciones {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #dfe7f3;
+    margin-bottom: 5px;
+}
+
+/* ==== IMAGEN ==== */
+.contenedor-imagen-instrucciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.imagen-instrucciones {
+    width: 130px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.imagen-instrucciones:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(111, 228, 255, 0.7);
+}
+
+/* ==== BOTÓN ==== */
+#btn-volver-inicio {
+    margin-top: 0px;
+    align-self: center;
+}
+
+/* ==== ANIMACIÓN ==== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
 
 /* ======================================= */
 /* ENCABEZADO Y LAYOUT                     */
@@ -264,6 +383,37 @@ body {
 /* ESTILOS DE BOTONES DE CONTROL                 */
 /* --------------------------------------------- */
 
+/* --------------------------------------------- */
+/* CLASE boton volver inicio e instrucciones */
+/* --------------------------------------------- */
+.boton{
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transicion-rapida);
+    font-weight: 600;
+    font-family: var(--font-base);
+
+}
+.boton-secundario {
+    background: var(--color-bg-dark); 
+    color: var(--color-primary-pink);
+    border: 2px solid var(--color-primary-pink);
+    
+    width: 250px; 
+    padding: 12px 25px; 
+    font-size: 1.1em;
+    font-weight: 600;
+}
+.boton-secundario:hover{
+    background: var(--color-rosa-hover-instrucciones); 
+    color: white; 
+    border: 2px solid var(--color-rosa-hover-instrucciones);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(228, 34, 116, 0.6); 
+}
 /* --------------------------------------------- */
 /* CLASE BASE: .btn-juego */
 /* --------------------------------------------- */
@@ -405,7 +555,7 @@ button.btn-juego.boton-salir:hover {
     margin-top: 30px; 
     padding: 10px;
     width: 800px;             
-    height: 410px;            
+    height: 430px;            
     display: flex;
     justify-content: center;
     align-items: center;
@@ -443,17 +593,11 @@ button.btn-juego.boton-salir:hover {
 /* ======================================= */
 
 .pantalla-final h2 {
-    font-family: 'Outfit', sans-serif; 
-    
-    font-size: 4rem; 
+    font-family: 'Zalando Sans SemiExpanded', sans-serif; 
+    font-size: 3rem; 
     font-weight: 700; 
     margin-bottom: 30px; 
-    letter-spacing: 1px; 
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.4); 
-    
-   
     text-transform: none; 
-    
     border-bottom: none !important; 
     padding-bottom: 0 !important;
 }
@@ -461,9 +605,9 @@ button.btn-juego.boton-salir:hover {
 /* Mensaje Detallado. */
 .pantalla-final p {
     font-family: var(--font-base);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--color-text-primary);
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     text-align: center;
     max-width: 60%;
     
@@ -491,13 +635,16 @@ button.btn-juego.boton-salir:hover {
 .pantalla-final .btn-primary-play {
     width: 300px;
     font-size: 1.2rem;
+    margin-bottom: 30px;
 }
 
 
 /* ======================================= */
 /* 3.3. BOTÓN JUGAR (Inicio)               */
 /* ======================================= */
-
+.pantalla-inicio .btn-primary-play{
+    margin-bottom: 30px;
+}
 .btn-primary-play {
     font-family: var(--font-base); 
     font-weight: 600; 
