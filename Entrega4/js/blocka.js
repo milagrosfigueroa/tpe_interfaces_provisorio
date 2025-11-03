@@ -8,7 +8,7 @@ const BANCO_IMAGENES = [
     './img/blocka/img3.jpg',
     './img/blocka/img4.jpg',
     './img/blocka/img5.jpeg',
-    './img/blocka/imgeditada.jpg',
+    './img/blocka/img6.jpg',
     './img/blocka/img7.jpeg',
     './img/blocka/img8.jpg'
 ];
@@ -17,7 +17,6 @@ const NIVELES = [
     { id: 1, nombre: "Nivel 1", filtro: "escalaGrises" },
     { id: 2, nombre: "Nivel 2", filtro: "brillo" },
     { id: 3, nombre: "Nivel 3", filtro: "negativo" },
-    
 ];
 
 const PANTALLAS = [
@@ -35,7 +34,6 @@ const PANTALLAS = [
 // =====================
 
 const BRIGHTNESS_FACTOR = 1.3;
-const sonido = new Audio ('sonido.mp3');
 
 const filtroEscalaGrises = (r, g, b) => {
     const promedio = (r + g + b) / 3;
@@ -162,7 +160,8 @@ const juego = {
     seleccionarCantidadPiezas(num) {
         this.cantidadPiezas = num;
         
-        this.imagenActual = BANCO_IMAGENES[5];
+        const indice = Math.floor(Math.random() * BANCO_IMAGENES.length);
+        this.imagenActual = BANCO_IMAGENES[indice];
         
         document.getElementById("btn-comenzar-juego").disabled = false;
     },
@@ -455,28 +454,16 @@ const juego = {
 
     iniciarTemporizador() {
         this.tiempoInicio = Date.now() - (this.tiempoTranscurrido * 1000); 
+        
         this.detenerTemporizador();
-
-        let sonidoReproducido = false;
         this.intervaloTemporizador = setInterval(() => {
             if (!this.estaPausado) {
                 const tiempoPasadoDesdeInicio = Math.floor((Date.now() - this.tiempoInicio) / 1000);
                 this.tiempoTranscurrido = tiempoPasadoDesdeInicio;
-                if (this.tiempoTranscurrido >= 10 && !sonidoReproducido) {
-                    const temporizador = document.getElementById('temporizador');
-                    temporizador.classList.add('alerta');
-
-                    sonido.play();
-                    sonidoReproducido = true;
-                }
-            
                 this.actualizarTemporizador();
-
-                
             }
-    }, 200);
-},
-
+        }, 200);
+    },
 
     detenerTemporizador() {
         if (this.intervaloTemporizador) clearInterval(this.intervaloTemporizador);

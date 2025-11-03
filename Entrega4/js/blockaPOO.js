@@ -2,15 +2,38 @@
 // CONFIGURACIÓN GLOBAL (Constantes)
 // ====================
 
-const BANCO_IMAGENES = [
-    './img/blocka/img1.jpeg',
-    './img/blocka/img2.jpg',
-    './img/blocka/img3.jpg',
-    './img/blocka/img4.jpg',
-    './img/blocka/img5.jpeg',
-    './img/blocka/img6.jpg',
-    './img/blocka/img7.jpeg',
-    './img/blocka/img8.jpg'
+const BANCO_IMAGENES_4 = [
+    './img/blocka/blocka4/img1.png', 
+    './img/blocka/blocka4/img2.jpg', 
+    './img/blocka/blocka4/img3.jpg',
+    './img/blocka/blocka4/img4.jpg', 
+    './img/blocka/blocka4/img5.jpg',
+    './img/blocka/blocka4/img6.jpg',
+    './img/blocka/blocka4/img7.jpg',
+    './img/blocka/blocka4/img8.jpg'
+];
+
+const BANCO_IMAGENES_6 = [
+    './img/blocka/blocka6/img1.jpg',
+    './img/blocka/blocka6/img2.webp',
+    './img/blocka/blocka6/img3.jpg',
+    './img/blocka/blocka6/img4.jpg',
+    './img/blocka/blocka6/img5.webp',
+    './img/blocka/blocka6/img6.avif',
+    './img/blocka/blocka6/img7.jpg',
+    './img/blocka/blocka6/img8.jpg'
+    
+];
+
+const BANCO_IMAGENES_8 = [
+    './img/blocka/blocka8/img1.jpg',
+    './img/blocka/blocka8/img2.jpeg',
+    './img/blocka/blocka8/img3.jpg',
+    './img/blocka/blocka8/img4.jpg',
+    './img/blocka/blocka8/img5.jpg',
+    './img/blocka/blocka8/img6.jpg',
+    './img/blocka/blocka8/img7.jpg',
+    './img/blocka/blocka8/img8.jpg'
 ];
 
 const NIVELES = [
@@ -251,8 +274,16 @@ class Juego {
         this.ayuditaUsada = false;
         
         this.temporizador = new Temporizador(this.actualizarTemporizadorVista.bind(this));
+        this.bancoActual = BANCO_IMAGENES_4;
     }
     
+    obtenerBancoPorCantidad(cantidad) {
+        if (cantidad === 4) return BANCO_IMAGENES_4;
+        if (cantidad === 6) return BANCO_IMAGENES_6;
+        if (cantidad === 8) return BANCO_IMAGENES_8;
+        return BANCO_IMAGENES_4;
+    }
+
     // Formateo de tiempo //
     formatearTiempo(segundos) {
         const m = Math.floor(segundos / 60);
@@ -315,8 +346,9 @@ class Juego {
 
     seleccionarCantidadPiezas(num) {
         this.cantidadPiezas = num;
-        const indice = Math.floor(Math.random() * BANCO_IMAGENES.length);
-        this.imagenActual = BANCO_IMAGENES[indice];
+        this.bancoActual = this.obtenerBancoPorCantidad(num);
+        const indice = Math.floor(Math.random() * this.bancoActual.length);
+        this.imagenActual = this.bancoActual[indice];
         document.getElementById("btn-comenzar-juego").disabled = false;
     }
 
@@ -342,7 +374,9 @@ class Juego {
 
         const previewContainer = document.getElementById("imagenes-preview-container");
         previewContainer.innerHTML = "";
-        const imagenesParaPreview = BANCO_IMAGENES.slice(0, 8);
+        
+        // ✅ Usa el banco actual
+        const imagenesParaPreview = this.bancoActual.slice(0, 8);
 
         imagenesParaPreview.forEach(src => {
             const img = document.createElement("img");
@@ -357,7 +391,7 @@ class Juego {
     
     animarSeleccionImagen() {
         const previews = Array.from(document.querySelectorAll(".imagen-preview"));
-        let imagenFinalIndex = BANCO_IMAGENES.indexOf(this.imagenActual);
+        let imagenFinalIndex = this.bancoActual.indexOf(this.imagenActual);
         const numPreviews = previews.length;
         
         if (imagenFinalIndex >= numPreviews) {
