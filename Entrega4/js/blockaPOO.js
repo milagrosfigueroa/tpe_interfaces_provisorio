@@ -4,7 +4,7 @@
 
 const BANCO_IMAGENES_4 = [
     './img/blocka/blocka4/img1.png', 
-    './img/blocka/blocka4/img2.jpg', 
+    './img/blocka/blocka4/img2.jpeg', 
     './img/blocka/blocka4/img3.jpg',
     './img/blocka/blocka4/img4.jpg', 
     './img/blocka/blocka4/img5.jpg',
