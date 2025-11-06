@@ -1,0 +1,1064 @@
+/* ======================================= */
+/* 0. VARIABLES Y CONFIGURACIÓN GLOBAL     */
+/* ======================================= */
+
+:root {
+    /* Dimensiones de Diseño */
+    --content-width: 1088px;
+    --menu-lateral-width: 40px;
+    --padding-page: 50px;
+
+    /* Colores */
+    --color-bg-dark: #102641;
+    --color-card-bg: #1F375A;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #AAAAAA;
+    --color-primary-pink: #FA62A5; 
+    --color-orange: #FFA500;    
+    --color-orange-darker: #A36A00; 
+   
+    
+    /* Colores de Hover/Estados */
+    --color-pink-hover: #FA328A;
+    --color-added-green: #69B469; /* Color verde de Blocka para movimientos */
+    --color-added-green-hover: #5AA15A;
+    --color-azul-secundario: #6CC3D5; /* Color azul del borde de Salir */
+    --color-azul-hover-bg: #1A7B9B;  
+    --color-orange-dark: #CC8400;   
+    --color-rosa-hover-instrucciones: #E42274;
+    --color-rosa-hover-pausar: #A70046; 
+    
+    /* FUENTES */
+    --font-base: 'Outfit', sans-serif;
+    --font-heading: 'Montserrat', sans-serif;
+    
+    /* TAMAÑOS BASE */
+    --font-size-base: 16px;
+
+    --transicion-rapida: all 0.3s ease-in-out;
+}
+
+/* ======================================= */
+/* 1. BODY Y ALINEACIÓN GLOBAL             */
+/* ======================================= */
+
+body {
+    margin-left: var(--menu-lateral-width); 
+    margin-top: 20px; 
+    padding: 0;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-primary);
+    font-family: var(--font-base);
+    font-size: var(--font-size-base);
+}
+
+.game-page {
+    width: var(--content-width); 
+    margin: 0; 
+    margin-left: 40px; 
+    padding-top: 50px; 
+}
+
+/* ======================================= */
+/* 2. BREADCRUMB Y SHARE                   */
+/* ======================================= */
+
+.game-breadcrumb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 29px;
+}
+
+.breadcrumb {
+    font-family: var(--font-base);
+    font-weight: 400;
+    color: var(--color-text-secondary); 
+    font-size: 0.90rem;
+}
+
+.breadcrumb span {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    color: var(--color-text-primary); 
+}
+
+.share-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* ======================================= */
+/* 3. BANNER Y BOTONES                     */
+/* ======================================= */
+
+.game-banner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+/* ======================================= */
+/* 3.1. CONTENEDOR DEL JUEGO               */
+/* ======================================= */
+
+.juegoPegContenedor{
+    width: 1100px;
+    height: 470px;
+    background-color: #2b4970;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ======================================= */
+/* 3.2. SUB-PÁGINAS DEL JUEGO              */
+/* ======================================= */
+
+.juegoPegContenedor > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0,0,0,0.2);
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.juegoPegContenedor > div.activo {
+    display: flex;
+    opacity: 1;
+}
+
+/* Pantalla inicial */
+.pantalla-inicio h2 {
+    color: var(--color-pink-hover);
+    font-family: 'Pangolin', sans-serif;
+    font-size: 80px;
+    letter-spacing: 2px;
+    margin-bottom: 80px;
+}
+.pantalla-inicio .btn-primary-play{
+    width: 300px;
+}
+.pantalla-inicio{
+    background-image: url('../img/img_juego_peg/fondoportadapeg.png');
+    background-size: 100%; 
+}
+
+/* PANTALLA JUEGO CORREGIDA para contener el header y el canvas */
+.pantalla-juego {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;      
+    align-items: center;      
+    width: 100%;
+    height: 100%;
+    padding: 0;           
+    box-sizing: border-box;
+    position: relative;
+}
+/* ======================================= */
+/* PANTALLA DE INSTRUCCIONES               */
+/* ======================================= */
+.pantalla-instrucciones #btn-volver-inicio{
+    margin-top: 23px; 
+}
+.pantalla-instrucciones {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-dark);
+    padding: 50px 40px;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.pantalla-instrucciones.activo {
+    display: flex;
+}
+
+/* ==== TÍTULOS ==== */
+.titulo-instrucciones {
+    margin-bottom: 10px;
+    font-size: 1.9rem;
+    color: var(--color-primary-pink);
+    font-family: var(--font-heading);
+}
+
+.descripcion-instrucciones {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 600px;
+    color: #dfe7f3;
+    margin-bottom: 20px;
+}
+
+/* ==== COLUMNAS ==== */
+.contenedor-columnas {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    flex-wrap: wrap;
+    max-width: 850px;
+}
+
+.columna-instruccion {
+    flex: 1 1 380px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+    text-align: center;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.columna-instruccion-d .texto-instrucciones {
+    margin-bottom: 10px;
+}
+.columna-instruccion-d .subtitulo-instrucciones {
+    margin-top: 10px;
+}
+
+/* ==== SUBTÍTULOS ==== */
+.subtitulo-instrucciones {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--color-primary-pink);
+    font-family: var(--font-heading);
+}
+
+/* ==== TEXTO ==== */
+.texto-instrucciones {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #dfe7f3;
+    margin-bottom: 5px;
+}
+
+/* ==== IMAGEN ==== */
+.contenedor-imagen-instrucciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.imagen-instrucciones {
+    width: 130px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.imagen-instrucciones:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(111, 228, 255, 0.7);
+}
+
+/* ==== BOTÓN ==== */
+#btn-volver-inicio {
+    margin-top: 0px;
+    align-self: center;
+}
+
+/* ==== ANIMACIÓN ==== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* ======================================= */
+/* ENCABEZADO Y LAYOUT                     */
+/* ======================================= */
+
+.game-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 30px; 
+    box-sizing: border-box;
+    z-index: 5; 
+    
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start;
+}
+
+.botones-derecha-juego {
+    display: flex;
+    gap: 8px;
+}
+
+.info-izquierda {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    gap:10px;
+}
+
+
+/* Contador de Movimientos */
+
+.contador-movimientos {
+    font-family: var(--font-base);
+    font-weight: 600; 
+    font-size: 1.2rem; 
+
+    background: rgba(0, 0, 0, 0.4); 
+    color: #ffffff; 
+    
+   
+    border: 2px solid var(--color-added-green); 
+    
+    border-radius: 10px; 
+    padding: 3px 12px; 
+    
+    margin: 0; 
+    display: inline-block; 
+    min-width: 150px; 
+    text-align: center; 
+    box-sizing: border-box; 
+}
+
+/* Estilo del Temporizador */
+.temporizador-display {
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif; 
+    font-weight: 700;
+    font-size: 1.3rem;
+    
+    background: rgba(0, 0, 0, 0.4);
+    padding: 3px 12px; 
+    
+    border-radius: 10px;
+    border: 2px solid var(--color-azul-secundario);
+}
+
+/* ======================================= */
+/* ESTILO DE URGENCIA PARA EL TEMPORIZADOR */
+/* ======================================= */
+
+.temporizador-urgencia {
+    
+    color: var(--color-primary-pink, #ff4081); /* Color de alerta */
+    
+    text-shadow: 0 0 10px rgba(255, 64, 129, 0.8); 
+    animation: pulse-urgencia 0.5s infinite alternate;
+}
+
+/* Animación de pulso */
+@keyframes pulse-urgencia {
+    from { opacity: 1; }
+    to { opacity: 0.8; }
+}
+
+/* --------------------------------------------- */
+/* ESTILOS DE BOTONES DE CONTROL                 */
+/* --------------------------------------------- */
+
+/* --------------------------------------------- */
+/* CLASE boton volver inicio e instrucciones */
+/* --------------------------------------------- */
+.boton{
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transicion-rapida);
+    font-weight: 600;
+    font-family: var(--font-base);
+
+}
+.boton-secundario {
+    background: var(--color-bg-dark); 
+    color: var(--color-primary-pink);
+    border: 2px solid var(--color-primary-pink);
+    
+    width: 250px; 
+    padding: 12px 25px; 
+    font-size: 1.1em;
+    font-weight: 600;
+}
+.boton-secundario:hover{
+    background: var(--color-rosa-hover-instrucciones); 
+    color: white; 
+    border: 2px solid var(--color-rosa-hover-instrucciones);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(228, 34, 116, 0.6); 
+}
+/* --------------------------------------------- */
+/* CLASE BASE: .btn-juego */
+/* --------------------------------------------- */
+.btn-juego {
+    font-family: var(--font-base);
+    font-weight: 600;
+    
+    
+    padding: 4px 12px; 
+    font-size: 0.85em;
+    
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+    border: none;
+
+    outline: none !important; 
+}
+
+/* ======================================= */
+/* BOTONES SECUNDARIOS (Reiniciar) */
+/* ======================================= */
+
+/* Estilo Base para el botón Reiniciar (MODIFICADO: Transparente) */
+.btn-secondary-reset {
+    /* HEREDA el estilo base de los otros botones */
+    font-family: var(--font-base); 
+    font-weight: 600;
+    
+    padding: 4px 12px; 
+    font-size: 0.85em;
+    
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+    border: none;
+    outline: none !important; 
+    
+    
+    background: transparent; 
+    color: var(--color-orange);
+    border: 2px solid var(--color-orange); 
+    box-shadow: none; 
+}
+
+/* Efecto Hover para el botón Reiniciar */
+.btn-secondary-reset:hover {
+    background-color: var(--color-orange); 
+    color: var(--color-text-primary); 
+    border-color: var(--color-orange);
+    
+    
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.6); 
+    transform: translateY(-2px); 
+}
+
+/* Efecto Active para el botón Reiniciar  */
+.btn-secondary-reset:active {
+    background-color: var(--color-orange-dark); 
+    box-shadow: 0 0 5px rgba(255, 165, 0, 0.4);
+    transform: translateY(0);
+}
+
+/* --------------------------------------------- */
+/* BOTÓN PAUSAR / REANUDAR                       */
+/* --------------------------------------------- */
+
+/* Botón Pausar */
+button.boton-pausar { 
+    background: var(--color-bg-dark); 
+    color: var(--color-primary-pink);
+    border: 2px solid var(--color-primary-pink);
+}
+
+/* Pausar: Hover  */
+button.btn-juego.boton-pausar:hover { 
+    background: var(--color-rosa-hover-pausar) !important; 
+    color: white !important; 
+    
+    border-color: var(--color-rosa-hover-pausar) !important;
+    border: 2px solid var(--color-rosa-hover-pausar) !important; 
+    
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(167, 0, 70, 0.6); 
+}
+
+/* --------------------------------------------- */
+/* ESTADO REANUDAR  */
+/* --------------------------------------------- */
+
+/* Botón Reanudar  */
+button.boton-pausar.activo {
+    background: var(--color-bg-dark); 
+    color: #69B469;
+    border: 2px solid var(--color-added-green); 
+}
+
+/* Reanudar: Hover  */
+button.boton-pausar.activo:hover {
+    background-color: var(--color-added-green-hover) !important; 
+    color: white !important;
+    border-color: var(--color-added-green-hover) !important;
+    
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(105, 180, 105, 0.6); 
+}
+
+/* --------------------------------------------- */
+/* BOTÓN SALIR                                   */
+/* --------------------------------------------- */
+
+/* Botón Salir  */
+button.boton-salir {
+    background: var(--color-bg-dark); 
+    color: var(--color-azul-secundario); 
+    border: 2px solid var(--color-azul-secundario); 
+}
+
+/* Salir: Hover */
+button.btn-juego.boton-salir:hover {
+    background-color: var(--color-azul-hover-bg) !important; 
+    color: white !important; 
+    
+    border-color: var(--color-azul-hover-bg) !important;
+    border: 2px solid var(--color-azul-hover-bg) !important;
+    
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(108, 195, 213, 0.6); 
+}
+
+
+/* ======================================= */
+/* ESTILOS DE PANTALLA JUEGO ANTERIORES    */
+/* ======================================= */
+
+.contenedorTablero {
+    margin-top: 30px; 
+    padding: 10px;
+    width: 800px;             
+    height: 430px;            
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* AÑADIDO: Z-INDEX ALTO para asegurar que el canvas reciba los clicks */
+    position: relative;
+    z-index: 10; 
+}
+
+.contenedorTablero canvas {
+    width: 100%;              
+    height: 100%;             
+    max-width: 100%;
+    max-height: 100%;
+    background-color: transparent;
+    display: block;
+    object-fit: contain;
+}
+
+/* ======================================= */
+/* ESTILOS DE PANTALLA FINAL               */
+/* ======================================= */
+
+.pantalla-final {
+    background-color: rgba(16, 38, 65, 0.95); 
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ======================================= */
+/* Títulos de Resultados */
+/* ======================================= */
+
+.pantalla-final h2 {
+    font-family: 'Zalando Sans SemiExpanded', sans-serif; 
+    font-size: 3rem; 
+    font-weight: 700; 
+    margin-bottom: 30px; 
+    text-transform: none; 
+    border-bottom: none !important; 
+    padding-bottom: 0 !important;
+}
+
+/* Mensaje Detallado. */
+.pantalla-final p {
+    font-family: var(--font-base);
+    font-size: 1.3rem;
+    color: var(--color-text-primary);
+    margin-bottom: 60px;
+    text-align: center;
+    max-width: 60%;
+    
+
+    line-height: 1.35; 
+}
+
+/* ---------------------------------- */
+/* CLASES DINÁMICAS DE RESULTADO      */
+/* ---------------------------------- */
+
+/* Estilo para el título de VICTORIA */
+.titulo-victoria {
+    color: var(--color-added-green); 
+    border-bottom: none !important; 
+}
+
+/* Estilo para el título de DERROTA */
+.titulo-derrota {
+    color: var(--color-primary-pink); 
+    border-bottom: none !important; 
+}
+
+/* Estilo del botón "JUGAR DE NUEVO"  */
+.pantalla-final .btn-primary-play {
+    width: 300px;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+
+/* ======================================= */
+/* 3.3. BOTÓN JUGAR (Inicio)               */
+/* ======================================= */
+.pantalla-inicio .btn-primary-play{
+    margin-bottom: 30px;
+}
+.btn-primary-play {
+    font-family: var(--font-base); 
+    font-weight: 600; 
+    padding: 15px 40px; 
+    font-size: 1.1rem;  
+    border-radius: 8px; 
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #e74c8c 0%, #FA328A 100%); 
+    box-shadow: 0 4px 15px rgba(231, 76, 140, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    animation: pulse 1.5s infinite alternate; 
+}
+
+.btn-primary-play:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(231, 76, 140, 0.6);
+    background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%);
+}
+
+.btn-primary-play:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(231, 76, 140, 0.5);
+}
+
+/* ======================================= */
+/* 3.4. FOOTER DEL JUEGO                    */
+/* ======================================= */
+
+.card-footer {
+    width: 1100px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 20px 10px;
+    margin-top: 10px;
+    margin-bottom: 20px; 
+    border-radius: 0 0 15px 15px; 
+}
+
+.card-footer h2 {
+    font-family: var(--font-heading); 
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+    margin: 0; 
+}
+
+.btn-add-game {
+    font-family: var(--font-base); 
+    font-weight: 600;
+    margin: 0; 
+    border-radius: 8px; 
+    padding: 8px 18px; 
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--color-primary-pink); 
+    color: #ffffff; 
+    border: none;
+    box-shadow: 0 0 0 transparent; 
+    animation: none !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; 
+}
+
+.btn-add-game i {
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.btn-add-game:not(.added):hover { 
+    transform: translateY(-3px) scale(1.02); 
+    background-color: var(--color-pink-hover);
+    color: #A70046; 
+}
+
+.btn-add-game:not(.added):hover i {
+    color: #A70046;
+    transition: color 0.3s ease;
+}
+
+.btn-add-game.added {
+    background-color: var(--color-added-green);
+    color: #ffffff; 
+}
+
+.btn-add-game.added:hover {
+    background-color: var(--color-added-green-hover);
+    transform: translateY(-3px) scale(1.02); 
+    color: #ffffff;
+}
+
+/* ======================================= */
+/* 4. REGLAS, CONTROLES Y COMENTARIOS      */
+/* ======================================= */
+
+.game-info-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px; 
+    margin-bottom: 20px;
+}
+
+.info-section {
+    width: 50%; 
+    background-color: var(--color-card-bg);
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-primary-pink); 
+}
+
+.info-section h3 {
+    font-family: var(--font-base); 
+    font-weight: 600;
+    color: var(--color-primary-pink);
+    margin-top: 0;
+    font-size: 1.3rem; 
+    margin-bottom: 10px; 
+}
+
+.info-section ul {
+    list-style: disc; 
+    padding-left: 20px; 
+    margin-top: 5px; 
+}
+
+.info-section li {
+    font-size: 0.95rem; 
+    margin-bottom: 6px; 
+    color: var(--color-text-secondary);
+}
+
+.info-section div.controls {
+    text-align: center;
+    margin-top: 25px;   
+    margin-bottom: 15px;
+}
+
+.control-image {
+    width: 50px;
+    height: auto; 
+    display: inline-block;
+    vertical-align: middle; 
+    margin: 0 10px; 
+}
+
+.hand-icon {
+    transform: rotate(-10deg); 
+    position: relative;
+    top: -5px; 
+}
+
+/* ======================================= */
+/* 5. COMENTARIOS                          */
+/* ======================================= */
+
+.comments-section h2 {
+    font-family: var(--font-heading); 
+    font-weight: 800;
+    color: var(--color-text-primary);
+    font-size: 1.4rem;
+    margin-bottom: 5px; 
+    padding-top: 40px; 
+}
+
+.comments-section h2::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary-pink);
+    margin-top: 5px;
+    margin-bottom: 30px; 
+}
+
+.comment-input-area {
+    display: flex;
+    align-items: flex-start; 
+    gap: 15px; 
+    margin-bottom: 15px;
+}
+
+.user-avatar {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0; 
+}
+
+.comment-textarea {
+    width: 100%; 
+    min-height: 100px;
+    background-color: var(--color-primary-pink); 
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: 25px; 
+    padding: 15px 20px;
+    box-sizing: border-box;
+    resize: vertical; 
+    font-size: 1rem;
+    font-family: var(--font-base); 
+}
+
+.comment-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-comment-submit {
+    font-family: var(--font-base); 
+    font-weight: 600;
+    background-color: var(--color-primary-pink);
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: block;
+    margin-left: auto; 
+    margin-bottom: 20px; 
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-comment-submit:hover {
+    transform: translateY(-2px); 
+    background-color: var(--color-pink-hover); 
+    color: #A70046; 
+}
+
+.btn-comment-submit:active {
+    transform: translateY(0);
+}
+
+.comment-item {
+    display: flex; 
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 30px; 
+    padding-top: 10px;
+} 
+
+.comment-item .user-avatar {
+    width: 40px; 
+    height: 40px;
+}
+
+.comment-username {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    margin-right: 10px; 
+}
+
+.comment-date {
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+}
+
+.comment-content {
+    flex-grow: 1; 
+}
+.comment-text {
+    color: var(--color-text-primary);
+    font-size: 0.95rem; 
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.comment-actions {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 15px;
+    margin-right: 5px; 
+    margin-top: 10px; 
+}
+
+.comment-actions i {
+    color: var(--color-text-secondary); 
+    cursor: pointer;
+    font-size: 1.1rem; 
+    transition: color 0.2s;
+}
+
+.comment-actions i:hover {
+    color: var(--color-primary-pink); 
+}
+
+/* ======================================= */
+/* 6. JUEGOS RELACIONADOS                  */
+/* ======================================= */
+
+.related-games-section {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.related-games-section h2 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem; 
+    font-weight: 800;
+    color: #ffffff;
+    padding-bottom: 10px;
+    margin-bottom: 5px ;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    padding: 10px;
+    gap: 30px 20px; 
+}
+
+.game-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden; 
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+    border: 3px solid transparent; 
+}
+
+.game-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
+    border: 3px solid var(--color-primary-pink); 
+}
+
+.game-image {
+    width: 100%;
+    height: 150px; 
+    object-fit: cover; 
+    display: block;
+}
+
+.game-title-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: rgba(22, 60, 100, 0.85); 
+    font-family: var(--font-base); 
+    font-weight: 600;
+    font-size: 1rem;
+    color: #ffffff;
+    text-align: left;
+}
+
+/* ======================================= */
+/* 7. KEYFRAMES Y ANIMACIONES              */
+/* ======================================= */
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px 0px rgba(231, 76, 140, 0.4); 
+    background: linear-gradient(135deg, #e74c8c 0%, #f06292 100%); 
+  }
+  50% {
+    transform: scale(1.08); 
+    box-shadow: 0 0 30px 10px rgba(231, 76, 140, 0.85); 
+    background: linear-gradient(135deg, #f06292 0%, #e74c8c 100%); 
+  }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes slideInBounce {
+  0% { opacity: 0; transform: translateX(100%) scale(0.9); }
+  60% { transform: translateX(-10px) scale(1.02); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(1.15); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heartbeat {
+  0% { transform: translateY(-3px) scale(1.0); box-shadow: 0 0 10px rgba(250, 98, 165, 0.4); }
+  50% { transform: translateY(-3px) scale(1.07); box-shadow: 0 0 25px rgba(250, 98, 165, 0.8); }
+  100% { transform: translateY(-3px) scale(1.0); box-shadow: 0 0 10px rgba(250, 98, 165, 0.4); }
+}
+
+@keyframes pulseHeart {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.btn-add-game:not(.added):hover {
+    transform: translateY(-3px) scale(1.05); 
+    background-color: var(--color-pink-hover);
+    color: #A70046; 
+    animation: heartbeat 0.8s ease-in-out infinite alternate;
+}
+
+.btn-add-game:not(.added):hover i {
+    color: #A70046;
+    animation: pulseHeart 0.8s ease-in-out infinite alternate;
+}
