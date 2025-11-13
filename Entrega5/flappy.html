@@ -213,11 +213,12 @@
 
             <!-- 1. Pantalla inicial -->
             <div class="pantalla-inicio" id="paginaInicio">
-                
-                <button class="btn-primary-play" id="botonIniciar">Jugar</button>
-                <!--<button class="boton boton-secundario" id="btn-instrucciones">Instrucciones</button> -->
-
+                <div class="botones-inicio"> 
+                    <button class="btn-primary-play" id="botonIniciar">Jugar</button>
+                    <button class="flappy-btn-instrucciones" id="btn-instrucciones">Instrucciones</button> 
+                </div>
             </div>
+
             <div class="pantalla-juego" id="paginaJuego">
                 <div class="layer layer-11"></div>
                 <div class="layer layer-10"></div>
@@ -232,8 +233,44 @@
                 <div class="layer layer-1"></div>
             </div>
 
-
+            <div class="flappy-pantalla-instrucciones" style="display: none;">
+                <div class="flappy-instrucciones-panel">
+        
+                <h1 class="flappy-titulo-instrucciones">Como jugar a Flappy Bird</h1>
+                <p class="flappy-descripcion-general">Objetivo: Guiar al pájaro a través de las tuberías sin chocar para conseguir la mayor puntuación posible.</p>
+                
+                <div class="flappy-reglas-grid">
+            
+                    <div class="flappy-regla-item">
+                        <h3 class="flappy-subtitulo">Control:</h3>
+                        <p>Presiona la barra espaciadora o haz click con el ratón para que el pájaro aletee y se impulse hacia arriba.</p>
+                        
+                        <div class="control-iconos-container">
+                            <img src="./img/flappy/keyboard3.png" alt="Icono de teclado" class="teclado-imagen">
+                            <div class="pajarito-imagen-borde">
+                                <img src="./img/flappy/flyBird.png" alt="Pajarito subiendo">
+                            </div>
+                        </div>
+                        <p>Si dejas de presionar, el pájaro caerá por gravedad.</p>
+                    </div>
+            
+                    <div class="flappy-regla-item">
+                        <h3 class="flappy-subtitulo">Reglas:</h3>
+                        <p>Ganas 1 punto por cada par de tuberías que atravieses con éxito.</p>
+                        
+                        <h3>Fin del Juego:</h3> 
+                        <p>La partida termina si el pájaro choca con el suelo o con cualquiera de las tuberías verdes. </p>
+                    </div>
+            
         </div>
+        
+        <button class="flappy-btn-volver">Volver</button>
+        
+            </div>
+        </div>
+
+
+    </div>
         
         <div class="card-footer">
             <h2></h2> 
@@ -245,32 +282,28 @@
     </section>
     
     <section class="game-info-details">
-        <div class="info-section how-to-play">
-            <h3>Cómo jugar:</h3>
-            <p>Fuego vs Agua, el tablero enfrenta a ambos elementos y el objetivo es conservar la mayor cantidad posible de fichas propias.</p> <br>
-            <h4>Reglas Básicas:</h4>
+    
+        <div class="info-section game-description">
+            <h3>Acerca de Flappy Bird</h3>
+            <p>Flappy Bird es un juego de arcade de desplazamiento lateral conocido por su simpleza extrema y su nivel de dificultad brutal.</p>
+            
+            <h4 class="caracteristicas-subtitulo">Características:</h4>
             <ul>
-                <li>Una ficha puede saltar en línea recta sobre otra, siempre hacia un espacio vacío.</li>
-                <li>La ficha que fue saltada se retira del tablero.</li>
-                <li>La partida finaliza cuando ya no quedan movimientos posibles.</li>
-            </ul> <br>
-            <h4>Victoria:</h4> 
-            <ul>
-                <li>Gana el elemento que conserve más fichas en juego.</li>
-                <li>Si queda una única ficha en el centro del tablero, se considera una victoria perfecta.</li>
+                <li>Juego 'One Touch': Control extremadamente simple, un solo toque para aletear.</li>
+                <li>Dificultad Progresiva: Las tuberias aparecen aleatoriamente, aumentando el desafio con cada punto.</li>
+                <li>Graficos Pixel-Art: Estilo retro de 8 bits que evoca nostalgia de los juegos clasicos.</li>
             </ul>
         </div>
-        <div class="info-section controls">
-            <h3>Controles:</h3>
-            <ul>
-                <li>Clic izquierdo sobre una ficha: seleccionarla.</li>
-                <li>Manten el mouse presionado y arrastra la ficha hasta un casillero válido.</li>
-            </ul>
-            <div class="controls">
-                <img src="img/img_juego_peg/mouseBtnIzq.PNG" alt="Icono de Control de Mouse" class="control-image">
-                <img src="img/img_juego_peg/seleccione.png" alt="Icono de Seleccionar" class="control-image hand-icon">
+
+        <div class="info-section game-gallery">
+            <div class="gallery-grid-blocka">
+                <div class="gallery-img-blocka"><img src="./img/flappy/image5Bird.png" alt="Captura 1"></div>
+                <div class="gallery-img-blocka"><img src="./img/flappy/image4Bird.png" alt="Captura 2"></div>
+                <div class="gallery-img-blocka"><img src="./img/flappy/image3Bird.png" alt="Captura 3"></div>
             </div>
         </div>
+
+        <p class="instrucciones-footer-text">Para una guia detallada de reglas, controles y puntuacion, haz click en el boton 'Instrucciones' en la pantalla principal del juego</p>
     </section>
 
   <section class="comments-section">
