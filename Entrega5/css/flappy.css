@@ -392,77 +392,122 @@ body {
 
 
 /* ======================================= */
-/* PANTALLA DE JUEGO                       */
+/* PANTALLA DE JUEGO & CLASE BASE (.layer) */
 /* ======================================= */
 
 .pantalla-juego {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 120%; 
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  
 }
 
 .layer {
   position: absolute;
-  top: 0; left: 0;
   width: 100%;
-  height: 100%;
+  height: 100%; 
   background-repeat: repeat-x;
-  background-size: auto 100%;
-  
+  background-size: 1100px auto; 
+  transform: translateY(8%); 
+
 }
+
+/* ======================================= */
+/* KEYFRAMES                               */
+/* ======================================= */
 
 @keyframes scroll {
-  0% { background-position-x: 0px; }
-  100% { background-position-x: -2048px; } 
+  0% { 
+    background-position-x: 0px; 
+  }
+  100% { 
+    background-position-x: -1100px;
+  } 
 }
 
+/* ======================================= */
+/* DEFINICIÓN DE CAPAS                     */
+/* ======================================= */
+
+/* Capa 11: Cielo y Nubes Altas (Más Lenta: 4.0s) */
 .layer-11 { 
     background-image: url('../img/flappy/fondos/11_background.png');
-    animation: scroll 64s infinite linear; 
+    z-index: 1; 
+    animation: scroll 4.0s infinite linear; 
+    background-position: top left; 
 }
+
+/* Capas 10 a 9: Nubes Intermedias */
 .layer-10 { 
     background-image: url('../img/flappy/fondos/10_distant_clouds.png'); 
-    animation: scroll 56s infinite linear; 
+    z-index: 2;
+    animation: scroll 3.5s infinite linear; 
+    background-position: top left;
+    transform: translateY(-25px); 
 }
 .layer-9  { 
     background-image: url('../img/flappy/fondos/09_distant_clouds1.png'); 
-    animation: scroll 48s infinite linear; 
+    z-index: 3;
+    animation: scroll 3.0s infinite linear; 
+    background-position: top left;
 }
+
+/* Capas 8 a 5: Nubes Bajas y Colinas */
 .layer-8  { 
     background-image: url('../img/flappy/fondos/08_clouds.png'); 
-    animation: scroll 40s infinite linear; 
+    z-index: 4;
+    animation: scroll 2.5s infinite linear; 
+    background-position: left 90%; 
 }
 .layer-7  { 
     background-image: url('../img/flappy/fondos/07_huge_clouds.png'); 
-    animation: scroll 32s infinite linear; 
+    z-index: 5;
+    animation: scroll 2.0s infinite linear; 
+    background-position: left 85%; 
 }
 .layer-6  { 
     background-image: url('../img/flappy/fondos/06_hill2.png'); 
-    animation: scroll 24s infinite linear; 
+    z-index: 6;
+    animation: scroll 1.5s infinite linear; 
+    background-position: bottom left;
 }
 .layer-5  { 
     background-image: url('../img/flappy/fondos/05_hill1.png'); 
-    animation: scroll 18s infinite linear; 
+    z-index: 7;
+    animation: scroll 1.4s infinite linear;
+    background-position: bottom left;
 }
+
+/* Capas 4 a 1: Arbustos y Suelo */
 .layer-4  { 
     background-image: url('../img/flappy/fondos/04_bushes.png'); 
-    animation: scroll 14s infinite linear; 
+    z-index: 8;
+    animation: scroll 1.3s infinite linear; 
+    background-position: bottom left;
 }
 .layer-3  { 
     background-image: url('../img/flappy/fondos/03_distant_trees.png'); 
-    animation: scroll 10s infinite linear; 
+    z-index: 9;
+    animation: scroll 1.2s infinite linear; 
+    background-position: bottom left;
 }
 .layer-2  { 
     background-image: url('../img/flappy/fondos/02_treesandbushes.png'); 
-    animation: scroll 8s infinite linear; 
+    z-index: 10;
+    animation: scroll 1.1s infinite linear; 
+    background-position: bottom left;
 }
 .layer-1  { 
     background-image: url('../img/flappy/fondos/01_ground.png'); 
-    animation: scroll 6s infinite linear; 
+    z-index: 11; 
+    height: 15%; 
+    bottom: 0;  
+    animation: scroll 1.0s infinite linear; 
+    background-position: bottom left;
 }
 
 /* ======================================= */
