@@ -437,7 +437,7 @@ body {
 .layer-11 { 
     background-image: url('../img/flappy/fondos/11_background.png');
     z-index: 1; 
-    animation: scroll 4.0s infinite linear; 
+    animation: scroll 24s infinite linear; 
     background-position: top left; 
 }
 
@@ -445,14 +445,14 @@ body {
 .layer-10 { 
     background-image: url('../img/flappy/fondos/10_distant_clouds.png'); 
     z-index: 2;
-    animation: scroll 3.5s infinite linear; 
+    animation: scroll 22s infinite linear; 
     background-position: top left;
     transform: translateY(-25px); 
 }
 .layer-9  { 
     background-image: url('../img/flappy/fondos/09_distant_clouds1.png'); 
     z-index: 3;
-    animation: scroll 3.0s infinite linear; 
+    animation: scroll 20s infinite linear; 
     background-position: top left;
 }
 
@@ -460,25 +460,25 @@ body {
 .layer-8  { 
     background-image: url('../img/flappy/fondos/08_clouds.png'); 
     z-index: 4;
-    animation: scroll 2.5s infinite linear; 
+    animation: scroll 18s infinite linear; 
     background-position: left 90%; 
 }
 .layer-7  { 
     background-image: url('../img/flappy/fondos/07_huge_clouds.png'); 
     z-index: 5;
-    animation: scroll 2.0s infinite linear; 
+    animation: scroll 16s infinite linear; 
     background-position: left 85%; 
 }
 .layer-6  { 
     background-image: url('../img/flappy/fondos/06_hill2.png'); 
     z-index: 6;
-    animation: scroll 1.5s infinite linear; 
+    animation: scroll 14s infinite linear; 
     background-position: bottom left;
 }
 .layer-5  { 
     background-image: url('../img/flappy/fondos/05_hill1.png'); 
     z-index: 7;
-    animation: scroll 1.4s infinite linear;
+    animation: scroll 12s infinite linear;
     background-position: bottom left;
 }
 
@@ -486,19 +486,19 @@ body {
 .layer-4  { 
     background-image: url('../img/flappy/fondos/04_bushes.png'); 
     z-index: 8;
-    animation: scroll 1.3s infinite linear; 
+    animation: scroll 10s infinite linear; 
     background-position: bottom left;
 }
 .layer-3  { 
     background-image: url('../img/flappy/fondos/03_distant_trees.png'); 
     z-index: 9;
-    animation: scroll 1.2s infinite linear; 
+    animation: scroll 8s infinite linear; 
     background-position: bottom left;
 }
 .layer-2  { 
     background-image: url('../img/flappy/fondos/02_treesandbushes.png'); 
     z-index: 10;
-    animation: scroll 1.1s infinite linear; 
+    animation: scroll 6s infinite linear; 
     background-position: bottom left;
 }
 .layer-1  { 
@@ -506,7 +506,7 @@ body {
     z-index: 11; 
     height: 15%; 
     bottom: 0;  
-    animation: scroll 1.0s infinite linear; 
+    animation: scroll 4.0s infinite linear; 
     background-position: bottom left;
 }
 
