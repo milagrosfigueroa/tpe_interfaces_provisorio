@@ -511,6 +511,106 @@ body {
 }
 
 /* ======================================= */
+/* CONFIGURACIONES PAJARO                  */
+/* ======================================= */
+.pajaro-contenedor {
+    position: absolute;
+    width: 34px;       /* ancho de 1 frame */
+    height: 24px;
+    overflow: hidden;  /* oculta otros frames */
+    z-index: 50;
+}
+
+#pajaro {
+    width: 102px;      /* 3 frames de 34px = 102px */
+    height: 24px;
+    object-fit: none;
+}
+
+/* ======================================= */
+/* PANTALLA GAME OVER                  */
+/* ======================================= */
+#pantallaGameOver {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(3px);
+}
+
+/* TÍTULO GAME OVER */
+#pantallaGameOver h2 {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 46px;
+
+    color: #ffdf00;                 
+    text-shadow: 3px 3px 0 #000;  /* ← shadow simple */
+
+    margin-bottom: 35px;
+    letter-spacing: 3px;
+}
+
+/* BOTONES TIPO FLAPPY */
+#pantallaGameOver button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem; 
+    font-weight: 700;
+    color: white; 
+    text-shadow: 2px 2px 0 black;
+
+    background-color: #ffcc00; 
+    border: 4px solid #ff9900; 
+    border-radius: 15px;
+
+    width: 350px;          /* tamaño ideal para “retry / menu” */
+    height: 60px;
+
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    box-shadow: 0 6px 0 #cc8400, 
+                0 8px 15px rgba(0, 0, 0, 0.4);
+
+    transition: transform 0.2s ease, 
+                box-shadow 0.2s ease,
+                text-shadow 0.2s ease;
+
+    position: relative;
+    top: 0; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin: 12px;
+}
+
+/* Hover */
+#pantallaGameOver button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 0 #cc8400, 
+                0 10px 25px rgba(0, 0, 0, 0.5);
+    text-shadow: 3px 3px 0 black;
+}
+
+/* Clic */
+#pantallaGameOver button:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 0 4px 0 #cc8400;
+}
+
+
+/* ======================================= */
 /* 3.4. FOOTER DEL JUEGO                    */
 /* ======================================= */
 
