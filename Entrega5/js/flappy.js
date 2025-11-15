@@ -10,8 +10,10 @@ class Pajaro {
         this.y = y;
         this.velY = 0;
 
-        this.gravedad = 0.4;
-        this.impulso = -7;
+        // this.gravedad = 0.4;
+        this.gravedad = 0.08;
+        // this.impulso = -7;
+        this.impulso = -2.5;
 
         this.anchoFrame = anchoFrame;
         this.frameActual = 0;
@@ -58,10 +60,21 @@ class Pajaro {
         }
     }
 
-    // ⭐ Si toca arriba (0) o abajo (550 - 24), muere
+    // ⭐ Si toca arriba (0) o abajo (471px), muere
     haChocadoAlBorde(altoJuego) {
-        return this.y <= 0 || this.y >= (altoJuego - 24);
+        // altoJuego es 550px. El suelo (.layer-1) es 10% de altura, lo que significa
+        // que el inicio del suelo está en el 90% (550 * 0.90 = 495px).
+        
+        // 1. Posición Y del borde superior del suelo (495px)
+        const LIMITE_INFERIOR_Y = altoJuego * 0.90; 
+        
+        // 2. Límite final para el top del pájaro (495px - 24px de altura del pájaro = 471px)
+        const COLISION_Y_PAJARO = LIMITE_INFERIOR_Y - 24; 
+
+        // Colisión si toca el borde superior o el suelo corregido (471px)
+        return this.y <= 0 || this.y >= COLISION_Y_PAJARO;
     }
+
 }
 
 
