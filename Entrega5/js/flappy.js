@@ -171,8 +171,11 @@ class Pipe {
             cuerpoAbajo.classList.add('tuberia-segmento', 'cuerpo-pipe');
             cuerpoAbajo.style.height = `${alturaInferior - ALTURA_PICO_TUBERIA}px`;
             
+        tuberiaAbajo.style.bottom = '10%';
         tuberiaAbajo.appendChild(picoAbajo);
-        tuberiaAbajo.appendChild(cuerpoAbajo); 
+        tuberiaAbajo.appendChild(cuerpoAbajo);
+        
+        
         
         // Añadir al contenedor de la tubería
         this.element.appendChild(tuberiaArriba);
