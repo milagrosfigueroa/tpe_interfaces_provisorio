@@ -3,7 +3,7 @@
 // ===========================================
 const JUEGO_ALTURA = 550; 
 const JUEGO_ANCHO = 1100;
-
+// 💡 CORRECCIÓN GEOMETRÍA: Altura del área de juego sin el suelo (550 * 0.90 = 495px)
 const JUEGO_ALTURA_UTIL = JUEGO_ALTURA * 0.90; 
 
 const GRAVEDAD = 0.35;
@@ -69,6 +69,7 @@ class Pajaro {
         this.tiempoAleteo = 0;
     }
 
+    // Ya asumo que Pajaro.actualizar usa dt para escalar la velocidad.
     actualizar(dt) {
         this.velY += this.gravedad;
         this.y += this.velY;
@@ -120,22 +121,19 @@ class Pajaro {
 
 // ===========================================
 //   CLASE PIPE (TUBERÍA) 
-//   Usa las variables globales de dificultad (HUECO_TUBERIA, VELOCIDAD_JUEGO)
 // ===========================================
 
 class Pipe {
     constructor(x) {
-        // Altura mínima del cuerpo (ej: 40px de cuerpo + 25px de pico)
         const MIN_ALTURA_SEGMENTO = 65; 
-        // 💡 CAMBIADO: Usar JUEGO_ALTURA_UTIL (495px) en lugar de MAX_ALTURA_TOTAL (325px) para el límite del RNG
-        // Esto asegura que la tubería superior no exceda el espacio disponible.
-        const MAX_ALTURA_SUPERIOR = JUEGO_ALTURA_UTIL - MIN_ALTURA_SEGMENTO - HUECO_TUBERIA; // Nuevo límite superior dinámico
+        
+        // CORRECCIÓN GEOMETRÍA: Definir un límite superior dinámico basado en JUEGO_ALTURA_UTIL
+        const MAX_ALTURA_SUPERIOR = JUEGO_ALTURA_UTIL - MIN_ALTURA_SEGMENTO - HUECO_TUBERIA;
         
         // 1. CÁLCULO DE ALTURA DE LA TUBERÍA SUPERIOR
         const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_SUPERIOR - MIN_ALTURA_SEGMENTO + 1)) + MIN_ALTURA_SEGMENTO;
         
-        // 2. CÁLCULO DE ALTURA DE LA TUBERÍA INFERIOR (Corregido)
-        // 💡 CORRECCIÓN CLAVE: Usar JUEGO_ALTURA_UTIL (495px) para asegurar que la suma de las tres partes sea correcta.
+        // 2. CORRECCIÓN GEOMETRÍA: Usar JUEGO_ALTURA_UTIL para el cálculo total
         const alturaInferior = JUEGO_ALTURA_UTIL - alturaSuperior - HUECO_TUBERIA; 
 
         this.element = document.createElement('div');
@@ -178,8 +176,8 @@ class Pipe {
             cuerpoAbajo.classList.add('tuberia-segmento', 'cuerpo-pipe');
             cuerpoAbajo.style.height = `${alturaInferior - ALTURA_PICO_TUBERIA}px`;
             
-        // 💡 CORRECCIÓN CLAVE: Posicionar la tubería al 10% del fondo para alinearse con el suelo.
-        tuberiaAbajo.style.bottom = '10%'; 
+        // 💡 CORRECCIÓN GEOMETRÍA: Posicionar al 10% del fondo para alinearse con el suelo.
+        tuberiaAbajo.style.bottom = '10%';
         tuberiaAbajo.appendChild(picoAbajo);
         tuberiaAbajo.appendChild(cuerpoAbajo); 
         
@@ -191,9 +189,11 @@ class Pipe {
         document.querySelector('.juegoFlappyContenedor').appendChild(this.element);
     }
 
-    actualizar() {
-        // Usa la VELOCIDAD_JUEGO global (mutable)
-        this.x -= VELOCIDAD_JUEGO; 
+    actualizar(dt) {
+        // 💡 CORRECCIÓN TEMPORIZACIÓN: Usar dt para normalizar la velocidad (frame-rate independent)
+        const factorNormalizacion = dt / 16.66; 
+
+        this.x -= VELOCIDAD_JUEGO * factorNormalizacion; 
         this.element.style.left = `${this.x}px`;
     }
 
@@ -269,15 +269,18 @@ class Juego {
 
         this.tiempoAnterior = 0;
         this.puntaje = 0;
-        this.timerPuntaje = 0; // Usado solo para actualizar el display
+        this.timerPuntaje = 0; 
+        
+        // 💡 CORRECCIÓN TEMPORIZACIÓN: Inicializar temporizador para la generación de tuberías
+        this.tiempoDesdeUltimaTuberia = 0; 
 
         this.jugando = true;
-        this.nivelDificultad = 0; // Empieza en el nivel 0
+        this.nivelDificultad = 0; 
         this.scoreDisplay = document.querySelector('.flappy-puntaje');
 
-        this.resetearDificultadInicial(); // Inicializa la dificultad
+        this.resetearDificultadInicial(); 
         this.limpiarTuberiasPrevias();
-        this.iniciarGeneradorTuberias();
+        // ⚠️ ELIMINADA la llamada a iniciarGeneradorTuberias()
         this.actualizarDisplayPuntaje();
 
         document.addEventListener("keydown", (e) => {
@@ -312,29 +315,19 @@ class Juego {
         document.querySelectorAll('.contenedor-tuberia').forEach(t => t.remove());
     }
     
-    iniciarGeneradorTuberias() {
-        // Usa la variable INTERVALO_GENERACION (mutable)
-        this.pipeGeneratorId = setInterval(() => {
-            if (this.jugando) {
-                this.pipes.push(new Pipe(JUEGO_ANCHO));
-            }
-        }, INTERVALO_GENERACION); 
-    }
+    // ⚠️ ELIMINADO: iniciarGeneradorTuberias() (Usamos lógica de dt en actualizar)
     
-    detenerGeneradorTuberias() {
-        clearInterval(this.pipeGeneratorId);
-    }
+    // ⚠️ ELIMINADO: detenerGeneradorTuberias() (Usamos lógica de dt en actualizar)
     
     destruir() {
-        this.detenerGeneradorTuberias(); 
+        // ⚠️ ELIMINADO: this.detenerGeneradorTuberias();
         this.limpiarTuberiasPrevias();   
         this.jugando = false; 
-        this.resetearDificultadInicial(); // Restablecer dificultad al destruir
+        this.resetearDificultadInicial(); 
     }
 
     // NUEVO MÉTODO: Aumenta la dificultad
     actualizarDificultad() {
-        // Comprueba si existe un siguiente nivel y si el puntaje lo ha superado
         if (this.nivelDificultad < DIFICULTAD_NIVELES.length) {
             const siguienteNivel = DIFICULTAD_NIVELES[this.nivelDificultad];
             
@@ -342,18 +335,10 @@ class Juego {
                 
                 VELOCIDAD_JUEGO = siguienteNivel.velocidad;
                 HUECO_TUBERIA = siguienteNivel.hueco;
+                INTERVALO_GENERACION = siguienteNivel.intervalo; // Actualizar el intervalo
                 
-                const intervaloAnterior = INTERVALO_GENERACION;
-                INTERVALO_GENERACION = siguienteNivel.intervalo;
-
                 this.nivelDificultad++;
                 
-                // Si el intervalo de generación ha cambiado, reiniciamos el generador
-                if (intervaloAnterior !== INTERVALO_GENERACION) {
-                    this.detenerGeneradorTuberias();
-                    this.iniciarGeneradorTuberias();
-                }
-
                 console.log(`¡Nivel ${this.nivelDificultad}! Velocidad: ${VELOCIDAD_JUEGO}, Hueco: ${HUECO_TUBERIA}`);
             }
         }
@@ -385,12 +370,11 @@ class Juego {
     }
     
     checkScore(birdBounds, pipe) {
-        // La puntuación se basa en cruzar el borde de la tubería
         if (!pipe.passed && birdBounds.left > pipe.x + ANCHO_TUBERIA) {
             this.puntaje++;
             pipe.passed = true;
             this.actualizarDisplayPuntaje();
-            this.actualizarDificultad(); // Llamada clave aquí
+            this.actualizarDificultad(); 
         }
     }
 
@@ -414,18 +398,27 @@ class Juego {
 
         if (this.pajaro.haChocadoAlBorde(JUEGO_ALTURA)) {
             this.jugando = false;
-            this.detenerGeneradorTuberias();
+            // ⚠️ ELIMINADO: this.detenerGeneradorTuberias();
             this.onGameOver();
             return;
+        }
+        
+        // 💡 CORRECCIÓN TEMPORIZACIÓN: Generación de tuberías basada en dt
+        this.tiempoDesdeUltimaTuberia += dt;
+        if (this.tiempoDesdeUltimaTuberia >= INTERVALO_GENERACION) {
+            this.pipes.push(new Pipe(JUEGO_ANCHO));
+            this.tiempoDesdeUltimaTuberia = 0; 
         }
 
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             const pipe = this.pipes[i];
-            pipe.actualizar();
+            
+            // 💡 CORRECCIÓN TEMPORIZACIÓN: Pasar dt a la tubería
+            pipe.actualizar(dt);
             
             if (this.checkCollision(this.pajaro.getBounds(), pipe)) {
                 this.jugando = false;
-                this.detenerGeneradorTuberias();
+                // ⚠️ ELIMINADO: this.detenerGeneradorTuberias();
                 this.onGameOver();
                 return;
             }
@@ -493,3 +486,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
