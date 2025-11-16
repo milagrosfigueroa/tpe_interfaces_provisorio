@@ -4,6 +4,8 @@
 const JUEGO_ALTURA = 550; 
 const JUEGO_ANCHO = 1100;
 
+const JUEGO_ALTURA_UTIL = JUEGO_ALTURA * 0.90; 
+
 const GRAVEDAD = 0.35;
 const IMPULSO_SALTO = -6; 
 
@@ -125,11 +127,16 @@ class Pipe {
     constructor(x) {
         // Altura mínima del cuerpo (ej: 40px de cuerpo + 25px de pico)
         const MIN_ALTURA_SEGMENTO = 65; 
-        const MAX_ALTURA_TOTAL = 325; // 300px cuerpo + 25px pico
-
-        // Usa el HUECO_TUBERIA global (mutable)
-        const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_TOTAL - MIN_ALTURA_SEGMENTO + 1)) + MIN_ALTURA_SEGMENTO;
-        const alturaInferior = JUEGO_ALTURA - alturaSuperior - HUECO_TUBERIA;
+        // 💡 CAMBIADO: Usar JUEGO_ALTURA_UTIL (495px) en lugar de MAX_ALTURA_TOTAL (325px) para el límite del RNG
+        // Esto asegura que la tubería superior no exceda el espacio disponible.
+        const MAX_ALTURA_SUPERIOR = JUEGO_ALTURA_UTIL - MIN_ALTURA_SEGMENTO - HUECO_TUBERIA; // Nuevo límite superior dinámico
+        
+        // 1. CÁLCULO DE ALTURA DE LA TUBERÍA SUPERIOR
+        const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_SUPERIOR - MIN_ALTURA_SEGMENTO + 1)) + MIN_ALTURA_SEGMENTO;
+        
+        // 2. CÁLCULO DE ALTURA DE LA TUBERÍA INFERIOR (Corregido)
+        // 💡 CORRECCIÓN CLAVE: Usar JUEGO_ALTURA_UTIL (495px) para asegurar que la suma de las tres partes sea correcta.
+        const alturaInferior = JUEGO_ALTURA_UTIL - alturaSuperior - HUECO_TUBERIA; 
 
         this.element = document.createElement('div');
         this.element.classList.add('contenedor-tuberia');
@@ -171,10 +178,10 @@ class Pipe {
             cuerpoAbajo.classList.add('tuberia-segmento', 'cuerpo-pipe');
             cuerpoAbajo.style.height = `${alturaInferior - ALTURA_PICO_TUBERIA}px`;
             
-        tuberiaAbajo.style.bottom = '10%';
+        // 💡 CORRECCIÓN CLAVE: Posicionar la tubería al 10% del fondo para alinearse con el suelo.
+        tuberiaAbajo.style.bottom = '10%'; 
         tuberiaAbajo.appendChild(picoAbajo);
-        tuberiaAbajo.appendChild(cuerpoAbajo);
-        
+        tuberiaAbajo.appendChild(cuerpoAbajo); 
         
         
         // Añadir al contenedor de la tubería
@@ -486,6 +493,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
-
-
