@@ -211,7 +211,6 @@
     
         <div class="juegoFlappyContenedor" id="juego">
 
-            <!-- 1. Pantalla inicial -->
             <div class="pantalla-inicio" id="paginaInicio">
                 <div class="botones-inicio"> 
                     <button class="btn-primary-play" id="botonIniciar">Jugar</button>
@@ -219,7 +218,7 @@
                 </div>
             </div>
 
-            <div class="pantalla-juego" id="paginaJuego">
+            <div class="pantalla-juego" id="paginaJuego" style="display: none;">
                 <div class="layer layer-11"></div>
                 <div class="layer layer-10"></div>
                 <div class="layer layer-9"></div>
@@ -230,21 +229,18 @@
                 <div class="layer layer-4"></div>
                 <div class="layer layer-3"></div>
                 <div class="layer layer-2"></div>
-                <div class="layer layer-1"></div>
-
+                
                 <div class="pajaro-contenedor" id="pajaroContenedor">
                     <img id="pajaro" src="./img/flappy/bird_spritesheet.png" alt="pajaro">
                 </div>
-
-
+                
+                <div class="layer layer-1"></div>
             </div>
 
-            <div id="pantallaGameOver" class="pantallaGameOver">
-                <div>
-                    <h2>GAME OVER</h2>
-                </div>
-                <button id="btnReintentar">Jugar de nuevo</button>
-                <button id="btnIrInicio">Ir al inicio</button>
+            <div id="pantallaGameOver" class="pantallaGameOver" style="display: none;">
+                <h2>GAME OVER</h2>
+                <button id="btnReintentar">Juegar de nuevo</button>
+                <button id="btnIrInicio">Ir al Inicio</button>
             </div>
             
             <div class="flappy-pantalla-instrucciones" style="display: none;">
@@ -260,7 +256,7 @@
                         <p>Presiona la barra espaciadora o haz click con el ratón para que el pájaro aletee y se impulse hacia arriba.</p>
                         
                         <div class="control-iconos-container">
-                            <img src="./img/flappy/keyboard3.png" alt="Icono de teclado" class="teclado-imagen">
+                            <img src="./img/flappy/keyboard.png" alt="Icono de teclado" class="teclado-imagen">
                             <div class="pajarito-imagen-borde">
                                 <img src="./img/flappy/flyBird.png" alt="Pajarito subiendo">
                             </div>
@@ -276,11 +272,8 @@
                         <p>La partida termina si el pájaro choca con el suelo o con cualquiera de las tuberías verdes. </p>
                     </div>
                 </div>
-            </div>
-            
-        
-        <button class="flappy-btn-volver">Volver</button>
-        
+            <button class="flappy-btn-volver">Volver</button>
+        </div>
             </div>
         </div>
 
@@ -339,7 +332,7 @@
                 <span class="comment-date">12/01/2023</span>
             </div>
             
-            <p class="comment-text">Es un juego muy divertido, las animaciones  son muy buenas!</p>
+            <p class="comment-text">Es un juego muy divertido, las animaciones son muy buenas!</p>
             
             <div class="comment-actions">
                 <i class="fas fa-thumbs-up"></i>

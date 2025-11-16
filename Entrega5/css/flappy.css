@@ -94,7 +94,8 @@ body {
 }
 
 /* ======================================= */
-/* 3. BANNER Y BOTONES                     */
+/* 3. CONTENEDOR PRINCIPAL DEL JUEGO FLAPPY*/
+/* (Banner y Contenedor del Juego)         */
 /* ======================================= */
 
 .game-banner-container {
@@ -104,10 +105,6 @@ body {
     padding: 0;
     margin-bottom: 20px;
 }
-
-/* ======================================= */
-/* 3.5. CONTENEDOR DEL JUEGO FLAPPY         */
-/* ======================================= */
 
 .juegoFlappyContenedor {
     position: relative;
@@ -121,6 +118,18 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/* ⭐️ Estilo para la puntuación ⭐️ */
+.flappy-puntaje {
+    position: absolute;
+    top: 20px;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3em;
+    z-index: 100;
+    text-shadow: 3px 3px 0 #000; 
+}
+
 
 /* ======================================= */
 /* PANTALLA DE INICIO DEL FLAPPY            */
@@ -190,18 +199,13 @@ body {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.9rem; 
     font-weight: 700;
-    
-    
     color: var(--color-text-primary); 
     background-color: var(--color-card-bg); 
     border: 3px solid var(--color-text-primary);
-    
     border-radius: 8px; 
     padding: 10px 20px; 
     width: 220px;
     height: 40px; 
-    
-    
     box-shadow: 0 4px 0 #102641, 0 6px 10px rgba(0, 0, 0, 0.4);
     transition: var(--transicion-rapida);
     cursor: pointer;
@@ -272,7 +276,7 @@ body {
     font-family: 'Press Start 2P', cursive;
     color: #ffcc00; 
     margin-bottom: 10px;
-    font-size: 1.6em; /* Reducido de 1.8em a 1.6em */
+    font-size: 1.6em; 
     text-shadow: 2px 2px 0 #cc8400; 
     letter-spacing: -1px;
 }
@@ -281,7 +285,7 @@ body {
 .flappy-descripcion-general {
     text-align: center;
     font-size: 1em; 
-    margin-bottom: 5px; /* Reducido de 10px a 5px */
+    margin-bottom: 5px; 
     line-height: 1.4; 
     color: #f0f0f0;
 }
@@ -291,15 +295,15 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px; 
-    margin-top: 10px; /* Reducido de 15px a 10px */
-    margin-bottom: 10px; /* Reducido de 15px a 10px */
+    margin-top: 10px; 
+    margin-bottom: 10px; 
     text-align: left; 
 }
 
 /* Estilos de cada columna/item de regla */
 .flappy-regla-item {
     background-color: #102641; 
-    padding: 10px; /* Reducido de 15px a 10px */
+    padding: 10px; 
     border-radius: 10px;
     border: 3px solid var(--color-primary-pink); 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -479,7 +483,7 @@ body {
     background-image: url('../img/flappy/fondos/05_hill1.png'); 
     z-index: 7;
     animation: scroll 12s infinite linear;
-    background-position: bottom left; /* Dejamos bottom left (100%) */
+    background-position: bottom left; 
 }
 
 /* Capas 4 a 1: Arbustos y Suelo */
@@ -514,22 +518,23 @@ body {
 /* ======================================= */
 /* CONFIGURACIONES PAJARO                  */
 /* ======================================= */
+
 .pajaro-contenedor {
     position: absolute;
-    width: 34px;       /* ancho de 1 frame */
+    width: 34px;      
     height: 24px;
-    overflow: hidden;  /* oculta otros frames */
+    overflow: hidden; 
     z-index: 50;
 }
 
 #pajaro {
-    width: 102px;      /* 3 frames de 34px = 102px */
+    width: 102px;     
     height: 24px;
     object-fit: none;
 }
 
 /* ======================================= */
-/* PANTALLA GAME OVER                  */
+/* PANTALLA GAME OVER                      */
 /* ======================================= */
 #pantallaGameOver {
     display: none;
@@ -555,7 +560,7 @@ body {
     font-size: 46px;
 
     color: #ffdf00;                 
-    text-shadow: 3px 3px 0 #000;  /* ← shadow simple */
+    text-shadow: 3px 3px 0 #000;  
 
     margin-bottom: 35px;
     letter-spacing: 3px;
@@ -573,7 +578,7 @@ body {
     border: 4px solid #ff9900; 
     border-radius: 15px;
 
-    width: 350px;          /* tamaño ideal para “retry / menu” */
+    width: 350px;         
     height: 60px;
 
     display: flex; 
@@ -812,7 +817,6 @@ body {
     border-radius: 8px; 
 }
 
-/* -------------------------------------------------------------------------- */
 
 /* ======================================= */
 /* 5. COMENTARIOS                          */
@@ -1014,7 +1018,7 @@ body {
 }
 
 /* ======================================= */
-/* 7. KEYFRAMES Y ANIMACIONES              */
+/* 7. KEYFRAMES Y ANIMACIONES (FOOTER)     */
 /* ======================================= */
 
 @keyframes pulse {
@@ -1075,3 +1079,111 @@ body {
     animation: pulseHeart 0.8s ease-in-out infinite alternate;
 }
 
+
+/* ======================================= */
+/* ESTILOS DE TUBERIAS                     */
+/* ======================================= */
+
+.contenedor-tuberia {
+    position: absolute;
+    top: 0;
+    width: 60px; /* Ancho del pico */
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    pointer-events: none; 
+    z-index: 20; 
+    line-height: 0; 
+    font-size: 0;
+}
+
+/* Wrapper que contiene los segmentos de cada tubería (Arriba y Abajo) */
+.tuberia-wrapper {
+    width: 100%; 
+    display: flex;
+    flex-direction: column; 
+    box-sizing: border-box;
+    image-rendering: pixelated; 
+    justify-content: flex-start;
+    line-height: 0; 
+    font-size: 0;
+}
+
+.tuberia-abajo-wrapper {
+    margin-top: auto; 
+    justify-content: flex-end; 
+}
+
+/* El segmento individual (pico o cuerpo) */
+.tuberia-segmento {
+    width: 100%; 
+    image-rendering: pixelated;
+    background-repeat: no-repeat;
+    line-height: 0; 
+    font-size: 0;
+    vertical-align: top;
+}
+
+/* CUERPO DE LA TUBERÍA SUPERIOR */
+.tuberia-arriba-wrapper .cuerpo-pipe {
+    
+    background-image: url('../img/flappy/tuberias/bodyTuberiaArriba.png'); 
+    
+    background-repeat: no-repeat; 
+    background-size: 56px auto; 
+    background-position: center bottom; 
+    order: 1; 
+}
+
+/* CUERPO DE LA TUBERÍA INFERIOR */
+.tuberia-abajo-wrapper .cuerpo-pipe {
+   
+    background-image: url('../img/flappy/tuberias/bodyTuberiaAbajo.png'); 
+    
+    background-repeat: no-repeat; 
+    background-size: 56px auto; 
+    background-position: center top; 
+    order: 2; 
+}
+
+/* ESTILO DEL PICO SUPERIOR */
+.pico-pipe-arriba {
+    background-image: url('../img/flappy/tuberias/pipeTuberiaArriba.png');
+    height: 25px; 
+    order: 2; 
+    background-position: center bottom;
+    background-size: 100% 100%; 
+}
+
+/* ESTILO DEL PICO INFERIOR */
+.pico-pipe-abajo {
+    background-image: url('../img/flappy/tuberias/pipeTuberiaAbajo.png');
+    height: 25px; 
+    order: 1; 
+    background-position: center top; 
+    background-size: 100% 100%; 
+}
+
+
+/* ======================================= */
+/* ANIMACIÓN DEL PAJARO                    */
+/* ======================================= */
+
+/* Keyframes para el aleteo (3 frames, cada uno de 34px de ancho) */
+@keyframes aleteo {
+    0%, 100% {
+        transform: translate(0px, 0); 
+    }
+    33% {
+        transform: translate(-34px, 0); 
+    }
+    66% {
+        transform: translate(-68px, 0); 
+    }
+}
+
+/* Aplicación de la animación */
+.pajaro-volando {
+    animation: aleteo 0.2s steps(1) infinite;
+}
