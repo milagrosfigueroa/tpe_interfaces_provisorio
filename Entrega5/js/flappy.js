@@ -15,23 +15,32 @@ let HUECO_TUBERIA = 160;
 let INTERVALO_GENERACION = 2500; // ms
 
 // Constantes de Diseño 
-const ANCHO_TUBERIA = 60; 
+const ANCHO_TUBERIA = 100; 
 const ALTURA_PICO_TUBERIA = 25; 
 
 // NIVELES DE DIFICULTAD
 const DIFICULTAD_NIVELES = [
-    // [Puntaje Requerido, Nuevo Hueco, Nueva Velocidad, Nuevo Intervalo (ms)]
     { score: 10, hueco: 140, velocidad: 2.5, intervalo: 2200 },
     { score: 20, hueco: 120, velocidad: 3.0, intervalo: 1900 },
     { score: 30, hueco: 100, velocidad: 3.5, intervalo: 1600 },
     { score: 40, hueco: 90, velocidad: 4.0, intervalo: 1400 },
-    
 ];
+
+// ===========================================
+// SONIDOS
+// ===========================================
+const sonidoAleteo = new Audio("./sonidos/wing.ogg");
+const sonidoChoque = new Audio("./sonidos/hit.ogg");
+const sonidoPunto = new Audio("./sonidos/point.ogg");
+
+// Evita delay en Chrome
+sonidoAleteo.preload = "auto";
+sonidoChoque.preload = "auto";
+sonidoPunto.preload = "auto";
 
 // ===========================================
 //   CLASE PAJARO 
 // ===========================================
-
 class Pajaro {
     constructor(contenedor, sprite, x, y, anchoFrame) {
         this.contenedor = contenedor;
@@ -67,22 +76,21 @@ class Pajaro {
         this.velY = this.impulso;
         this.estaAleteando = true;
         this.tiempoAleteo = 0;
+
+        sonidoAleteo.currentTime = 0;
+        sonidoAleteo.play();
     }
 
     actualizar(dt) {
         this.velY += this.gravedad;
         this.y += this.velY;
 
-        // -----------------------------
         // ROTACIÓN SEGÚN VELOCIDAD
-        // -----------------------------
         let rotacion = 0;
 
         if (this.velY < 0) {
-            // Subiendo → inclinar hacia arriba (-35° máx)
             rotacion = -25;
         } else {
-            // Cayendo → rotación proporcional a la velocidad (hasta 90°)
             rotacion = Math.min(this.velY * 3, 90);
         }
 
@@ -104,7 +112,6 @@ class Pajaro {
         }
     }
 
-    
     getBounds() {
         return this.contenedor.getBoundingClientRect();
     }
@@ -121,21 +128,13 @@ class Pajaro {
 // ===========================================
 //   CLASE PIPE (TUBERÍA) 
 // ===========================================
-
 class Pipe {
     constructor(x) {
         const MIN_ALTURA_SEGMENTO = 65; 
-        
         const MIN_ALTURA_ALEATORIA = 120;
-        
-        //Cálculo de la altura máxima que faltaba en tu versión
         const MAX_ALTURA_SUPERIOR = JUEGO_ALTURA_UTIL - MIN_ALTURA_SEGMENTO - HUECO_TUBERIA;
 
-        // CÁLCULO DE ALTURA DE LA TUBERÍA SUPERIOR
-        // El rango aleatorio usa MIN_ALTURA_ALEATORIA (120px) como límite inferior.
         const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_SUPERIOR - MIN_ALTURA_ALEATORIA + 1)) + MIN_ALTURA_ALEATORIA;
-        
-        // CORRECCIÓN GEOMETRÍA: Usar JUEGO_ALTURA_UTIL para el cálculo total
         const alturaInferior = JUEGO_ALTURA_UTIL - alturaSuperior - HUECO_TUBERIA; 
 
         this.element = document.createElement('div');
@@ -145,9 +144,6 @@ class Pipe {
         this.x = x; 
         this.passed = false; 
 
-        // -------------------------
-        // ESTRUCTURA TUBERÍA ARRIBA
-        // -------------------------
         const tuberiaArriba = document.createElement('div');
         tuberiaArriba.classList.add('tuberia-wrapper', 'tuberia-arriba-wrapper');
         tuberiaArriba.style.height = `${alturaSuperior}px`; 
@@ -163,9 +159,6 @@ class Pipe {
         tuberiaArriba.appendChild(cuerpoArriba);
         tuberiaArriba.appendChild(picoArriba);
         
-        // -------------------------
-        // ESTRUCTURA TUBERÍA ABAJO
-        // -------------------------
         const tuberiaAbajo = document.createElement('div');
         tuberiaAbajo.classList.add('tuberia-wrapper', 'tuberia-abajo-wrapper');
         tuberiaAbajo.style.height = `${alturaInferior}px`;
@@ -178,13 +171,10 @@ class Pipe {
             cuerpoAbajo.classList.add('tuberia-segmento', 'cuerpo-pipe');
             cuerpoAbajo.style.height = `${alturaInferior - ALTURA_PICO_TUBERIA}px`;
             
-        // 💡 CORRECCIÓN GEOMETRÍA: Posicionar al 10% del fondo para alinearse con el suelo.
         tuberiaAbajo.style.bottom = '10%';
         tuberiaAbajo.appendChild(picoAbajo);
         tuberiaAbajo.appendChild(cuerpoAbajo); 
         
-        
-        // Añadir al contenedor de la tubería
         this.element.appendChild(tuberiaArriba);
         this.element.appendChild(tuberiaAbajo);
         
@@ -192,9 +182,7 @@ class Pipe {
     }
 
     actualizar(dt) {
-        // 💡 CORRECCIÓN TEMPORIZACIÓN: Usar dt para normalizar la velocidad (frame-rate independent)
         const factorNormalizacion = dt / 16.66; 
-
         this.x -= VELOCIDAD_JUEGO * factorNormalizacion; 
         this.element.style.left = `${this.x}px`;
     }
@@ -216,13 +204,13 @@ class Pipe {
 // ===========================================
 //   CLASE PANTALLA 
 // ===========================================
-
 class Pantalla {
     constructor(inicio, juego, instrucciones, gameOver) {
         this.inicio = inicio;
         this.juego = juego;
         this.instrucciones = instrucciones;
         this.gameOver = gameOver;
+        this.finalScoreDisplay = document.getElementById("finalScore"); 
     }
 
     mostrarInicio() {
@@ -246,7 +234,10 @@ class Pantalla {
         this.gameOver.style.display = "none";
     }
 
-    mostrarGameOver() {
+    mostrarGameOver(puntaje) {
+        if (this.finalScoreDisplay) {
+            this.finalScoreDisplay.textContent = puntaje;
+        }
         this.gameOver.style.display = "flex";
         this.juego.style.display = "none";
         this.inicio.style.display = "none";
@@ -255,15 +246,19 @@ class Pantalla {
 }
 
 // ===========================================
-//   CLASE JUEGO (LÓGICA DE DIFICULTAD)
+//   CLASE JUEGO (LÓGICA DE DIFICULTAD Y CONTROL)
 // ===========================================
-
 class Juego {
     constructor(onGameOver) {
         this.onGameOver = onGameOver;
 
         const contenedorPajaro = document.querySelector(".pajaro-contenedor");
         const imagenPajaro = document.getElementById("pajaro");
+        
+        // Elementos de la pantalla
+        this.juegoContenedor = document.querySelector('.juegoFlappyContenedor'); // contenedor padre donde toggleamos la pausa
+        this.pantallaJuego = document.getElementById("paginaJuego"); 
+        this.tapStartElement = document.querySelector('.tapToStart'); 
 
         this.pajaro = new Pajaro(contenedorPajaro, imagenPajaro, 150, 250, 34);
         this.pipes = [];
@@ -273,32 +268,50 @@ class Juego {
         this.puntaje = 0;
         this.timerPuntaje = 0; 
         
-        // 💡 CORRECCIÓN TEMPORIZACIÓN: Inicializar temporizador para la generación de tuberías (reemplaza setInterval)
         this.tiempoDesdeUltimaTuberia = 0; 
 
         this.jugando = true;
+        this.iniciado = false; // controla cuándo el juego se mueve
         this.nivelDificultad = 0; 
-        this.scoreDisplay = document.querySelector('.flappy-puntaje');
+        this.scoreDisplay = document.getElementById('puntajeNumero');
+
 
         this.resetearDificultadInicial(); 
         this.limpiarTuberiasPrevias();
         this.actualizarDisplayPuntaje();
 
-        document.addEventListener("keydown", (e) => {
-            if (e.code === "Space" && this.jugando) {
+        // Asegurar que el mensaje de inicio esté visible al crear el objeto
+        if (this.tapStartElement) this.tapStartElement.classList.remove('oculto'); 
+
+        // Asegurar que el pájaro empiece en el centro
+        this.pajaro.actualizarPosicionDiv(); 
+
+        // Eventos para iniciar el juego (salto inicial)
+        this.manejarEventos = (e) => {
+            // Space key
+            if (e.type === "keydown" && e.code === "Space") {
                 e.preventDefault();
-                this.pajaro.aletear();
+                if (!this.iniciado) this.arrancarJuego();
+                else if (this.jugando) this.pajaro.aletear();
+                return;
             }
-        });
-        
-        document.querySelector('.juegoFlappyContenedor').addEventListener("click", (e) => {
-            if (this.jugando && e.target.closest('.juegoFlappyContenedor')) {
-                this.pajaro.aletear();
+
+            // Click dentro del contenedor del juego
+            if (e.type === "click" && e.target.closest('.juegoFlappyContenedor')) {
+                e.preventDefault();
+                if (!this.iniciado) this.arrancarJuego();
+                else if (this.jugando) this.pajaro.aletear();
             }
-        });
+        };
+
+        document.addEventListener("keydown", this.manejarEventos);
+        // Asegurarse de que this.juegoContenedor exista antes de añadir listener
+        if (this.juegoContenedor) {
+            this.juegoContenedor.addEventListener("click", this.manejarEventos);
+        }
     }
     
-    // Método para resetear las variables globales al iniciar o reintentar
+    // --- MÉTODOS DE CONFIGURACIÓN ---
     resetearDificultadInicial() {
         VELOCIDAD_JUEGO = 2; 
         HUECO_TUBERIA = 160; 
@@ -319,10 +332,26 @@ class Juego {
     destruir() {
         this.limpiarTuberiasPrevias();   
         this.jugando = false; 
+        this.iniciado = false;
         this.resetearDificultadInicial(); 
+        
+        // Limpiar los eventos del juego
+        document.removeEventListener("keydown", this.manejarEventos);
+        if (this.juegoContenedor) this.juegoContenedor.removeEventListener("click", this.manejarEventos);
     }
+    
+    arrancarJuego() {
+        this.iniciado = true;
+        this.pajaro.aletear(); // El primer toque es el primer salto
+        
+        // Quitar la pausa del fondo Parallax en el contenedor principal
+        if (this.juegoContenedor) this.juegoContenedor.classList.remove('parallax-paused');
+        
+        // Ocultar el mensaje de "Tap to Start"
+        if (this.tapStartElement) this.tapStartElement.classList.add('oculto');
+    } 
 
-    // NUEVO MÉTODO: Aumenta la dificultad
+    // --- MÉTODOS DE DIFICULTAD Y PUNTUACIÓN ---
     actualizarDificultad() {
         if (this.nivelDificultad < DIFICULTAD_NIVELES.length) {
             const siguienteNivel = DIFICULTAD_NIVELES[this.nivelDificultad];
@@ -340,6 +369,20 @@ class Juego {
         }
     }
 
+    checkScore(birdBounds, pipe) {
+        if (!pipe.passed && birdBounds.left > pipe.x + ANCHO_TUBERIA) {
+            this.puntaje++;
+            pipe.passed = true;
+
+            sonidoPunto.currentTime = 0;
+            sonidoPunto.play();
+
+            this.actualizarDisplayPuntaje();
+            this.actualizarDificultad(); 
+        }
+    }
+    
+    // --- DETECCIÓN DE COLISIONES ---
     checkCollision(birdBounds, pipe) {
         const pipeContainerBounds = pipe.getBounds();
         
@@ -351,29 +394,19 @@ class Juego {
         const bottomPipeWrapper = pipe.element.children[1];
 
         const topPipeBounds = topPipeWrapper.getBoundingClientRect();
-        
         if (birdBounds.top < topPipeBounds.bottom) {
             return true;
         }
         
         const bottomPipeBounds = bottomPipeWrapper.getBoundingClientRect();
-
         if (birdBounds.bottom > bottomPipeBounds.top) {
             return true;
         }
         
         return false;
     }
-    
-    checkScore(birdBounds, pipe) {
-        if (!pipe.passed && birdBounds.left > pipe.x + ANCHO_TUBERIA) {
-            this.puntaje++;
-            pipe.passed = true;
-            this.actualizarDisplayPuntaje();
-            this.actualizarDificultad(); 
-        }
-    }
 
+    // --- BUCLE PRINCIPAL DEL JUEGO ---
     iniciar() {
         requestAnimationFrame(this.bucle.bind(this));
     }
@@ -384,36 +417,51 @@ class Juego {
         const dt = timestamp - this.tiempoAnterior;
         this.tiempoAnterior = timestamp;
 
-        this.actualizar(dt);
-
+        if (this.iniciado) { 
+            this.actualizar(dt);
+        } else {
+            // Mantiene al pájaro en posición inicial (pausa)
+            this.pajaro.actualizarPosicionDiv(); 
+        }
         requestAnimationFrame(this.bucle.bind(this));
     }
 
     actualizar(dt) {
         this.pajaro.actualizar(dt);
 
+        // Colisión con bordes
         if (this.pajaro.haChocadoAlBorde(JUEGO_ALTURA)) {
             this.jugando = false;
-            this.onGameOver();
+
+            sonidoChoque.currentTime = 0;
+            sonidoChoque.play();
+
+            if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused'); // Detener el fondo
+            setTimeout(() => this.onGameOver(this.puntaje), 1000); 
             return;
         }
-        
-        // 💡 CORRECCIÓN TEMPORIZACIÓN: Generación de tuberías basada en dt (reemplaza setInterval)
+
+        // Generación de tuberías
         this.tiempoDesdeUltimaTuberia += dt;
         if (this.tiempoDesdeUltimaTuberia >= INTERVALO_GENERACION) {
             this.pipes.push(new Pipe(JUEGO_ANCHO));
             this.tiempoDesdeUltimaTuberia = 0; 
         }
 
+        // Actualización tuberías, colisiones y puntuación
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             const pipe = this.pipes[i];
             
-            // 💡 CORRECCIÓN TEMPORIZACIÓN: Pasar dt a la tubería
             pipe.actualizar(dt);
             
             if (this.checkCollision(this.pajaro.getBounds(), pipe)) {
                 this.jugando = false;
-                this.onGameOver();
+
+                sonidoChoque.currentTime = 0;
+                sonidoChoque.play();
+
+                if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused'); // Detener el fondo
+                setTimeout(() => this.onGameOver(this.puntaje), 1000); 
                 return;
             }
             
@@ -430,7 +478,6 @@ class Juego {
 // ===========================================
 //  INICIALIZACIÓN 
 // ===========================================
-
 document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("keydown", function(e) {
         if (e.code === "Space") {
@@ -457,17 +504,47 @@ document.addEventListener("DOMContentLoaded", () => {
         if (juegoFlappy) {
             juegoFlappy.destruir(); 
         }
-        pantallas.mostrarJuego();
-        juegoFlappy = new Juego(() => pantallas.mostrarGameOver());
-        juegoFlappy.iniciar();
+        // 1. Mostrar la pantalla del juego (quitando el display: none)
+        pantallas.mostrarJuego(); 
+        
+        // 2. Configurar el estado de pausa inicial en el contenedor principal (.juegoFlappyContenedor)
+        const contPadre = document.querySelector('.juegoFlappyContenedor');
+        if (contPadre) contPadre.classList.add('parallax-paused');
+
+        document.querySelector('.tapToStart').classList.remove('oculto');
+        
+        // Crear nueva instancia de juego
+        juegoFlappy = new Juego((score) => pantallas.mostrarGameOver(score));
+
+        juegoFlappy.puntaje = 0;             
+        juegoFlappy.actualizarDisplayPuntaje(); 
+
+        juegoFlappy.pajaro.velY = 0;
+        juegoFlappy.pajaro.contenedor.style.transform = "rotate(0deg)";
+        juegoFlappy.pajaro.mostrarFrame(0); 
+        juegoFlappy.pajaro.actualizarPosicionDiv();
+
+        juegoFlappy.iniciar(); 
     };
 
-    btnJugar.addEventListener("click", iniciarNuevaPartida);
+    // Evitar que el click del botón "Jugar" burbujee y arranque el juego inmediatamente
+    if (btnJugar) {
+        btnJugar.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            iniciarNuevaPartida();
+        });
+    }
+
     btnInstrucciones.addEventListener("click", () => pantallas.mostrarInstrucciones());
     btnVolver.addEventListener("click", () => pantallas.mostrarInicio());
 
     if (btnReintentar) {
-        btnReintentar.addEventListener("click", iniciarNuevaPartida);
+        btnReintentar.addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            iniciarNuevaPartida();
+        });
     }
     
     if (btnIrInicio) {
