@@ -4,8 +4,8 @@
 const JUEGO_ALTURA = 550; 
 const JUEGO_ANCHO = 1100;
 
-const GRAVEDAD = 0.5;
-const IMPULSO_SALTO = -10; 
+const GRAVEDAD = 0.35;
+const IMPULSO_SALTO = -6; 
 
 // VARIABLES DE DIFICULTAD 
 let VELOCIDAD_JUEGO = 2; 
@@ -71,8 +71,24 @@ class Pajaro {
         this.velY += this.gravedad;
         this.y += this.velY;
 
+        // -----------------------------
+        // ROTACIÓN SEGÚN VELOCIDAD
+        // -----------------------------
+        let rotacion = 0;
+
+        if (this.velY < 0) {
+            // Subiendo → inclinar hacia arriba (-35° máx)
+            rotacion = -25;
+        } else {
+            // Cayendo → rotación proporcional a la velocidad (hasta 90°)
+            rotacion = Math.min(this.velY * 3, 90);
+        }
+
+        this.contenedor.style.transform = `rotate(${rotacion}deg)`;
+
         this.actualizarPosicionDiv();
 
+        // FRAMES del aleteo
         if (this.estaAleteando) {
             this.tiempoAleteo += dt;
             if (this.tiempoAleteo < 60) this.mostrarFrame(1);
@@ -85,6 +101,7 @@ class Pajaro {
             this.mostrarFrame(0);
         }
     }
+
     
     getBounds() {
         return this.contenedor.getBoundingClientRect();
@@ -418,6 +435,12 @@ class Juego {
 // ===========================================
 
 document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("keydown", function(e) {
+        if (e.code === "Space") {
+            e.preventDefault();
+        }
+    });
+
     const inicio = document.getElementById("paginaInicio");
     const juego = document.getElementById("paginaJuego");
     const instrucciones = document.querySelector(".flappy-pantalla-instrucciones");

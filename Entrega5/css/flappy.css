@@ -525,6 +525,7 @@ body {
     height: 24px;
     overflow: hidden; 
     z-index: 50;
+    transition: transform 0.15s linear;
 }
 
 #pajaro {
