@@ -3,7 +3,7 @@
 // ===========================================
 const JUEGO_ALTURA = 550; 
 const JUEGO_ANCHO = 1100;
-// 💡 CORRECCIÓN GEOMETRÍA: Altura del área de juego sin el suelo (550 * 0.90 = 495px)
+
 const JUEGO_ALTURA_UTIL = JUEGO_ALTURA * 0.90; 
 
 const GRAVEDAD = 0.35;
@@ -69,7 +69,6 @@ class Pajaro {
         this.tiempoAleteo = 0;
     }
 
-    // Ya asumo que Pajaro.actualizar usa dt para escalar la velocidad.
     actualizar(dt) {
         this.velY += this.gravedad;
         this.y += this.velY;
@@ -127,13 +126,16 @@ class Pipe {
     constructor(x) {
         const MIN_ALTURA_SEGMENTO = 65; 
         
-        // CORRECCIÓN GEOMETRÍA: Definir un límite superior dinámico basado en JUEGO_ALTURA_UTIL
+        const MIN_ALTURA_ALEATORIA = 120;
+        
+        //Cálculo de la altura máxima que faltaba en tu versión
         const MAX_ALTURA_SUPERIOR = JUEGO_ALTURA_UTIL - MIN_ALTURA_SEGMENTO - HUECO_TUBERIA;
+
+        // CÁLCULO DE ALTURA DE LA TUBERÍA SUPERIOR
+        // El rango aleatorio usa MIN_ALTURA_ALEATORIA (120px) como límite inferior.
+        const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_SUPERIOR - MIN_ALTURA_ALEATORIA + 1)) + MIN_ALTURA_ALEATORIA;
         
-        // 1. CÁLCULO DE ALTURA DE LA TUBERÍA SUPERIOR
-        const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_SUPERIOR - MIN_ALTURA_SEGMENTO + 1)) + MIN_ALTURA_SEGMENTO;
-        
-        // 2. CORRECCIÓN GEOMETRÍA: Usar JUEGO_ALTURA_UTIL para el cálculo total
+        // CORRECCIÓN GEOMETRÍA: Usar JUEGO_ALTURA_UTIL para el cálculo total
         const alturaInferior = JUEGO_ALTURA_UTIL - alturaSuperior - HUECO_TUBERIA; 
 
         this.element = document.createElement('div');
@@ -271,7 +273,7 @@ class Juego {
         this.puntaje = 0;
         this.timerPuntaje = 0; 
         
-        // 💡 CORRECCIÓN TEMPORIZACIÓN: Inicializar temporizador para la generación de tuberías
+        // 💡 CORRECCIÓN TEMPORIZACIÓN: Inicializar temporizador para la generación de tuberías (reemplaza setInterval)
         this.tiempoDesdeUltimaTuberia = 0; 
 
         this.jugando = true;
@@ -280,7 +282,6 @@ class Juego {
 
         this.resetearDificultadInicial(); 
         this.limpiarTuberiasPrevias();
-        // ⚠️ ELIMINADA la llamada a iniciarGeneradorTuberias()
         this.actualizarDisplayPuntaje();
 
         document.addEventListener("keydown", (e) => {
@@ -315,12 +316,7 @@ class Juego {
         document.querySelectorAll('.contenedor-tuberia').forEach(t => t.remove());
     }
     
-    // ⚠️ ELIMINADO: iniciarGeneradorTuberias() (Usamos lógica de dt en actualizar)
-    
-    // ⚠️ ELIMINADO: detenerGeneradorTuberias() (Usamos lógica de dt en actualizar)
-    
     destruir() {
-        // ⚠️ ELIMINADO: this.detenerGeneradorTuberias();
         this.limpiarTuberiasPrevias();   
         this.jugando = false; 
         this.resetearDificultadInicial(); 
@@ -335,7 +331,7 @@ class Juego {
                 
                 VELOCIDAD_JUEGO = siguienteNivel.velocidad;
                 HUECO_TUBERIA = siguienteNivel.hueco;
-                INTERVALO_GENERACION = siguienteNivel.intervalo; // Actualizar el intervalo
+                INTERVALO_GENERACION = siguienteNivel.intervalo; 
                 
                 this.nivelDificultad++;
                 
@@ -398,12 +394,11 @@ class Juego {
 
         if (this.pajaro.haChocadoAlBorde(JUEGO_ALTURA)) {
             this.jugando = false;
-            // ⚠️ ELIMINADO: this.detenerGeneradorTuberias();
             this.onGameOver();
             return;
         }
         
-        // 💡 CORRECCIÓN TEMPORIZACIÓN: Generación de tuberías basada en dt
+        // 💡 CORRECCIÓN TEMPORIZACIÓN: Generación de tuberías basada en dt (reemplaza setInterval)
         this.tiempoDesdeUltimaTuberia += dt;
         if (this.tiempoDesdeUltimaTuberia >= INTERVALO_GENERACION) {
             this.pipes.push(new Pipe(JUEGO_ANCHO));
@@ -418,7 +413,6 @@ class Juego {
             
             if (this.checkCollision(this.pajaro.getBounds(), pipe)) {
                 this.jugando = false;
-                // ⚠️ ELIMINADO: this.detenerGeneradorTuberias();
                 this.onGameOver();
                 return;
             }
@@ -486,4 +480,3 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-
