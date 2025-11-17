@@ -139,92 +139,223 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url('../img/flappy/portada/portadaFlappy2.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: lightblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url('../img/flappy/fondos/01_ground.png'),
+    url('../img/flappy/fondos/02_treesandbushes.png'),
+    url('../img/flappy/fondos/03_distant_trees.png'),
+    url('../img/flappy/fondos/04_bushes.png'),
+    url('../img/flappy/fondos/05_hill1.png'),
+    url('../img/flappy/fondos/06_hill2.png'),
+    url('../img/flappy/fondos/07_huge_clouds.png'),
+    url('../img/flappy/fondos/08_clouds.png'),
+    url('../img/flappy/fondos/09_distant_clouds1.png'),
+    url('../img/flappy/fondos/10_distant_clouds.png');
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+
 }
+
+/* ===========================
+   TÍTULO FLAPPY BIRD ANIMADO
+   =========================== */
+.tituloFlappy {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 70px;
+    letter-spacing: 4px;
+
+    animation: flotar 2.2s ease-in-out infinite;
+}
+
+.tituloFlappy span {
+    display: inline-block;
+
+    text-shadow:
+        -4px 0px 0 #000,
+         4px 0px 0 #000,
+         0px -4px 0 #000,
+         0px  4px 0 #000;
+}
+
+.tituloFlappy span:nth-child(1)  { color: #f7d45c; } /* F - amarillo */
+.tituloFlappy span:nth-child(2)  { color: #8ee6ff; } /* L - celeste */
+.tituloFlappy span:nth-child(3)  { color: #6ad8ff; } /* A - celeste oscuro */
+.tituloFlappy span:nth-child(4)  { color: #8cd34a; } /* P - verde */
+.tituloFlappy span:nth-child(5)  { color: #b586ff; } /* P - violeta */
+.tituloFlappy span:nth-child(6)  { color: #6d5cff; } /* Y - azul/violeta */ 
+.tituloFlappy span:nth-child(7)  { color: #ff66ad; } /* B - rosa */
+.tituloFlappy span:nth-child(8)  { color: #ff9dd1; } /* I - rosa claro */
+.tituloFlappy span:nth-child(9)  { color: #ffcc5c; } /* R - amarillo rosado */
+.tituloFlappy span:nth-child(10) { color: #6ad8ff; } /* D - celeste */
+
+.tituloFlappy .marca {
+    font-family: Arial, sans-serif;  
+    font-size: 40px;                 
+    color: white;
+    margin-left: 5px;
+    text-shadow: none !important;  
+    position: relative;
+    top: -15px;
+}
+
+
+/* Animación suave arriba/abajo */
+@keyframes flotar {
+    0%   { transform: translate(-50%, 0px); }
+    50%  { transform: translate(-50%, -15px); }
+    100% { transform: translate(-50%, 0px); }
+}
+
+/* Contenedor centrado del pájaro */
+.pajaro-inicio {
+    position: absolute;
+    top: 40%;  /* Debajo del título */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 45px;
+    overflow: hidden;
+
+    animation: flotarPajaro 2.2s ease-in-out infinite;
+}
+
+.pajaro-frame {
+    width: 60px;        /* Ancho de 1 frame */
+    height: 42px;       /* Alto de 1 frame */
+    background-image: url("../img/flappy/portada/spritesheetPortada.png");
+    background-repeat: no-repeat;
+    animation: volar 320ms steps(3) infinite; 
+}
+
+/* Animación del sprite sheet */
+@keyframes volar {
+    from { background-position:    0px; } 
+    to   { background-position: -180px; } /* 60px * 3 frames */
+}
+@keyframes flotarPajaro {
+    0%   { transform: translate(-50%, 0px); }
+    50%  { transform: translate(-50%, -12px); }
+    100% { transform: translate(-50%, 0px); }
+}
+
 
 /* CONTENEDOR DE BOTONES */
 .botones-inicio {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     position: relative;
-    top: 100px; 
+    top: 130px;
 }
 
-/* Botón "Jugar"  */
+/* === BOTÓN START ESTILO ORIGINAL === */
 .btn-primary-play {
     font-family: 'Press Start 2P', cursive;
-    font-size: 1.5rem; 
-    font-weight: 700;
-    color: white; 
-    text-shadow: 2px 2px 0 black;
-    background-color: #ffcc00; 
-    border: 4px solid #ff9900; 
-    border-radius: 15px;
-    width: 180px; 
-    height: 60px; 
-    display: flex; 
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    width: 270px;
+    height: 60px;
+
+    /* Colores principales */
+    background-color: #4ec0ca;        /* Celeste original */
+    border: 4px solid #000000;        /* Borde negro externo */
+    box-shadow:
+        0 0 0 4px #1a8c96 inset,      /* Borde interno celeste oscuro */
+        0 6px 0 #156d75;  
+    
+    border-radius: 10px;
+
+    color: white;
+    text-shadow:
+        -3px 0px 0 #000,
+         3px 0px 0 #000,
+         0px -3px 0 #000,
+         0px  3px 0 #000;  /* Borde de texto negro grueso */
+
+    display: flex;
     justify-content: center;
     align-items: center;
+
     cursor: pointer;
-    box-shadow: 0 6px 0 #cc8400, 0 8px 15px rgba(0, 0, 0, 0.4);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
-    top: 0; 
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
+/* Hover → sube */
 .btn-primary-play:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 0 #cc8400, 0 10px 25px rgba(0, 0, 0, 0.5);
-    text-shadow: 3px 3px 0 black;
+    transform: translateY(-4px);
+    box-shadow:
+        0 0 0 4px #1a8c96 inset,
+        0 10px 0 #156d75,
+        0 12px 15px rgba(0,0,0,0.5);
 }
 
-/* Clic */
+/* Click → baja */
 .btn-primary-play:active {
-    transform: translateY(2px) scale(0.98);
-    box-shadow: 0 4px 0 #cc8400;
+    transform: translateY(2px);
+    box-shadow:
+        0 0 0 4px #1a8c96 inset,
+        0 3px 0 #156d75;
 }
 
 /* Botón "Instrucciones"  */
 .flappy-btn-instrucciones {
     font-family: 'Press Start 2P', cursive;
-    font-size: 0.9rem; 
-    font-weight: 700;
-    color: var(--color-text-primary); 
-    background-color: var(--color-card-bg); 
-    border: 3px solid var(--color-text-primary);
-    border-radius: 8px; 
-    padding: 10px 20px; 
-    width: 220px;
-    height: 40px; 
-    box-shadow: 0 4px 0 #102641, 0 6px 10px rgba(0, 0, 0, 0.4);
-    transition: var(--transicion-rapida);
-    cursor: pointer;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    width: 260px;
+    height: 45px;
+    letter-spacing: 2px;
+    background-color: #4ec0ca;
+    border: 4px solid #000000;
+
+    box-shadow:
+        0 0 0 4px #1a8c96 inset,
+        0 5px 0 #156d75,
+        0 7px 10px rgba(0,0,0,0.4);
+
+    border-radius: 10px;
+    color: white;
+    
+    text-shadow:
+        -2px 0px 0 #000,
+         2px 0px 0 #000,
+         0px -2px 0 #000,
+         0px  2px 0 #000;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .flappy-btn-instrucciones:hover {
-    transform: translateY(-2px) scale(1.02); 
-    background-color: #315180;
-    box-shadow: 0 6px 0 #102641, 0 8px 15px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+    box-shadow:
+        0 0 0 4px #1a8c96 inset,
+        0 8px 0 #156d75,
+        0 10px 15px rgba(0,0,0,0.5);
 }
 
 .flappy-btn-instrucciones:active {
     transform: translateY(1px);
-    box-shadow: 0 3px 0 #102641;
+    box-shadow:
+        0 0 0 4px #1a8c96 inset,
+        0 3px 0 #156d75;
 }
 
 
@@ -693,87 +824,162 @@ body {
 }
 
 /* ======================================= */
-/* PANTALLA GAME OVER                      */
+/* PANTALLA GAME OVER (overlay)            */
 /* ======================================= */
 #pantallaGameOver {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    width: 100%;
-    height: 100%;
-
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 999;
+    width: 100%;
+    height: 100%;
+    display: none;
 
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(3px);
-}
-
-/* TÍTULO GAME OVER */
-#pantallaGameOver h2 {
-    font-family: 'Press Start 2P', sans-serif;
-    font-size: 46px;
-
-    color: #ffdf00;                 
-    text-shadow: 3px 3px 0 #000;  
-
-    margin-bottom: 35px;
-    letter-spacing: 3px;
-}
-
-/* BOTONES TIPO FLAPPY */
-#pantallaGameOver button {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.2rem; 
-    font-weight: 700;
-    color: white; 
-    text-shadow: 2px 2px 0 black;
-
-    background-color: #ffcc00; 
-    border: 4px solid #ff9900; 
-    border-radius: 15px;
-
-    width: 350px;         
-    height: 60px;
-
-    display: flex; 
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 
-    box-shadow: 0 6px 0 #cc8400, 
-                0 8px 15px rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(1px);
 
-    transition: transform 0.2s ease, 
-                box-shadow 0.2s ease,
-                text-shadow 0.2s ease;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+}
 
-    position: relative;
-    top: 0; 
+#pantallaGameOver.mostrar {
+    display: flex;
+    animation: fadeInFondo 0.4s forwards ease-out;
+    pointer-events: all;
+}
+
+
+@keyframes fadeInFondo {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+/* ------------ TARJETA GAME OVER ---------- */
+#pantallaGameOver .gameOverCard {
+    width: 600px;
+    max-width: 90%;
+
+    background: #c8e5a6;        /* 💚 Verde pastel original */
+    border: 6px solid #4c6b33;  /* Verde oscuro original */
+    border-radius: 20px;
+
+    padding: 35px 40px;
+    text-align: center;
+
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+
+    transform: translateY(-30px) scale(0.9);
+    opacity: 0;
+
+    animation: slideGameOver 0.45s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideGameOver {
+    0% {
+        transform: translateY(-30px) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* ------------ TÍTULO ------------ */
+#pantallaGameOver .gameOverCard h2 {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 46px;
+    margin-bottom: 40px;
+
+    color: #ffa75f;                  /* Naranja pastel original */
+    text-shadow: 
+        -4px 0px #ffffff,
+         4px 0px #ffffff,
+         0px -4px #ffffff,
+         0px  4px #ffffff;           /* Sombra blanca gruesa */
+}
+
+
+/* ------------ PUNTAJES ------------ */
+.gameOverScore,
+.gameOverBest {
+    font-family: 'Press Start 2P';
+    font-size: 22px;
+
+    color: #2f4b1f;   /* Verde oscuro más suave */
+    text-shadow: 2px 2px 0 #ffffff;
+    margin-bottom: 15px;
+}
+
+/* ------------ BOTONES ------------ */
+/* Contenedor */
+#pantallaGameOver .btns-gameOver {
+    gap: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* === BOTONES GAME OVER (verde estilo Flappy Bird) === */
+#pantallaGameOver button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 
-    margin: 12px;
+    width: 250px;
+    height: 55px;
+
+    /* 🎨 Paleta verde */
+    background-color: #63c74d; /* Verde claro */
+    border: 4px solid #000000; /* Borde negro */
+
+    /* Borde interno (verde más oscuro) */
+    box-shadow:
+        0 0 0 4px #3b7a2b inset,   /* Borde interno */
+        0 6px 0 #2a5d1d;           /* Sombra inferior */
+
+    border-radius: 10px;
+
+    /* Texto con borde negro */
+    color: white;
+    text-shadow:
+        -3px 0px 0 #000,
+         3px 0px 0 #000,
+         0px -3px 0 #000,
+         0px  3px 0 #000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Hover */
 #pantallaGameOver button:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 0 #cc8400, 
-                0 10px 25px rgba(0, 0, 0, 0.5);
-    text-shadow: 3px 3px 0 black;
+    transform: translateY(-4px);
+    box-shadow:
+        0 0 0 4px #3b7a2b inset,
+        0 10px 0 #2a5d1d,
+        0 12px 15px rgba(0,0,0,0.5);
 }
 
-/* Clic */
+/* Click */
 #pantallaGameOver button:active {
-    transform: translateY(2px) scale(0.98);
-    box-shadow: 0 4px 0 #cc8400;
+    transform: translateY(2px);
+    box-shadow:
+        0 0 0 4px #3b7a2b inset,
+        0 3px 0 #2a5d1d;
 }
-
 
 /* ======================================= */
 /* 3.4. FOOTER DEL JUEGO                    */
@@ -930,6 +1136,51 @@ body {
 }
 
 
+/* ======================================= */
+/* ESTILOS PARA LA GALERÍA DE IMÁGENES */
+/* ======================================= */
+
+.info-section.game-gallery {
+    padding: 0; 
+    width: calc(50% - 20px); 
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    border: none; 
+    border-radius: 0; 
+    overflow: visible; 
+}
+
+.gallery-grid-blocka { 
+    display: flex;
+    flex-direction: row;
+    gap: 15px; 
+    width: 100%; 
+    height: auto; 
+    justify-content: space-between; 
+}
+
+
+.gallery-img-blocka { 
+    width: calc((100% - 30px) / 3); 
+    aspect-ratio: 1 / 1; 
+    height: auto; 
+    border: 2px solid var(--color-text-secondary); 
+    border-radius: 12px; 
+    padding: 5px; 
+    background-color: var(--color-card-bg); 
+    box-sizing: border-box; 
+    overflow: hidden; 
+    transition: none; 
+    cursor: default;
+}
+
+.gallery-img-blocka img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 8px; 
+}
 
 /* ======================================= */
 /* 5. COMENTARIOS                          */

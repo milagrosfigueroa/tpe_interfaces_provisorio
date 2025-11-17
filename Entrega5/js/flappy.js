@@ -32,11 +32,13 @@ const DIFICULTAD_NIVELES = [
 const sonidoAleteo = new Audio("./sonidos/wing.ogg");
 const sonidoChoque = new Audio("./sonidos/hit.ogg");
 const sonidoPunto = new Audio("./sonidos/point.ogg");
+const sonidoDie = new Audio("./sonidos/die.ogg");
 
 // Evita delay en Chrome
 sonidoAleteo.preload = "auto";
 sonidoChoque.preload = "auto";
 sonidoPunto.preload = "auto";
+sonidoDie.preload = "auto";
 
 // ===========================================
 //   CLASE PAJARO 
@@ -235,14 +237,36 @@ class Pantalla {
     }
 
     mostrarGameOver(puntaje) {
+
         if (this.finalScoreDisplay) {
             this.finalScoreDisplay.textContent = puntaje;
         }
-        this.gameOver.style.display = "flex";
-        this.juego.style.display = "none";
+
+        // ==== BEST SCORE ====
+        let best = localStorage.getItem("bestScoreFlappy") || 0;
+        best = Math.max(best, puntaje);
+        localStorage.setItem("bestScoreFlappy", best);
+
+        const bestDisplay = document.getElementById("bestScore");
+        if (bestDisplay) bestDisplay.textContent = best;
+        // =====================
+
+
+        // 🔥 Reiniciar animación ANTES de mostrar el Game Over
+        this.gameOver.classList.remove("mostrar");
+        void this.gameOver.offsetWidth; // reinicia la animación
+
+
+        // 🔥 Ocultar pantallas del juego
         this.inicio.style.display = "none";
         this.instrucciones.style.display = "none";
+
+
+        // 🔥 Mostrar Game Over con animación
+        this.gameOver.style.display = "flex";
+        this.gameOver.classList.add("mostrar");
     }
+
 }
 
 // ===========================================
@@ -436,6 +460,10 @@ class Juego {
             sonidoChoque.currentTime = 0;
             sonidoChoque.play();
 
+            sonidoDie.currentTime = 0;
+            sonidoDie.play();
+
+
             if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused'); // Detener el fondo
             setTimeout(() => this.onGameOver(this.puntaje), 1000); 
             return;
@@ -459,6 +487,9 @@ class Juego {
 
                 sonidoChoque.currentTime = 0;
                 sonidoChoque.play();
+
+                sonidoDie.currentTime = 0;
+                sonidoDie.play();
 
                 if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused'); // Detener el fondo
                 setTimeout(() => this.onGameOver(this.puntaje), 1000); 
@@ -491,6 +522,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameOver = document.getElementById("pantallaGameOver");
     const pantallas = new Pantalla(inicio, juego, instrucciones, gameOver);
     pantallas.mostrarInicio();
+
+    // Mostrar BEST apenas carga la página
+    const bestDisplay = document.getElementById("bestScore");
+    if (bestDisplay) {
+        let best = localStorage.getItem("bestScoreFlappy") || 0;
+        bestDisplay.textContent = best;
+    }
+
 
     const btnJugar = document.getElementById("botonIniciar");
     const btnInstrucciones = document.getElementById("btn-instrucciones");

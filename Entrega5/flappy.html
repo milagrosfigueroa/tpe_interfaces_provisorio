@@ -212,8 +212,18 @@
         <div class="juegoFlappyContenedor" id="juego">
 
             <div class="pantalla-inicio" id="paginaInicio">
+                <h1 class="tituloFlappy" id="titulo-flappy">
+                    <span>F</span><span>L</span><span>A</span><span>P</span><span>P</span><span>Y</span>
+                    <span>B</span><span>I</span><span>R</span><span>D</span>
+                    <span class="marca">®</span>
+                </h1>
+
+                <div class="pajaro-inicio">
+                    <div class="pajaro-frame"></div>
+                </div>
+
                 <div class="botones-inicio"> 
-                    <button class="btn-primary-play" id="botonIniciar">Jugar</button>
+                    <button class="btn-primary-play" id="botonIniciar">START</button>
                     <button class="flappy-btn-instrucciones" id="btn-instrucciones">Instrucciones</button> 
                 </div>
             </div>
@@ -242,18 +252,32 @@
                 </div>
 
                 <div class="flappy-puntaje">
-                    SCORE:<span id="puntajeNumero">0</span>
+                    score:<span id="puntajeNumero">0</span>
                 </div>
 
 
             </div>
 
-            <div id="pantallaGameOver" class="pantallaGameOver" style="display: none;">
-                <h2>GAME OVER</h2>
-                <button id="btnReintentar">Jugar de nuevo</button>
-                <button id="btnIrInicio">Ir al Inicio</button>
+           <div id="pantallaGameOver" class="pantallaGameOver">
+                <div class="gameOverCard">
+                    <h2>GAME OVER</h2>
+
+                    <p class="gameOverScore">
+                        Score: <span id="finalScore">0</span>
+                    </p>
+
+                    <p class="gameOverBest">
+                        Best : <span id="bestScore">0</span>
+                    </p>
+
+                    <div class="btns-gameOver">
+                        <button id="btnReintentar">PLAY</button>
+                        <button id="btnIrInicio">HOME</button>
+                    </div>
+                    
+                </div>
             </div>
-            
+
             <div class="flappy-pantalla-instrucciones" style="display: none;">
                 <div class="flappy-instrucciones-panel">
         
