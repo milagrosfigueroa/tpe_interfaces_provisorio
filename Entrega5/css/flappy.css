@@ -417,7 +417,7 @@ body {
 
 @keyframes scroll {
   0% { background-position-x: 0px; }
-  100% { background-position-x: -2048px; } 
+  100% { background-position-x: -1100px; } 
 }
 
 .layer-11 { 

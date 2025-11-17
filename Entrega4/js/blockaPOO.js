@@ -271,11 +271,25 @@ class Temporizador {
 
     pausar() {
         this.pausado = true;
+        // ✅ Aplicar blur al tablero cuando el juego está pausado
+        // Seleccionamos el contenedor principal del juego (tablero + interfaz)
+        //const gameContainer = document.getElementById("game-content");
+
+        // Aplica un blur suave a todo
+        //gameContainer.style.filter = "blur(6px)";
+
+        // Opcional: también podés bajar la opacidad para efecto más "pausado"
+        // gameContainer.style.opacity = "0.7";
+    
     }
 
     reanudar() {
         this.pausado = false;
         this.tiempoInicio = Date.now() - (this.tiempoTranscurrido * 1000); 
+        // ✅ Quitar blur al reanudar
+        //const gameContainer = document.getElementById("game-content");
+        //gameContainer.style.filter = "none"; // devuelve foco normal
+        // gameContainer.style.opacity = "1"; // si activaste opacidad antes
     }
 
     detener() {
