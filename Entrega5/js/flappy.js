@@ -40,6 +40,12 @@ sonidoChoque.preload = "auto";
 sonidoPunto.preload = "auto";
 sonidoDie.preload = "auto";
 
+let vidas = 3;
+const corazones = document.querySelectorAll(".vida");
+
+const CORAZON_LLENO = "./img/flappy/corazon_lleno_spritesheet.png";
+const CORAZON_VACIO = "./img/flappy/corazon_vacio_spritesheet.png";
+
 // ===========================================
 //   CLASE PAJARO 
 // ===========================================
@@ -354,8 +360,15 @@ class Juego {
         this.pantallaJuego = document.getElementById("paginaJuego"); 
         this.tapStartElement = document.querySelector('.tapToStart'); 
 
+        // 🔥 NUEVO: Referencia al elemento de notificación
+        this.notificacionVida = document.getElementById('notificacionVida');
+
         this.pajaro = new Pajaro(contenedorPajaro, imagenPajaro, 150, 250, 34);
         this.pipes = [];
+        // 🔥 NUEVO: Array para pájaros de fondo
+        this.pajarosFondo = []; 
+        this.tiempoDesdeUltimoPajaro = 0; 
+        const INTERVALO_PAJARO_FONDO = 15000; // Define la frecuencia base (cada 15 segundos)
         this.pipeGeneratorId = null;
 
         this.tiempoAnterior = 0;
@@ -368,6 +381,10 @@ class Juego {
         this.iniciado = false; // controla cuándo el juego se mueve
         this.nivelDificultad = 0; 
         this.scoreDisplay = document.getElementById('puntajeNumero');
+
+        // 🔥 NUEVO: Sistema de Vidas
+        this.vidas = 3; 
+        this.actualizarDisplayVidas(); // Muestra las vidas iniciales
 
         this.primeraTuberiaPendiente = true; 
 
@@ -406,7 +423,43 @@ class Juego {
             this.juegoContenedor.addEventListener("click", this.manejarEventos);
         }
     }
-    
+    // dentro de class Juego
+    actualizarDisplayVidas() {
+        const corazones = [
+            document.getElementById("vida1"),
+            document.getElementById("vida2"),
+            document.getElementById("vida3")
+        ];
+
+        for (let i = 0; i < 3; i++) {
+            if (!corazones[i]) continue;
+            corazones[i].src = (i < this.vidas) ? "./img/flappy/corazon_lleno_spritesheet.png" : "./img/flappy/corazon_vacio_spritesheet.png";
+        }
+    }
+
+    // 🔥 NUEVO MÉTODO: Reinicia la posición y el estado del pájaro tras perder una vida
+    reiniciarPosicionPajaro(pipeCercana = null) {
+        // reset física
+        this.pajaro.velY = 0;
+        this.pajaro.contenedor.style.transform = "rotate(0deg)";
+
+        // Opción: si querés usar siempre la posición segura (B),
+        // fuerza posición 150,250 ignorando pipeCercana. 
+        // Si querés usar centro del hueco cuando exista pipeCercana,
+        // mantené el if. Aquí dejamos la posición segura (B) por defecto.
+
+        this.pajaro.x = 150;
+        this.pajaro.y = 250;
+        this.pajaro.actualizarPosicionDiv();
+
+        // pausar el fondo y esperar a que el jugador toque para reanudar
+        if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused');
+        this.iniciado = false;
+        if (this.tapStartElement) this.tapStartElement.classList.remove('oculto');
+    }
+
+
+
     // --- MÉTODOS DE CONFIGURACIÓN ---
     resetearDificultadInicial() {
         VELOCIDAD_JUEGO = 2; 
@@ -422,7 +475,10 @@ class Juego {
     }
     
     limpiarTuberiasPrevias() {
-        document.querySelectorAll('.contenedor-tuberia').forEach(t => t.remove());
+        // Itera sobre el array de pipes y llama al método remove() de cada Pipe
+        this.pipes.forEach(pipe => pipe.remove()); 
+        // Luego limpia el array
+        this.pipes = [];
     }
     
     destruir() {
@@ -430,7 +486,15 @@ class Juego {
         this.jugando = false; 
         this.iniciado = false;
         this.resetearDificultadInicial(); 
-        
+
+        // 🔥 NUEVO: Limpiar pájaros de fondo
+        this.pajarosFondo.forEach(p => p.remove());
+        this.pajarosFondo = [];
+
+        // 🔥 CAMBIO: Resetear vidas al destruir el juego
+        this.vidas = 3;
+        this.actualizarDisplayVidas();
+
         // Limpiar los eventos del juego
         document.removeEventListener("keydown", this.manejarEventos);
         if (this.juegoContenedor) this.juegoContenedor.removeEventListener("click", this.manejarEventos);
@@ -524,7 +588,35 @@ class Juego {
 
     actualizar(dt) {
         this.pajaro.actualizar(dt);
+        if (this.iniciado) { // Asegúrate de que solo aparezcan cuando el juego está iniciado
+            // ======================================
+            // GESTIÓN DE PÁJAROS DE FONDO
+            // ======================================
+            this.tiempoDesdeUltimoPajaro += dt;
+            const INTERVALO_PAJARO_FONDO = 15000; // 15 segundos
+            const MAX_PAJAROS_EN_PANTALLA = 1; // Nunca permitas más de 1 a la vez
 
+            if (this.tiempoDesdeUltimoPajaro >= INTERVALO_PAJARO_FONDO && this.pajarosFondo.length < MAX_PAJAROS_EN_PANTALLA) {
+                // Crear un nuevo pájaro de fondo
+                this.pajarosFondo.push(new PajaroFondo(this.juegoContenedor));
+                
+                // Reiniciar el contador de tiempo (añadimos un factor de aleatoriedad para que no sea exacto)
+                this.tiempoDesdeUltimoPajaro = 0; 
+            }
+
+            // Actualización y limpieza de pájaros
+            for (let i = this.pajarosFondo.length - 1; i >= 0; i--) {
+                const pajaro = this.pajarosFondo[i];
+                
+                pajaro.actualizar(dt);
+
+                if (pajaro.isOffScreen()) {
+                    pajaro.remove();
+                    this.pajarosFondo.splice(i, 1);
+                }
+            }
+            // ======================================
+        }
         // Colisión con bordes
         if (this.pajaro.haChocadoAlBorde(JUEGO_ALTURA)) {
             this.jugando = false;
@@ -584,7 +676,7 @@ class Juego {
             }
 
             // Colisión con tubería
-            if (this.checkCollision(this.pajaro.getBounds(), pipe)) {
+            if (!pipe._colisionPlanta && this.checkCollision(this.pajaro.getBounds(), pipe)) {
                 this.jugando = false;
 
                 sonidoChoque.currentTime = 0;
@@ -598,7 +690,7 @@ class Juego {
                 return;
             }
             // ==========================
-            // COLISIÓN CON PLANTA
+            // COLISIÓN CON PLANTA (LÓGICA CORREGIDA PARA REINICIO)
             // ==========================
             if (pipe.planta) {
                 const pRect = pipe.planta.getBoundingClientRect();
@@ -611,31 +703,141 @@ class Juego {
                     b.top < pRect.bottom;
 
                 if (overlap) {
-                    this.jugando = false;
+                    // Si ya procesamos una colisión reciente en esta tubería, ignora
+                    if (pipe._cooldownPlanta) continue;
+                    // Marca cooldown para evitar procesar varias veces en frames consecutivos
+                    pipe._cooldownPlanta = true;
+                    setTimeout(() => { pipe._cooldownPlanta = false; }, 600);
 
+                    // Evita que la colisión con planta active también la colisión de tubería
+                    pipe._colisionPlanta = true;
+
+                    // ** 🔥 IMPORTANTE: PAUSAR EL JUEGO INMEDIATAMENTE 🔥 **
+                    this.jugando = false; 
+
+                    // Restar vida y actualizar HUD
+                    this.vidas--;
+                    this.actualizarDisplayVidas();
+
+                    // Sonidos
                     sonidoChoque.currentTime = 0;
                     sonidoChoque.play();
-                    sonidoDie.currentTime = 0;
-                    sonidoDie.play();
 
-                    if (this.juegoContenedor)
-                        this.juegoContenedor.classList.add('parallax-paused');
+                    // Pausar visual y mostrar notificación si existe
+                    if (this.notificacionVida) {
+                        this.notificacionVida.textContent = `¡VIDA PERDIDA! Vidas restantes: ${this.vidas}`;
+                        this.notificacionVida.classList.remove('oculto');
+                    }
+                    if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused');
 
-                    setTimeout(() => this.onGameOver(this.puntaje), 1000);
-                    return;
+                    // Si quedan vidas -> reposicionar seguro (opción B) y permitir reanudar
+                    if (this.vidas > 0) {
+                        setTimeout(() => {
+                            if (this.notificacionVida) this.notificacionVida.classList.add('oculto');
+
+                            // Reinicia posición segura del pájaro
+                            this.reiniciarPosicionPajaro(/*pipe*/);
+
+                            // ** 🔥 REANUDAR EL BUCLE DE ANIMACIÓN 🔥 **
+                            this.jugando = true;
+                            requestAnimationFrame(this.bucle.bind(this));
+
+                        }, 1200); // pausa visual antes de reanudar
+                        return; // Salimos del bucle 'for' de tuberías
+                    } else {
+                        // Última vida: game over
+                        if (this.notificacionVida) {
+                            this.notificacionVida.textContent = "¡ÚLTIMA VIDA PERDIDA!";
+                            this.notificacionVida.classList.remove('oculto');
+                        }
+                        setTimeout(() => {
+                            if (this.notificacionVida) this.notificacionVida.classList.add('oculto');
+                            sonidoDie.currentTime = 0;
+                            sonidoDie.play();
+                            this.onGameOver(this.puntaje);
+                        }, 1000);
+                        return; // Salimos del bucle 'for' de tuberías
+                    }
                 }
             }
 
+
             // Eliminar tubería fuera de pantalla
             if (pipe.isOffScreen()) {
+                // limpiar flags si existieran para evitar que queden colisión marcada
+                try { delete pipe._colisionPlanta; delete pipe._cooldownPlanta; } catch(e){}
                 pipe.remove();
                 this.pipes.splice(i, 1);
             }
+
         }
     }
 
 }
+// ===========================================
+// CLASE PAJARO DECORATIVO DE FONDO
+// ===========================================
+class PajaroFondo {
+    constructor(contenedorJuego) {
+        this.contenedor = contenedorJuego;
+        
+        // Crear el elemento HTML del pájaro
+        this.element = document.createElement('div');
+        this.element.classList.add('pajaro-fondo'); // Asegúrate de tener este CSS
+        
+        // Posición inicial aleatoria en X (fuera de pantalla a la derecha)
+        this.x = JUEGO_ANCHO; 
+        
+        // Posición inicial aleatoria en Y (en el tercio superior de la pantalla útil)
+        const ALTURA_MAX_Y = JUEGO_ALTURA_UTIL * 0.33; 
+        this.y = Math.random() * ALTURA_MAX_Y;
 
+        // Velocidad de movimiento (más lento que las tuberías)
+        this.velocidad = (Math.random() * 0.5) + 0.8; // Velocidad entre 0.8 y 1.3
+        
+        // Animación del sprite (si tienes un spritesheet)
+        this.frame = 0;
+        this.frameAncho = 168; // Asume el mismo ancho de frame que el pájaro principal o ajústalo
+        this.animacionTiempo = 0;
+        
+        this.element.style.top = `${this.y}px`;
+        this.element.style.left = `${this.x}px`;
+        
+        this.contenedor.appendChild(this.element);
+    }
+    
+    // Asume que el CSS maneja el tamaño y el fondo del sprite sheet.
+    // Solo necesitamos cambiar la posición del background para animar.
+    actualizarAnimacion(dt) {
+        this.animacionTiempo += dt;
+
+        // Cambia de frame cada 100ms
+        if (this.animacionTiempo > 100) {
+            const totalFrames = 4;
+            this.frame = (this.frame + 1) % totalFrames; // Asume 4 frames de animación (0, 1, 2, 3)
+            this.element.style.backgroundPosition = `-${this.frame * this.frameAncho}px 0px`;
+            this.animacionTiempo = 0;
+        }
+    }
+
+    actualizar(dt) {
+        const factorNormalizacion = dt / 16.66; 
+        
+        // Mover hacia la izquierda (ajustar por dt)
+        this.x -= this.velocidad * factorNormalizacion;
+        this.element.style.left = `${this.x}px`;
+        
+        this.actualizarAnimacion(dt);
+    }
+
+    isOffScreen() {
+        return this.x < -this.element.offsetWidth;
+    }
+
+    remove() {
+        this.element.remove();
+    }
+}
 // ===========================================
 //  INICIALIZACIÓN 
 // ===========================================
@@ -694,6 +896,9 @@ document.addEventListener("DOMContentLoaded", () => {
         juegoFlappy.pajaro.actualizarPosicionDiv();
 
         juegoFlappy.iniciar(); 
+        juegoFlappy.vidas = 3;
+        juegoFlappy.actualizarDisplayVidas();
+
     };
 
     // Evitar que el click del botón "Jugar" burbujee y arranque el juego inmediatamente

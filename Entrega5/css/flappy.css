@@ -564,7 +564,8 @@ body {
     background-size: 144px 48px;
     background-repeat: no-repeat;
     transition: transform 0.08s linear;
-    z-index: 20;
+    z-index: 5;
+    position: absolute;
 }
 
 /* ======================================= */
@@ -689,7 +690,18 @@ body {
     line-height: 0; 
     font-size: 0;
 }
+/* El borde o boca de la tubería */
+.pico-pipe-arriba, 
+.pico-pipe-abajo {
+    position: relative; /* Obligatorio para que z-index funcione */
+    z-index: 10;        /* Un número alto para que siempre esté al frente */
+}
 
+/* El cuerpo de la tubería (opcional, pero buena práctica) */
+.cuerpo-pipe {
+    position: relative;
+    z-index: 10;
+}
 .tuberia-abajo-wrapper {
     margin-top: auto; 
     justify-content: flex-end; 
@@ -991,7 +1003,62 @@ body {
         0 0 0 4px #3b7a2b inset,
         0 3px 0 #2a5d1d;
 }
+/* ======================================= */
+/* VIDAS AL CHOCAR LA PLANTA               */
+/* ======================================= */
+.notificacion-vida-perdida {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Asegurar que esté por encima de todo */
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    border: 3px solid white;
+}
 
+.oculto {
+    display: none !important;
+}
+#hud-vidas {
+  display: flex;
+  gap: 6px;
+  position: absolute;
+  top: 18px;
+  left: 18px; /* cambia esto si querés a la derecha del score */
+  z-index: 30;
+}
+
+.corazon {
+  width: 80px;
+  height: 80px;
+  /*image-rendering: pixelated; /* si usás sprite pixel art */
+}
+
+/* ======================================= */
+/* PAJARO DEL FONDO                   */
+/* ======================================= */
+/* CSS de ejemplo, ajusta las dimensiones al tamaño de tu sprite */
+.pajaro-fondo {
+    position: absolute;
+    width: 84px;        /* Ancho de un frame */
+    height: 70px;       /* Altura del pájaro */
+    z-index: 10;        /* Por debajo del pájaro principal y tuberías, pero por encima del fondo */
+    
+    /* Configuración del spritesheet */
+    background-image: url('../img/flappy/bird_fondo_spritesheet.png'); 
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 336px 70px;
+    
+    /* Puedes añadir una transición suave de movimiento si deseas */
+    /* transition: transform 0.1s linear; */
+}
 /* ======================================= */
 /* 3.4. FOOTER DEL JUEGO                    */
 /* ======================================= */
