@@ -33,12 +33,19 @@ const sonidoAleteo = new Audio("./sonidos/wing.ogg");
 const sonidoChoque = new Audio("./sonidos/hit.ogg");
 const sonidoPunto = new Audio("./sonidos/point.ogg");
 const sonidoDie = new Audio("./sonidos/die.ogg");
+const sonidoCollect = new Audio ("./sonidos/collect.wav");
+const sonidoWin = new Audio ("./sonidos/win.wav");
+const sonidoVidaMenos = new Audio ("./sonidos/vidamenos.wav");
+
 
 // Evita delay en Chrome
 sonidoAleteo.preload = "auto";
 sonidoChoque.preload = "auto";
 sonidoPunto.preload = "auto";
 sonidoDie.preload = "auto";
+sonidoCollect.preload = "auto";
+sonidoWin.preload = "auto";
+sonidoVidaMenos.preload = "auto";
 
 let vidas = 3;
 const corazones = document.querySelectorAll(".vida");
@@ -66,10 +73,21 @@ class Pajaro {
         this.estaAleteando = false;
         this.tiempoAleteo = 0;
 
+        this.isInvulnerable = false;
+
         this.actualizarPosicionDiv();
         this.mostrarFrame(0);
     }
 
+    setInvulnerable(isActive) {
+        this.isInvulnerable = isActive;
+
+        if (isActive) {
+            this.contenedor.classList.add('pajaro-invulnerable');
+        } else {
+            this.contenedor.classList.remove('pajaro-invulnerable');
+        }
+    }
     actualizarPosicionDiv() {
         this.contenedor.style.left = this.x + "px";
         this.contenedor.style.top = this.y + "px";
@@ -106,6 +124,7 @@ class Pajaro {
 
         this.actualizarPosicionDiv();
 
+        
         // FRAMES del aleteo
         if (this.estaAleteando) {
             this.tiempoAleteo += dt;
@@ -144,6 +163,9 @@ class Pipe {
 
         const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_SUPERIOR - MIN_ALTURA_ALEATORIA + 1)) + MIN_ALTURA_ALEATORIA;
         const alturaInferior = JUEGO_ALTURA_UTIL - alturaSuperior - HUECO_TUBERIA; 
+
+        this.alturaSuperior = alturaSuperior;
+        this.hueco = HUECO_TUBERIA;
 
         this.element = document.createElement('div');
         this.element.classList.add('contenedor-tuberia');
@@ -344,6 +366,129 @@ class Pantalla {
     }
 
 }
+// ===========================================
+//   CLASE HEART (CORAZÓN EXTRA)
+// ===========================================
+class Heart {
+    constructor(pipe, contenedorJuego) {
+        this.pipe = pipe;
+        this.contenedorJuego = contenedorJuego;
+
+        this.element = document.createElement("div");
+        this.element.classList.add("corazon-extra");
+
+        // Tamaño del corazón
+        this.element.style.width = "32px";
+        this.element.style.height = "27px";
+        this.element.style.backgroundImage = "url('./img/flappy/sprite_heart.png')";
+        this.element.style.backgroundSize = "160px 27px"; 
+
+        this.frame = 0;
+
+
+        const alturaTop = pipe.alturaSuperior;       
+        const tamanoHueco = pipe.hueco;            
+        const centroHueco = alturaTop + (tamanoHueco / 2); 
+
+        this.x = pipe.x + (ANCHO_TUBERIA / 2) - 16;
+        this.y = centroHueco - 16;                   
+
+        this.element.style.left = `${this.x}px`;
+        this.element.style.top = `${this.y}px`;
+
+        contenedorJuego.appendChild(this.element);
+
+        // Animación del sprite
+        this.spriteInterval = setInterval(() => {
+            this.frame = (this.frame + 1) % 5;
+            this.element.style.backgroundPosition = `-${this.frame * 32}px 0px`;
+        }, 130);
+    }
+
+    actualizar(dt) {
+        const factorNormalizacion = dt / 16.66;
+        this.x -= VELOCIDAD_JUEGO * factorNormalizacion;
+        this.element.style.left = `${this.x}px`;
+    }
+
+    isOffScreen() {
+        return this.x < -50;
+    }
+
+    getBounds() {
+        return this.element.getBoundingClientRect();
+    }
+
+    remove() {
+        clearInterval(this.spriteInterval);
+        this.element.remove();
+    }
+}
+// ===========================================
+//   CLASE BONUS +3 (NUEVO ITEM)
+// ===========================================
+class Bonus3 {
+    // Las dimensiones del sprite son 442x34, 13 frames de 34px de ancho.
+    static FRAME_WIDTH = 34; 
+    static NUM_FRAMES = 13;
+
+    constructor(pipe, contenedorJuego) {
+        this.pipe = pipe;
+        this.contenedorJuego = contenedorJuego;
+
+        this.element = document.createElement("div");
+        this.element.classList.add("bonus-3-extra"); // Necesitarás definir esta clase en tu CSS
+
+        // Tamaño del bonus
+        this.element.style.width = `${Bonus3.FRAME_WIDTH}px`;
+        this.element.style.height = "34px"; // Altura del sprite
+        this.element.style.backgroundImage = "url('./img/flappy/spritesheet_bonus.png')";
+        this.element.style.backgroundSize = "442px 34px"; // 13 frames * 34px
+
+        this.frame = 0;
+
+        // =============================
+        // POSICIÓN CORRECTA DEL HUECO
+        // =============================
+        const alturaTop = pipe.alturaSuperior;       // altura del tubo de arriba
+        const tamanoHueco = pipe.hueco;              // tamaño actual del hueco
+        const centroHueco = alturaTop + (tamanoHueco / 2); // centro exacto del hueco
+
+        // Coordenadas internas del juego
+        this.x = pipe.x + (ANCHO_TUBERIA / 2) - (Bonus3.FRAME_WIDTH / 2); // Centrado en X de la tubería
+        this.y = centroHueco - (34 / 2);                                  // Centrado verticalmente (la altura es 34px)
+
+        this.element.style.left = `${this.x}px`;
+        this.element.style.top = `${this.y}px`;
+
+        contenedorJuego.appendChild(this.element);
+
+        // Animación del sprite
+        this.spriteInterval = setInterval(() => {
+            this.frame = (this.frame + 1) % Bonus3.NUM_FRAMES;
+            this.element.style.backgroundPosition = `-${this.frame * Bonus3.FRAME_WIDTH}px 0px`;
+        }, 80); // Velocidad de animación ajustada
+    }
+
+    actualizar(dt) {
+        const factorNormalizacion = dt / 16.66;
+        this.x -= VELOCIDAD_JUEGO * factorNormalizacion;
+        this.element.style.left = `${this.x}px`;
+    }
+
+    isOffScreen() {
+        return this.x < -50;
+    }
+
+    getBounds() {
+        return this.element.getBoundingClientRect();
+    }
+
+    remove() {
+        clearInterval(this.spriteInterval);
+        this.element.remove();
+    }
+}
 
 // ===========================================
 //   CLASE JUEGO (LÓGICA DE DIFICULTAD Y CONTROL)
@@ -422,6 +567,12 @@ class Juego {
         if (this.juegoContenedor) {
             this.juegoContenedor.addEventListener("click", this.manejarEventos);
         }
+
+        this.corazonesExtra = [];
+        this.tiempoUltimoCorazon = 0;
+
+        this.bonus3 = []; 
+        this.tiempoUltimoBonus3 = 0;
     }
     // dentro de class Juego
     actualizarDisplayVidas() {
@@ -433,32 +584,88 @@ class Juego {
 
         for (let i = 0; i < 3; i++) {
             if (!corazones[i]) continue;
-            corazones[i].src = (i < this.vidas) ? "./img/flappy/corazon_lleno_spritesheet.png" : "./img/flappy/corazon_vacio_spritesheet.png";
+            corazones[i].src = (i < this.vidas) ? "./img/flappy/corazonlleno.png" : "./img/flappy/corazonvacio.png";
         }
     }
 
     // 🔥 NUEVO MÉTODO: Reinicia la posición y el estado del pájaro tras perder una vida
-    reiniciarPosicionPajaro(pipeCercana = null) {
-        // reset física
+    reiniciarPosicionPajaro() {
+        // 1️⃣ Obtener coordenadas REALES del pájaro en pantalla
+        const birdRect = this.pajaro.contenedor.getBoundingClientRect();
+
+        // 2️⃣ Obtener rect del contenedor
+        const contRect = this.juegoContenedor.getBoundingClientRect();
+
+        // 3️⃣ Buscar la pipe con hueco más cercano ADELANTE del pájaro
+        let pipeCercana = null;
+        let menorDiferencia = Infinity;
+
+        for (const pipe of this.pipes) {
+            const pipeRect = pipe.element.getBoundingClientRect();
+            
+            // Si la pipe está detrás del pájaro, ignorarla
+            if (pipeRect.right <= birdRect.left) continue;
+
+            // Diferencia horizontal (distancia hasta el hueco)
+            const diff = pipeRect.left - birdRect.left;
+
+            if (diff < menorDiferencia) {
+                menorDiferencia = diff;
+                pipeCercana = pipe;
+            }
+        }
+
+        // 4️⃣ Si no hay pipes adelante, fallback seguro
+        if (!pipeCercana) {
+            this.pajaro.x = 150;
+            this.pajaro.y = 250;
+            this.pajaro.velY = 0;
+            this.pajaro.actualizarPosicionDiv();
+            return;
+        }
+
+        // 5️⃣ Obtener wrappers de esa tubería
+        const topWrapper = pipeCercana.element.children[0];
+        const bottomWrapper = pipeCercana.element.children[1];
+
+        const topRect = topWrapper.getBoundingClientRect();
+        const bottomRect = bottomWrapper.getBoundingClientRect();
+
+        // 6️⃣ Convertir a coordenadas LOCAL del juego
+        const topBottomLocal = topRect.bottom - contRect.top;
+        const bottomTopLocal = bottomRect.top - contRect.top;
+
+        // 7️⃣ Calcular centro real del hueco
+        const centroHueco = (topBottomLocal + bottomTopLocal) / 2;
+
+        // 8️⃣ Reubicar pájaro EXACTAMENTE en el medio
+        this.pajaro.x = 150; // siempre mismo X dentro del juego
+        this.pajaro.y = centroHueco - (this.pajaro.contenedor.offsetHeight / 2);
+
+        // Resetear física y rotación
         this.pajaro.velY = 0;
         this.pajaro.contenedor.style.transform = "rotate(0deg)";
-
-        // Opción: si querés usar siempre la posición segura (B),
-        // fuerza posición 150,250 ignorando pipeCercana. 
-        // Si querés usar centro del hueco cuando exista pipeCercana,
-        // mantené el if. Aquí dejamos la posición segura (B) por defecto.
-
-        this.pajaro.x = 150;
-        this.pajaro.y = 250;
         this.pajaro.actualizarPosicionDiv();
 
-        // pausar el fondo y esperar a que el jugador toque para reanudar
-        if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused');
+        // Pausa y esperar nuevo tap
         this.iniciado = false;
-        if (this.tapStartElement) this.tapStartElement.classList.remove('oculto');
+        this.juegoContenedor.classList.add('parallax-paused');
+        this.tapStartElement.classList.remove('oculto');
     }
 
+    limpiarBonus3() {
+        this.bonus3.forEach(bonus => {
+            bonus.remove();
+        });
+        this.bonus3 = [];
+    } 
 
+    limpiarCorazones() {
+        this.corazonesExtra.forEach(corazon => {
+            corazon.remove(); // elimina sprite + detiene intervalos
+        });
+        this.corazonesExtra = []; // vacía el array
+    }
 
     // --- MÉTODOS DE CONFIGURACIÓN ---
     resetearDificultadInicial() {
@@ -482,7 +689,9 @@ class Juego {
     }
     
     destruir() {
-        this.limpiarTuberiasPrevias();   
+        this.limpiarTuberiasPrevias();  
+        this.limpiarCorazones(); 
+        this.limpiarBonus3();
         this.jugando = false; 
         this.iniciado = false;
         this.resetearDificultadInicial(); 
@@ -599,15 +808,15 @@ class Juego {
             if (this.tiempoDesdeUltimoPajaro >= INTERVALO_PAJARO_FONDO && this.pajarosFondo.length < MAX_PAJAROS_EN_PANTALLA) {
                 // Crear un nuevo pájaro de fondo
                 this.pajarosFondo.push(new PajaroFondo(this.juegoContenedor));
-                
+
                 // Reiniciar el contador de tiempo (añadimos un factor de aleatoriedad para que no sea exacto)
-                this.tiempoDesdeUltimoPajaro = 0; 
+                this.tiempoDesdeUltimoPajaro = 0;
             }
 
             // Actualización y limpieza de pájaros
             for (let i = this.pajarosFondo.length - 1; i >= 0; i--) {
                 const pajaro = this.pajarosFondo[i];
-                
+
                 pajaro.actualizar(dt);
 
                 if (pajaro.isOffScreen()) {
@@ -646,6 +855,29 @@ class Juego {
                 this.tiempoDesdeUltimaTuberia = 0;
             }
         }
+        const ultimaPipe = this.pipes[this.pipes.length - 1]; // Obtener la última tubería generada
+
+
+        // =========================================
+        // 🔥 GENERACIÓN DE BONUS +3 🔥  <---  AQUÍ SE INSERTA LA GENERACIÓN
+        // =========================================
+        // *Depende de la última tubería para aparecer*
+        if (this.pipes.length > 0) {
+            this.tiempoUltimoBonus3 += dt;
+            const INTERVALO_BONUS3 = 30000 + Math.random() * 20000;
+
+            if (ultimaPipe && !ultimaPipe.planta && !ultimaPipe.heart && this.tiempoUltimoBonus3 >= INTERVALO_BONUS3) {
+                if (true) { 
+                    const bonus = new Bonus3(ultimaPipe, this.juegoContenedor);
+                    ultimaPipe.bonus = bonus; 
+                    this.bonus3.push(bonus);
+
+                    this.tiempoUltimoBonus3 = 0; // Reinicia el contador del bonus
+                }
+            }
+        }
+        // =========================================
+
 
         // Actualización tuberías, colisiones y puntuación
         for (let i = this.pipes.length - 1; i >= 0; i--) {
@@ -659,6 +891,9 @@ class Juego {
             // VICTORIA (120 puntos)
             if (this.puntaje >= 120) {
 
+                sonidoWin.currentTime = 0;
+                sonidoWin.play();
+
                 this.jugando = false;
 
                 // Detener fondo
@@ -668,9 +903,9 @@ class Juego {
                 // Mostrar pantalla final
                 setTimeout(() => this.onGameOver(this.puntaje), 500);
 
-                // Cambiar texto del Game Over a “Ganaste”
+                // Cambiar texto del Game Over a you win
                 const tituloGO = document.querySelector("#pantallaGameOver h2");
-                if (tituloGO) tituloGO.textContent = "¡GANASTE!";
+                if (tituloGO) tituloGO.textContent = "YOU WIN";
 
                 return;
             }
@@ -690,7 +925,7 @@ class Juego {
                 return;
             }
             // ==========================
-            // COLISIÓN CON PLANTA (LÓGICA CORREGIDA PARA REINICIO)
+            // COLISIÓN CON PLANTA
             // ==========================
             if (pipe.planta) {
                 const pRect = pipe.planta.getBoundingClientRect();
@@ -713,41 +948,50 @@ class Juego {
                     pipe._colisionPlanta = true;
 
                     // ** 🔥 IMPORTANTE: PAUSAR EL JUEGO INMEDIATAMENTE 🔥 **
-                    this.jugando = false; 
+                    this.jugando = false;
 
                     // Restar vida y actualizar HUD
                     this.vidas--;
                     this.actualizarDisplayVidas();
 
                     // Sonidos
-                    sonidoChoque.currentTime = 0;
-                    sonidoChoque.play();
+                    sonidoVidaMenos.currentTime = 0;
+                    sonidoVidaMenos.play();
 
                     // Pausar visual y mostrar notificación si existe
                     if (this.notificacionVida) {
-                        this.notificacionVida.textContent = `¡VIDA PERDIDA! Vidas restantes: ${this.vidas}`;
+                        this.notificacionVida.innerHTML = `¡VIDA PERDIDA! <br> Vidas restantes: ${this.vidas}`;
                         this.notificacionVida.classList.remove('oculto');
                     }
                     if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused');
 
                     // Si quedan vidas -> reposicionar seguro (opción B) y permitir reanudar
                     if (this.vidas > 0) {
+                        const INVULNERABILITY_DURATION = 800;
+
                         setTimeout(() => {
                             if (this.notificacionVida) this.notificacionVida.classList.add('oculto');
 
-                            // Reinicia posición segura del pájaro
-                            this.reiniciarPosicionPajaro(/*pipe*/);
+                            this.reiniciarPosicionPajaro();
+
+                            // 1. 🔥 ACTIVA EL EFECTO DE PARPADEO CSS
+                            this.pajaro.setInvulnerable(true);
+
+                            // 2. Desactiva el parpadeo y la invulnerabilidad después de la duración.
+                            setTimeout(() => {
+                                this.pajaro.setInvulnerable(false);
+                            }, INVULNERABILITY_DURATION);
 
                             // ** 🔥 REANUDAR EL BUCLE DE ANIMACIÓN 🔥 **
                             this.jugando = true;
                             requestAnimationFrame(this.bucle.bind(this));
 
-                        }, 1200); // pausa visual antes de reanudar
+                        }, 2000); // pausa visual de 2 segundos antes de revivir
                         return; // Salimos del bucle 'for' de tuberías
                     } else {
                         // Última vida: game over
                         if (this.notificacionVida) {
-                            this.notificacionVida.textContent = "¡ÚLTIMA VIDA PERDIDA!";
+                            this.notificacionVida.textContent = "¡ULTIMA VIDA PERDIDA!";
                             this.notificacionVida.classList.remove('oculto');
                         }
                         setTimeout(() => {
@@ -760,8 +1004,6 @@ class Juego {
                     }
                 }
             }
-
-
             // Eliminar tubería fuera de pantalla
             if (pipe.isOffScreen()) {
                 // limpiar flags si existieran para evitar que queden colisión marcada
@@ -771,8 +1013,118 @@ class Juego {
             }
 
         }
-    }
 
+
+        // =========================================
+        // 🔥 ACTUALIZACIÓN Y COLISIÓN DE BONUS +3 🔥 <--- AQUÍ SE INSERTA LA ACTUALIZACIÓN/COLISIÓN
+        // =========================================
+        for (let i = this.bonus3.length - 1; i >= 0; i--) {
+            const bonus = this.bonus3[i];
+            bonus.actualizar(dt);
+
+            // Off-screen -> borrar
+            if (bonus.isOffScreen()) {
+                bonus.remove();
+                this.bonus3.splice(i, 1);
+                continue;
+            }
+
+            // Colisión con pájaro
+            const bird = this.pajaro.getBounds();
+            const bb = bonus.getBounds();
+
+            const toca =
+                bird.left < bb.right &&
+                bird.right > bb.left &&
+                bird.top < bb.bottom &&
+                bird.bottom > bb.top;
+
+            if (toca) {
+
+                this.puntaje += 3; // ⭐️ SUMA LOS +3 PUNTOS
+                this.actualizarDisplayPuntaje();
+
+                sonidoCollect.currentTime = 0;
+                sonidoCollect.play();
+
+                // Notificación opcional (similar al corazón, pero para +3)
+                // Podrías poner una notificación para confirmar los 3 puntos.
+
+                // Eliminar bonus
+                bonus.remove();
+                this.bonus3.splice(i, 1);
+            }
+        }
+
+
+        // =========================================
+        // GENERAR CORAZÓN EXTRA
+        // =========================================
+        this.tiempoUltimoCorazon += dt;
+
+        if (this.vidas <= 2) {
+            const INTERVALO_CORAZON = 20000 + Math.random() * 15000;
+
+            if (this.tiempoUltimoCorazon >= INTERVALO_CORAZON && this.pipes.length > 0) {
+
+                // Usamos la última tubería generada
+                // const ultimaPipe = this.pipes[this.pipes.length - 1]; // Ya la obtuvimos antes
+
+                if (ultimaPipe.planta || ultimaPipe.bonus) {
+                    this.tiempoUltimoCorazon = 0;
+                    return;
+                }
+
+                const heart = new Heart(ultimaPipe, this.juegoContenedor);
+                ultimaPipe.heart = heart;
+
+                this.corazonesExtra.push(heart);
+
+                this.tiempoUltimoCorazon = 0;
+            }
+        }
+
+        // =========================================
+        // ACTUALIZACIÓN DE CORAZONES EXTRA
+        // =========================================
+        for (let i = this.corazonesExtra.length - 1; i >= 0; i--) {
+            const heart = this.corazonesExtra[i];
+            heart.actualizar(dt);
+
+            // Off-screen -> borrar
+            if (heart.isOffScreen()) {
+                heart.remove();
+                this.corazonesExtra.splice(i, 1);
+                continue;
+            }
+
+            // Colisión con pájaro
+            const bird = this.pajaro.getBounds();
+            const hb = heart.getBounds();
+
+            const toca =
+                bird.left < hb.right &&
+                bird.right > hb.left &&
+                bird.top < hb.bottom &&
+                bird.bottom > hb.top;
+
+            if (toca) {
+
+                // Sumar vida (máx 3)
+                if (this.vidas < 3) {
+                    this.vidas++;
+                    this.actualizarDisplayVidas();
+                }
+
+                sonidoCollect.currentTime = 0;
+                sonidoCollect.play();
+
+                // Eliminar corazón
+                heart.remove();
+                this.corazonesExtra.splice(i, 1);
+            }
+        }
+    }
 }
 // ===========================================
 // CLASE PAJARO DECORATIVO DE FONDO
@@ -901,7 +1253,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     };
 
-    // Evitar que el click del botón "Jugar" burbujee y arranque el juego inmediatamente
     if (btnJugar) {
         btnJugar.addEventListener("click", function(e) {
             e.preventDefault();

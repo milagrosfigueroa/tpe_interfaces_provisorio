@@ -824,6 +824,31 @@ body {
     object-fit: none;
 }
 
+/* ================================================
+   CSS: ANIMACIÓN DE INVULNERABILIDAD/PARPADEO
+   ================================================
+*/
+
+/* 1. Definición del parpadeo: Opacidad y brillo/color blanco */
+@keyframes invulnerable-flash {
+    0%, 100% { 
+        opacity: 1; 
+        filter: brightness(100%); /* Normal */
+    }
+    50% { 
+        opacity: 0.3; 
+        filter: brightness(250%); /* Parpadeo: Traslúcido y brillante */
+    }
+}
+
+/* 2. Clase que aplica la animación y el tiempo total */
+.pajaro-invulnerable {
+    /* La animación completa dura 3 segundos y se repite */
+    animation: invulnerable-flash 0.1s step-end infinite;
+    
+    /* El filtro final da el efecto blanco/brillo que permanece entre parpadeos */
+    filter: brightness(200%); 
+}
 /* ======================================= */
 /* ANIMACIÓN DEL PAJARO                    */
 /* ======================================= */
@@ -1006,39 +1031,83 @@ body {
 /* ======================================= */
 /* VIDAS AL CHOCAR LA PLANTA               */
 /* ======================================= */
+#hud-vidas {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 30;
+
+    display: flex;
+    gap: 10px;
+
+    /* Cajita retro suave */
+    background: rgba(0, 0, 0, 0.35);     /* fondo oscuro translúcido */
+    padding: 10px 20px;
+    border-radius: 12px;
+
+    border: 3px solid rgba(255, 255, 255, 0.4); /* borde blanco suave */
+
+    backdrop-filter: blur(3px); /* efecto frosted suave */
+}
+
+.corazon {
+    width: 28px;
+    height: auto;
+}
+
+.corazon-extra {
+    position: absolute;
+    z-index: 70;
+    background-repeat: no-repeat;
+}
+
+.bonus-3-extra{
+    position: absolute;
+    z-index: 70;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+
 .notificacion-vida-perdida {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000; /* Asegurar que esté por encima de todo */
-    background-color: rgba(255, 0, 0, 0.8);
-    color: white;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-size: 24px;
-    font-weight: bold;
+    z-index: 1000;
+
+    /* 🎨 Paleta estilo Flappy Bird */
+    background-color: #c8e5a6; /* amarillo pastel */
+    color: #2a5d1d;            /* rojo suave/arcade */
+
+    padding: 18px 40px;
+
+    /* Bordes estilo flappy */
+    border: 4px solid #ffffff;
+    box-shadow:
+        0px 0px 0px 4px #000000,   /* borde negro grueso */
+        4px 4px 0px #000000;       /* sombra pixelada abajo */
+
+    border-radius: 8px;
+
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
     text-align: center;
-    border: 3px solid white;
+
+    /* Pequeña animación */
+    animation: popFlappy 0.35s ease-out;
+}
+
+@keyframes popFlappy {
+    0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+    60%  { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); }
 }
 
 .oculto {
     display: none !important;
 }
-#hud-vidas {
-  display: flex;
-  gap: 6px;
-  position: absolute;
-  top: 18px;
-  left: 18px; /* cambia esto si querés a la derecha del score */
-  z-index: 30;
-}
 
-.corazon {
-  width: 80px;
-  height: 80px;
-  /*image-rendering: pixelated; /* si usás sprite pixel art */
-}
+
 
 /* ======================================= */
 /* PAJARO DEL FONDO                   */
