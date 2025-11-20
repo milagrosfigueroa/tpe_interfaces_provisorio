@@ -415,12 +415,13 @@ body {
     TEXTOS
 =========================================== */
 .flappy-descripcion-general {
-    font-family: Arial, sans-serif;
+    font-family: 'Press Start 2P', sans-serif;
     text-align: center;
-    font-size: 1.1em;
+    font-size: 0.9em;
     margin-bottom: 10px;
     line-height: 1.5;
-    color: #000000;
+    color: #2f4b1f;
+    text-shadow: 1px 1px 0 #ffffff
 }
 
 .flappy-regla-item p {
