@@ -287,34 +287,41 @@
             <div class="flappy-pantalla-instrucciones" style="display: none;">
                 <div class="flappy-instrucciones-panel">
         
-                <h1 class="flappy-titulo-instrucciones">Como jugar a Flappy Bird</h1>
-                <p class="flappy-descripcion-general">Objetivo: Guiar al pájaro a través de las tuberías sin chocar para conseguir la mayor puntuación posible.</p>
+                    <h1 class="flappy-titulo-instrucciones">Como jugar a Flappy Bird</h1>
+                    <p class="flappy-descripcion-general">Objetivo: Guiar al pájaro a través de las tuberías sin chocar para conseguir la mayor puntuación posible.</p>
+                    
+                    <div class="flappy-reglas-grid">
                 
-                <div class="flappy-reglas-grid">
-            
-                    <div class="flappy-regla-item">
-                        <h3 class="flappy-subtitulo">Control:</h3>
-                        <p>Presiona la barra espaciadora o haz click con el ratón para que el pájaro aletee y se impulse hacia arriba.</p>
-                        
-                        <div class="control-iconos-container">
-                            <img src="./img/flappy/keyboard.png" alt="Icono de teclado" class="teclado-imagen">
-                            <div class="pajarito-imagen-borde">
-                                <img src="./img/flappy/flyBird.png" alt="Pajarito subiendo">
+                        <div class="flappy-regla-item">
+                            <h3 class="flappy-subtitulo">Control:</h3>
+                            <p>Presiona la barra espaciadora o haz click izquierdo en el mouse para que el pájaro aletee y se impulse hacia arriba.</p>
+                            
+                            <div class="control-iconos-container">
+                                <img src="./img/flappy/instruccion.png" alt="Icono de teclado" class="teclado-imagen">
+                                <div class="pajarito-imagen-borde">
+                                    <img src="./img/flappy/flybird.png" alt="Pajarito subiendo">
+                                </div>
                             </div>
+                            <p>Si dejas de presionar, el pájaro caerá.</p>
                         </div>
-                        <p>Si dejas de presionar, el pájaro caerá por gravedad.</p>
+                
+                        <div class="flappy-regla-item">
+                            <h3 class="flappy-subtitulo">Reglas:</h3>
+                            <ul>
+                                <li>Ganas 1 punto por cada par de tuberías que atravieses con éxito.</li>
+                                <li>Sumas 3 puntos por cada Bonus que agarres.</li>
+                                <li>Sumas una vida por cada corazón que agarres.</li>
+                            </ul>
+                            
+                            <h3>Fin del Juego:</h3> 
+                                <ul>
+                                    <li>La partida termina si el pájaro choca con el suelo o con cualquiera de las tuberías verdes. </li>
+                                    <li>Atención! si chocas con las plantas carnívoras, éstas te sacan una vida, al acabarse tus 3 vidas, también se termina la partida.</li>
+                                </ul>
+                        </div>
                     </div>
-            
-                    <div class="flappy-regla-item">
-                        <h3 class="flappy-subtitulo">Reglas:</h3>
-                        <p>Ganas 1 punto por cada par de tuberías que atravieses con éxito.</p>
-                        
-                        <h3>Fin del Juego:</h3> 
-                        <p>La partida termina si el pájaro choca con el suelo o con cualquiera de las tuberías verdes. </p>
-                    </div>
+                    <button class="flappy-btn-volver">Volver</button>
                 </div>
-            <button class="flappy-btn-volver">Volver</button>
-        </div>
             </div>
         </div>
 
@@ -334,13 +341,14 @@
     
         <div class="info-section game-description">
             <h3>Acerca de Flappy Bird</h3>
-            <p>Flappy Bird es un juego de arcade de desplazamiento lateral conocido por su simpleza extrema y su nivel de dificultad brutal.</p>
+            <p>Flappy Bird es un juego de arcade conocido por su simpleza extrema y su nivel de dificultad brutal.</p>
             
             <h4 class="caracteristicas-subtitulo">Características:</h4>
             <ul>
                 <li>Juego 'One Touch': Control extremadamente simple, un solo toque para aletear.</li>
                 <li>Dificultad Progresiva: Las tuberias aparecen aleatoriamente, aumentando el desafio con cada punto.</li>
                 <li>Graficos Pixel-Art: Estilo retro de 8 bits que evoca nostalgia de los juegos clasicos.</li>
+                <li>Obstáculos: Hacen que el juego sea mas desafiante y divertido.</li>
             </ul>
         </div>
 
@@ -352,7 +360,7 @@
             </div>
         </div>
 
-        <p class="instrucciones-footer-text">Para una guia detallada de reglas, controles y puntuacion, haz click en el boton 'Instrucciones' en la pantalla principal del juego</p>
+        <p class="instrucciones-footer-text">Para una guia detallada de reglas y controles, haz click en el boton 'Instrucciones' en la pantalla principal del juego</p>
     </section>
 
   <section class="comments-section">

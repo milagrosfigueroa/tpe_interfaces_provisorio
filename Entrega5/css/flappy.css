@@ -95,7 +95,6 @@ body {
 
 /* ======================================= */
 /* 3. CONTENEDOR PRINCIPAL DEL JUEGO FLAPPY*/
-/* (Banner y Contenedor del Juego)         */
 /* ======================================= */
 
 .game-banner-container {
@@ -119,7 +118,6 @@ body {
     align-items: center;
 }
 
-/* ⭐️ Estilo para la puntuación ⭐️ */
 .flappy-puntaje {
     position: absolute;
     top: 20px;
@@ -230,17 +228,16 @@ body {
 }
 
 .pajaro-frame {
-    width: 60px;        /* Ancho de 1 frame */
-    height: 42px;       /* Alto de 1 frame */
+    width: 60px;       
+    height: 42px;      
     background-image: url("../img/flappy/portada/spritesheetPortada.png");
     background-repeat: no-repeat;
     animation: volar 320ms steps(3) infinite; 
 }
 
-/* Animación del sprite sheet */
 @keyframes volar {
     from { background-position:    0px; } 
-    to   { background-position: -180px; } /* 60px * 3 frames */
+    to   { background-position: -180px; } 
 }
 @keyframes flotarPajaro {
     0%   { transform: translate(-50%, 0px); }
@@ -249,7 +246,6 @@ body {
 }
 
 
-/* CONTENEDOR DE BOTONES */
 .botones-inicio {
     display: flex;
     flex-direction: column;
@@ -259,7 +255,6 @@ body {
     top: 130px;
 }
 
-/* === BOTÓN START ESTILO ORIGINAL === */
 .btn-primary-play {
     font-family: 'Press Start 2P', cursive;
     font-size: 1.1rem;
@@ -269,11 +264,10 @@ body {
     width: 270px;
     height: 60px;
 
-    /* Colores principales */
-    background-color: #4ec0ca;        /* Celeste original */
-    border: 4px solid #000000;        /* Borde negro externo */
+    background-color: #4ec0ca;        
+    border: 4px solid #000000;        
     box-shadow:
-        0 0 0 4px #1a8c96 inset,      /* Borde interno celeste oscuro */
+        0 0 0 4px #1a8c96 inset,      
         0 6px 0 #156d75;  
     
     border-radius: 10px;
@@ -283,7 +277,7 @@ body {
         -3px 0px 0 #000,
          3px 0px 0 #000,
          0px -3px 0 #000,
-         0px  3px 0 #000;  /* Borde de texto negro grueso */
+         0px  3px 0 #000;  
 
     display: flex;
     justify-content: center;
@@ -293,7 +287,6 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover → sube */
 .btn-primary-play:hover {
     transform: translateY(-4px);
     box-shadow:
@@ -302,7 +295,6 @@ body {
         0 12px 15px rgba(0,0,0,0.5);
 }
 
-/* Click → baja */
 .btn-primary-play:active {
     transform: translateY(2px);
     box-shadow:
@@ -310,7 +302,7 @@ body {
         0 3px 0 #156d75;
 }
 
-/* Botón "Instrucciones"  */
+
 .flappy-btn-instrucciones {
     font-family: 'Press Start 2P', cursive;
     font-size: 0.75rem;
@@ -367,19 +359,13 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url('../img/flappy/portada/portadaFlappy2.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: none; 
     justify-content: center;
     align-items: center;
-    z-index: 100; 
-    padding: 20px; 
+    z-index: 100;
+    padding: 10px;
     box-sizing: border-box;
 }
 
-/* Capa de opacidad sobre la imagen de fondo */
 .flappy-pantalla-instrucciones::before {
     content: '';
     position: absolute;
@@ -387,145 +373,187 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(16, 38, 65, 0.8); 
-    z-index: -1; 
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(1px);
+    z-index: -1;
 }
 
+/* ===========================================
+    PANEL CENTRAL (Compacto)
+=========================================== */
 .flappy-instrucciones-panel {
-    width: 100%; 
-    max-width: 750px;
-    padding: 15px; 
-    border-radius: 15px;
-    background-color: rgba(31, 55, 90, 0.85); 
+    width: 90%;
+    max-height: 90%;
+    padding: 22px 25px;
+    border-radius: 16px;
+    background-color: #c8e5a6;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border: 3px solid #ffcc00; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.45);
+    border: 5px solid #4c6b33;
+
+    transform: translateY(-20px) scale(0.9);
+    opacity: 0;
+    animation: slideGameOver 0.45s forwards cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Título */
+/* ===========================================
+    TÍTULO
+=========================================== */
 .flappy-titulo-instrucciones {
-    font-family: 'Press Start 2P', cursive;
-    color: #ffcc00; 
-    margin-bottom: 10px;
-    font-size: 1.6em; 
-    text-shadow: 2px 2px 0 #cc8400; 
-    letter-spacing: -1px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: #ffa75f;
+    text-shadow:
+        -2px 0px #ffffff,
+        2px 0px #ffffff,
+        0px -2px #ffffff,
+        0px 2px #ffffff;
 }
 
-/* Descripción General */
+/* ===========================================
+    TEXTOS
+=========================================== */
 .flappy-descripcion-general {
+    font-family: Arial, sans-serif;
     text-align: center;
-    font-size: 1em; 
-    margin-bottom: 5px; 
-    line-height: 1.4; 
-    color: #f0f0f0;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    color: #000000;
 }
 
-/* CONTENEDOR DE LAS DOS COLUMNAS */
+.flappy-regla-item p {
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    margin-bottom: 6px;
+    font-size: 1.05em; 
+    line-height: 1.4;
+    color: #000000;
+}
+
+
+/* ===========================================
+    GRID DE REGLAS (Compacto)
+=========================================== */
 .flappy-reglas-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px; 
-    margin-top: 10px; 
-    margin-bottom: 10px; 
-    text-align: left; 
-}
-
-/* Estilos de cada columna/item de regla */
-.flappy-regla-item {
-    background-color: #102641; 
-    padding: 10px; 
-    border-radius: 10px;
-    border: 3px solid var(--color-primary-pink); 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    font-size: 0.9em; 
-    line-height: 1.4; 
-}
-
-/* Subtítulos de las Reglas (como "Control" y "Reglas") */
-.flappy-subtitulo, .flappy-regla-item h3:first-of-type {
-    color: var(--color-primary-pink); 
-    font-size: 1.05em; 
-    margin-top: 0;
-    margin-bottom: 5px; 
-    font-weight: 700;
-}
-
-.flappy-reglas-grid > .flappy-regla-item:last-child h3:nth-of-type(2) {
+    grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
+    gap: 12px;
     margin-top: 10px;
-    margin-bottom: 5px; 
-    color: var(--color-primary-pink); 
-    font-weight: 700;
-    font-size: 1.05em;
+    margin-bottom: 10px;
+    /* Centrar la rejilla en el panel */
+    justify-content: center;
+    max-width: 100%; 
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* CLAVES DE ALINEACIÓN DE ICONOS (Teclado y Pajarito) */
+/* ===========================================
+    TARJETAS DE REGLAS
+=========================================== */
+.flappy-regla-item {
+    background-color: #cfe8b6;
+    padding: 8px; 
+    border-radius: 10px;
+    border: 3px solid #4c6b33;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    font-size: 0.85em;
+    line-height: 1.3;
+}
+
+.flappy-subtitulo,
+.flappy-regla-item h3 {
+    font-family: 'Press Start 2P', sans-serif;
+    color: #2f4b1f;
+    font-size: 0.9em;
+    text-align: left;
+    margin: 0 0 6px 0;
+    text-shadow: 1px 1px 0 #ffffff;
+}
+
+/* -------------------------------------------
+    AJUSTES ESPECÍFICOS PARA LISTAS Y TEXTO
+    Para que el texto aparezca con puntos.
+------------------------------------------- */
+.flappy-regla-item ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+    margin-bottom: 12px;
+    font-size: 1.05em; 
+}
+
+.flappy-regla-item li {
+    font-family: 'Roboto', sans-serif;
+    color: #000000;
+    margin-bottom: 5px;
+    text-align: left;
+    line-height: 1.4;
+}
+
+
 .control-iconos-container {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    gap: 15px; 
-    margin: 8px 0; 
-    flex-wrap: wrap; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; 
+    margin: 20px 0;
+    flex-wrap: nowrap; 
 }
 
 .control-iconos-container img {
-    max-width: 150px; 
-    height: auto; 
-    border-radius: 5px;
+    max-width: 100px; 
+    height: auto;
+    border-radius: 4px;
+    padding: 4px;
 }
 
-.pajarito-imagen-borde {
-    width: 100px; 
-    height: 100px; 
-    border: 2px solid var(--color-text-secondary); 
-    border-radius: 12px; 
-    padding: 5px; 
-    background-color: var(--color-card-bg); 
-    box-sizing: border-box; 
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; 
-}
 
-.pajarito-imagen-borde img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; 
-    border-radius: 8px; 
-}
 
-/* Botón Volver */
+/* ===========================================
+    BOTÓN VOLVER (Centrado)
+=========================================== */
 .flappy-btn-volver {
     font-family: 'Press Start 2P', cursive;
-    font-size: 0.8rem; 
-    font-weight: 700;
-    color: var(--color-text-primary); 
-    background-color: var(--color-card-bg); 
-    border: 4px solid var(--color-text-primary); 
-    border-radius: 8px;
-    padding: 8px 18px; 
+    font-size: 0.9rem;
+    width: 200px;
+    height: 45px;
+    background-color: #63c74d;
+    border: 4px solid #000;
+    box-shadow:
+        0 0 0 4px #3b7a2b inset,
+        0 5px 0 #2a5d1d;
+    border-radius: 10px;
+    color: white;
+    text-shadow:
+        -2px 0px 0 #000,
+        2px 0px 0 #000,
+        0px -2px 0 #000,
+        0px 2px 0 #000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    box-shadow: 0 4px 0 #102641, 0 6px 10px rgba(0, 0, 0, 0.4);
-    transition: var(--transicion-rapida);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 5px; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 15px auto 0 auto; 
 }
 
 .flappy-btn-volver:hover {
-    transform: translateY(-2px) scale(1.02); 
-    background-color: #315180; 
-    box-shadow: 0 6px 0 #102641, 0 8px 15px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+    box-shadow:
+        0 0 0 4px #3b7a2b inset,
+        0 8px 0 #2a5d1d,
+        0 10px 12px rgba(0,0,0,0.5);
 }
 
 .flappy-btn-volver:active {
-    transform: translateY(1px);
-    box-shadow: 0 3px 0 #102641;
+    transform: translateY(2px);
+    box-shadow:
+        0 0 0 4px #3b7a2b inset,
+        0 3px 0 #2a5d1d;
 }
-
-
 /* ======================================= */
 /* PANTALLA DE JUEGO & CLASE BASE (.layer) */
 /* ======================================= */
@@ -553,7 +581,6 @@ body {
 }
 
 .parallax-paused .layer {
-    /* Pausa la animación del scroll en todas las capas */
     animation-play-state: paused !important;
 }
 /* ======================================= */
@@ -585,71 +612,67 @@ body {
 /* DEFINICIÓN DE CAPAS                     */
 /* ======================================= */
 
-/* Capa 11: Cielo y Nubes Altas */
 .layer-11 { 
     background-image: url('../img/flappy/fondos/11_background.png');
     z-index: 1; 
-    animation: scroll 24s infinite linear; 
+    animation: scroll 26s infinite linear; 
     background-position: left 5%; 
 }
 
-/* Capas 10 a 9: Nubes Intermedias */
 .layer-10 { 
     background-image: url('../img/flappy/fondos/10_distant_clouds.png'); 
     z-index: 2;
-    animation: scroll 22s infinite linear; 
+    animation: scroll 24s infinite linear; 
     background-position: left 15%;  
 }
 .layer-9  { 
     background-image: url('../img/flappy/fondos/09_distant_clouds1.png'); 
     z-index: 3;
-    animation: scroll 20s infinite linear; 
+    animation: scroll 22s infinite linear; 
     background-position: left 25%;
 }
 
-/* Capas 8 a 5: Nubes Bajas y Colinas (Horizonte) */
 .layer-8  { 
     background-image: url('../img/flappy/fondos/08_clouds.png'); 
     z-index: 4;
-    animation: scroll 18s infinite linear; 
+    animation: scroll 20s infinite linear; 
     background-position: left 85%;
 }
 .layer-7  { 
     background-image: url('../img/flappy/fondos/07_huge_clouds.png'); 
     z-index: 5;
-    animation: scroll 16s infinite linear; 
+    animation: scroll 18s infinite linear; 
     background-position: left 75%;
 }
 .layer-6  { 
     background-image: url('../img/flappy/fondos/06_hill2.png'); 
     z-index: 6;
-    animation: scroll 14s infinite linear; 
+    animation: scroll 16s infinite linear; 
     background-position: bottom left; 
 }
 .layer-5  { 
     background-image: url('../img/flappy/fondos/05_hill1.png'); 
     z-index: 7;
-    animation: scroll 12s infinite linear;
+    animation: scroll 14s infinite linear;
     background-position: bottom left; 
 }
 
-/* Capas 4 a 1: Arbustos y Suelo */
 .layer-4  { 
     background-image: url('../img/flappy/fondos/04_bushes.png'); 
     z-index: 8;
-    animation: scroll 10s infinite linear; 
+    animation: scroll 12s infinite linear; 
     background-position: bottom left;
 }
 .layer-3  { 
     background-image: url('../img/flappy/fondos/03_distant_trees.png'); 
     z-index: 9;
-    animation: scroll 8s infinite linear; 
+    animation: scroll 10s infinite linear; 
     background-position: bottom left;
 }
 .layer-2  { 
     background-image: url('../img/flappy/fondos/02_treesandbushes.png'); 
     z-index: 10;
-    animation: scroll 6s infinite linear; 
+    animation: scroll 8s infinite linear; 
     background-position: bottom left;
 }
 .layer-1  { 
@@ -657,7 +680,7 @@ body {
     z-index: 11; 
     height: 10%; 
     bottom: 0;  
-    animation: scroll 4.0s infinite linear; 
+    animation: scroll 6s infinite linear; 
     background-position: bottom left;
 }
 
@@ -668,7 +691,7 @@ body {
 .contenedor-tuberia {
     position: absolute;
     top: 0;
-    width: 60px; /* Ancho del pico */
+    width: 60px; 
     height: 100%; 
     display: flex;
     flex-direction: column;
@@ -679,7 +702,6 @@ body {
     font-size: 0;
 }
 
-/* Wrapper que contiene los segmentos de cada tubería (Arriba y Abajo) */
 .tuberia-wrapper {
     width: 100%; 
     display: flex;
@@ -690,14 +712,13 @@ body {
     line-height: 0; 
     font-size: 0;
 }
-/* El borde o boca de la tubería */
+
 .pico-pipe-arriba, 
 .pico-pipe-abajo {
-    position: relative; /* Obligatorio para que z-index funcione */
-    z-index: 10;        /* Un número alto para que siempre esté al frente */
+    position: relative; 
+    z-index: 10;        
 }
 
-/* El cuerpo de la tubería (opcional, pero buena práctica) */
 .cuerpo-pipe {
     position: relative;
     z-index: 10;
@@ -707,7 +728,6 @@ body {
     justify-content: flex-end; 
 }
 
-/* El segmento individual (pico o cuerpo) */
 .tuberia-segmento {
     width: 100%; 
     image-rendering: pixelated;
@@ -717,7 +737,6 @@ body {
     vertical-align: top;
 }
 
-/* CUERPO DE LA TUBERÍA SUPERIOR */
 .tuberia-arriba-wrapper .cuerpo-pipe {
     
     background-image: url('../img/flappy/tuberias/bodyTuberiaArriba.png'); 
@@ -728,7 +747,6 @@ body {
     order: 1; 
 }
 
-/* CUERPO DE LA TUBERÍA INFERIOR */
 .tuberia-abajo-wrapper .cuerpo-pipe {
    
     background-image: url('../img/flappy/tuberias/bodyTuberiaAbajo.png'); 
@@ -739,7 +757,6 @@ body {
     order: 2; 
 }
 
-/* ESTILO DEL PICO SUPERIOR */
 .pico-pipe-arriba {
     background-image: url('../img/flappy/tuberias/pipeTuberiaArriba.png');
     height: 25px; 
@@ -748,7 +765,6 @@ body {
     background-size: 100% 100%; 
 }
 
-/* ESTILO DEL PICO INFERIOR */
 .pico-pipe-abajo {
     background-image: url('../img/flappy/tuberias/pipeTuberiaAbajo.png');
     height: 25px; 
@@ -795,8 +811,8 @@ body {
     text-shadow: 2px 2px 0px black;
 
     /* Caja */
-    background-color: #d2a679;   /* marrón clarito */
-    border: 4px solid #8b5a2b;   /* marrón oscuro */
+    background-color: #d2a679;   
+    border: 4px solid #8b5a2b;   
     padding: 10px 20px;
     border-radius: 8px;
 
@@ -824,36 +840,25 @@ body {
     object-fit: none;
 }
 
-/* ================================================
-   CSS: ANIMACIÓN DE INVULNERABILIDAD/PARPADEO
-   ================================================
-*/
-
-/* 1. Definición del parpadeo: Opacidad y brillo/color blanco */
 @keyframes invulnerable-flash {
     0%, 100% { 
         opacity: 1; 
-        filter: brightness(100%); /* Normal */
+        filter: brightness(100%); 
     }
     50% { 
         opacity: 0.3; 
-        filter: brightness(250%); /* Parpadeo: Traslúcido y brillante */
+        filter: brightness(250%); 
     }
 }
 
-/* 2. Clase que aplica la animación y el tiempo total */
 .pajaro-invulnerable {
-    /* La animación completa dura 3 segundos y se repite */
     animation: invulnerable-flash 0.1s step-end infinite;
-    
-    /* El filtro final da el efecto blanco/brillo que permanece entre parpadeos */
     filter: brightness(200%); 
 }
 /* ======================================= */
 /* ANIMACIÓN DEL PAJARO                    */
 /* ======================================= */
 
-/* Keyframes para el aleteo (3 frames, cada uno de 34px de ancho) */
 @keyframes aleteo {
     0%, 100% {
         transform: translate(0px, 0); 
@@ -866,7 +871,6 @@ body {
     }
 }
 
-/* Aplicación de la animación */
 .pajaro-volando {
     animation: aleteo 0.2s steps(1) infinite;
 }
@@ -911,8 +915,8 @@ body {
     width: 600px;
     max-width: 90%;
 
-    background: #c8e5a6;        /* 💚 Verde pastel original */
-    border: 6px solid #4c6b33;  /* Verde oscuro original */
+    background: #c8e5a6;     
+    border: 6px solid #4c6b33;
     border-radius: 20px;
 
     padding: 35px 40px;
@@ -944,12 +948,12 @@ body {
     font-size: 46px;
     margin-bottom: 40px;
 
-    color: #ffa75f;                  /* Naranja pastel original */
+    color: #ffa75f;                  
     text-shadow: 
         -4px 0px #ffffff,
          4px 0px #ffffff,
          0px -4px #ffffff,
-         0px  4px #ffffff;           /* Sombra blanca gruesa */
+         0px  4px #ffffff;           
 }
 
 
@@ -959,13 +963,12 @@ body {
     font-family: 'Press Start 2P';
     font-size: 22px;
 
-    color: #2f4b1f;   /* Verde oscuro más suave */
+    color: #2f4b1f;   
     text-shadow: 2px 2px 0 #ffffff;
     margin-bottom: 15px;
 }
 
 /* ------------ BOTONES ------------ */
-/* Contenedor */
 #pantallaGameOver .btns-gameOver {
     gap: 15px;
     display: flex;
@@ -975,7 +978,6 @@ body {
     margin-top: 40px;
 }
 
-/* === BOTONES GAME OVER (verde estilo Flappy Bird) === */
 #pantallaGameOver button {
     font-family: 'Press Start 2P', cursive;
     font-size: 1rem;
@@ -985,18 +987,16 @@ body {
     width: 250px;
     height: 55px;
 
-    /* 🎨 Paleta verde */
-    background-color: #63c74d; /* Verde claro */
-    border: 4px solid #000000; /* Borde negro */
+    background-color: #63c74d; 
+    border: 4px solid #000000; 
 
-    /* Borde interno (verde más oscuro) */
+
     box-shadow:
-        0 0 0 4px #3b7a2b inset,   /* Borde interno */
-        0 6px 0 #2a5d1d;           /* Sombra inferior */
+        0 0 0 4px #3b7a2b inset,   
+        0 6px 0 #2a5d1d;          
 
     border-radius: 10px;
 
-    /* Texto con borde negro */
     color: white;
     text-shadow:
         -3px 0px 0 #000,
@@ -1012,7 +1012,7 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover */
+
 #pantallaGameOver button:hover {
     transform: translateY(-4px);
     box-shadow:
@@ -1021,7 +1021,6 @@ body {
         0 12px 15px rgba(0,0,0,0.5);
 }
 
-/* Click */
 #pantallaGameOver button:active {
     transform: translateY(2px);
     box-shadow:
@@ -1040,14 +1039,13 @@ body {
     display: flex;
     gap: 10px;
 
-    /* Cajita retro suave */
-    background: rgba(0, 0, 0, 0.35);     /* fondo oscuro translúcido */
+    background: rgba(0, 0, 0, 0.35);     
     padding: 10px 20px;
     border-radius: 12px;
 
-    border: 3px solid rgba(255, 255, 255, 0.4); /* borde blanco suave */
+    border: 3px solid rgba(255, 255, 255, 0.4); 
 
-    backdrop-filter: blur(3px); /* efecto frosted suave */
+    backdrop-filter: blur(3px); 
 }
 
 .corazon {
@@ -1075,17 +1073,15 @@ body {
     transform: translate(-50%, -50%);
     z-index: 1000;
 
-    /* 🎨 Paleta estilo Flappy Bird */
-    background-color: #c8e5a6; /* amarillo pastel */
-    color: #2a5d1d;            /* rojo suave/arcade */
+    background-color: #c8e5a6; 
+    color: #2a5d1d;            
 
     padding: 18px 40px;
 
-    /* Bordes estilo flappy */
     border: 4px solid #ffffff;
     box-shadow:
-        0px 0px 0px 4px #000000,   /* borde negro grueso */
-        4px 4px 0px #000000;       /* sombra pixelada abajo */
+        0px 0px 0px 4px #000000,   
+        4px 4px 0px #000000;       
 
     border-radius: 8px;
 
@@ -1093,7 +1089,6 @@ body {
     font-size: 18px;
     text-align: center;
 
-    /* Pequeña animación */
     animation: popFlappy 0.35s ease-out;
 }
 
@@ -1112,21 +1107,17 @@ body {
 /* ======================================= */
 /* PAJARO DEL FONDO                   */
 /* ======================================= */
-/* CSS de ejemplo, ajusta las dimensiones al tamaño de tu sprite */
 .pajaro-fondo {
     position: absolute;
-    width: 84px;        /* Ancho de un frame */
-    height: 70px;       /* Altura del pájaro */
-    z-index: 10;        /* Por debajo del pájaro principal y tuberías, pero por encima del fondo */
+    width: 84px;        
+    height: 70px;       
+    z-index: 10;       
     
-    /* Configuración del spritesheet */
     background-image: url('../img/flappy/bird_fondo_spritesheet.png'); 
     background-repeat: no-repeat;
     background-position: 0 0;
     background-size: 336px 70px;
-    
-    /* Puedes añadir una transición suave de movimiento si deseas */
-    /* transition: transform 0.1s linear; */
+
 }
 /* ======================================= */
 /* 3.4. FOOTER DEL JUEGO                    */

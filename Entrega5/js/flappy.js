@@ -362,7 +362,6 @@ class Pantalla {
     }
 
     mostrarInstrucciones() {
-        this.inicio.style.display = "none";
         this.juego.style.display = "none";
         this.instrucciones.style.display = "flex";
         this.gameOver.style.display = "none";
@@ -374,27 +373,24 @@ class Pantalla {
             this.finalScoreDisplay.textContent = puntaje;
         }
 
-        // ==== BEST SCORE ====
+        
         let best = localStorage.getItem("bestScoreFlappy") || 0;
         best = Math.max(best, puntaje);
         localStorage.setItem("bestScoreFlappy", best);
 
         const bestDisplay = document.getElementById("bestScore");
         if (bestDisplay) bestDisplay.textContent = best;
-        // =====================
+        
 
 
-        // 🔥 Reiniciar animación ANTES de mostrar el Game Over
         this.gameOver.classList.remove("mostrar");
-        void this.gameOver.offsetWidth; // reinicia la animación
+        void this.gameOver.offsetWidth; 
 
 
-        // 🔥 Ocultar pantallas del juego
         this.inicio.style.display = "none";
         this.instrucciones.style.display = "none";
 
 
-        // 🔥 Mostrar Game Over con animación
         this.gameOver.style.display = "flex";
         this.gameOver.classList.add("mostrar");
     }
@@ -411,7 +407,6 @@ class Heart {
         this.element = document.createElement("div");
         this.element.classList.add("corazon-extra");
 
-        // Tamaño del corazón
         this.element.style.width = "32px";
         this.element.style.height = "27px";
         this.element.style.backgroundImage = "url('./img/flappy/sprite_heart.png')";
@@ -432,7 +427,6 @@ class Heart {
 
         contenedorJuego.appendChild(this.element);
 
-        // Animación del sprite
         this.spriteInterval = setInterval(() => {
             this.frame = (this.frame + 1) % 5;
             this.element.style.backgroundPosition = `-${this.frame * 32}px 0px`;
@@ -459,10 +453,9 @@ class Heart {
     }
 }
 // ===========================================
-//   CLASE BONUS +3 (NUEVO ITEM)
+//   CLASE BONUS +3 
 // ===========================================
 class Bonus3 {
-    // Las dimensiones del sprite son 442x34, 13 frames de 34px de ancho.
     static FRAME_WIDTH = 34; 
     static NUM_FRAMES = 13;
 
@@ -471,37 +464,33 @@ class Bonus3 {
         this.contenedorJuego = contenedorJuego;
 
         this.element = document.createElement("div");
-        this.element.classList.add("bonus-3-extra"); // Necesitarás definir esta clase en tu CSS
+        this.element.classList.add("bonus-3-extra"); 
 
-        // Tamaño del bonus
         this.element.style.width = `${Bonus3.FRAME_WIDTH}px`;
-        this.element.style.height = "34px"; // Altura del sprite
+        this.element.style.height = "34px"; 
         this.element.style.backgroundImage = "url('./img/flappy/spritesheet_bonus.png')";
-        this.element.style.backgroundSize = "442px 34px"; // 13 frames * 34px
+        this.element.style.backgroundSize = "442px 34px"; 
 
         this.frame = 0;
 
-        // =============================
-        // POSICIÓN CORRECTA DEL HUECO
-        // =============================
-        const alturaTop = pipe.alturaSuperior;       // altura del tubo de arriba
-        const tamanoHueco = pipe.hueco;              // tamaño actual del hueco
-        const centroHueco = alturaTop + (tamanoHueco / 2); // centro exacto del hueco
 
-        // Coordenadas internas del juego
-        this.x = pipe.x + (ANCHO_TUBERIA / 2) - (Bonus3.FRAME_WIDTH / 2); // Centrado en X de la tubería
-        this.y = centroHueco - (34 / 2);                                  // Centrado verticalmente (la altura es 34px)
+        const alturaTop = pipe.alturaSuperior;       
+        const tamanoHueco = pipe.hueco;              
+        const centroHueco = alturaTop + (tamanoHueco / 2); 
+
+        this.x = pipe.x + (ANCHO_TUBERIA / 2) - (Bonus3.FRAME_WIDTH / 2); 
+        this.y = centroHueco - (34 / 2);                                  
 
         this.element.style.left = `${this.x}px`;
         this.element.style.top = `${this.y}px`;
 
         contenedorJuego.appendChild(this.element);
 
-        // Animación del sprite
+
         this.spriteInterval = setInterval(() => {
             this.frame = (this.frame + 1) % Bonus3.NUM_FRAMES;
             this.element.style.backgroundPosition = `-${this.frame * Bonus3.FRAME_WIDTH}px 0px`;
-        }, 80); // Velocidad de animación ajustada
+        }, 80);
     }
 
     actualizar(dt) {
@@ -524,9 +513,9 @@ class Bonus3 {
     }
 }
 
-// ===========================================
-//   CLASE JUEGO (LÓGICA DE DIFICULTAD Y CONTROL)
-// ===========================================
+// =========================
+//   CLASE JUEGO 
+// =========================
 class Juego {
     constructor(onGameOver) {
         this.onGameOver = onGameOver;
@@ -534,20 +523,18 @@ class Juego {
         const contenedorPajaro = document.querySelector(".pajaro-contenedor");
         const imagenPajaro = document.getElementById("pajaro");
         
-        // Elementos de la pantalla
-        this.juegoContenedor = document.querySelector('.juegoFlappyContenedor'); // contenedor padre donde toggleamos la pausa
+        this.juegoContenedor = document.querySelector('.juegoFlappyContenedor'); 
         this.pantallaJuego = document.getElementById("paginaJuego"); 
         this.tapStartElement = document.querySelector('.tapToStart'); 
 
-        // 🔥 NUEVO: Referencia al elemento de notificación
         this.notificacionVida = document.getElementById('notificacionVida');
 
         this.pajaro = new Pajaro(contenedorPajaro, imagenPajaro, 150, 250, 34);
         this.pipes = [];
-        // 🔥 NUEVO: Array para pájaros de fondo
+
         this.pajarosFondo = []; 
         this.tiempoDesdeUltimoPajaro = 0; 
-        const INTERVALO_PAJARO_FONDO = 15000; // Define la frecuencia base (cada 15 segundos)
+        const INTERVALO_PAJARO_FONDO = 15000; 
         this.pipeGeneratorId = null;
 
         this.tiempoAnterior = 0;
@@ -557,13 +544,13 @@ class Juego {
         this.tiempoDesdeUltimaTuberia = 0; 
 
         this.jugando = true;
-        this.iniciado = false; // controla cuándo el juego se mueve
+        this.iniciado = false; 
         this.nivelDificultad = 0; 
         this.scoreDisplay = document.getElementById('puntajeNumero');
 
-        // 🔥 NUEVO: Sistema de Vidas
+        
         this.vidas = 3; 
-        this.actualizarDisplayVidas(); // Muestra las vidas iniciales
+        this.actualizarDisplayVidas(); 
 
         this.primeraTuberiaPendiente = true; 
 
@@ -572,15 +559,13 @@ class Juego {
         this.limpiarTuberiasPrevias();
         this.actualizarDisplayPuntaje();
 
-        // Asegurar que el mensaje de inicio esté visible al crear el objeto
         if (this.tapStartElement) this.tapStartElement.classList.remove('oculto'); 
 
-        // Asegurar que el pájaro empiece en el centro
+
         this.pajaro.actualizarPosicionDiv(); 
 
-        // Eventos para iniciar el juego (salto inicial)
         this.manejarEventos = (e) => {
-            // Space key
+
             if (e.type === "keydown" && e.code === "Space") {
                 e.preventDefault();
                 if (!this.iniciado) this.arrancarJuego();
@@ -588,7 +573,6 @@ class Juego {
                 return;
             }
 
-            // Click dentro del contenedor del juego
             if (e.type === "click" && e.target.closest('.juegoFlappyContenedor')) {
                 e.preventDefault();
                 if (!this.iniciado) this.arrancarJuego();
@@ -597,7 +581,6 @@ class Juego {
         };
 
         document.addEventListener("keydown", this.manejarEventos);
-        // Asegurarse de que this.juegoContenedor exista antes de añadir listener
         if (this.juegoContenedor) {
             this.juegoContenedor.addEventListener("click", this.manejarEventos);
         }
@@ -608,7 +591,6 @@ class Juego {
         this.bonus3 = []; 
         this.tiempoUltimoBonus3 = 0;
     }
-    // dentro de class Juego
     actualizarDisplayVidas() {
         const corazones = [
             document.getElementById("vida1"),
@@ -621,8 +603,7 @@ class Juego {
             corazones[i].src = (i < this.vidas) ? "./img/flappy/corazonlleno.png" : "./img/flappy/corazonvacio.png";
         }
     }
-
-    // 🔥 NUEVO MÉTODO: Reinicia la posición y el estado del pájaro tras perder una vida
+    
     reiniciarPosicionPajaro() {
         // 1️⃣ Obtener coordenadas REALES del pájaro en pantalla
         const birdRect = this.pajaro.contenedor.getBoundingClientRect();
@@ -755,7 +736,6 @@ class Juego {
         if (this.tapStartElement) this.tapStartElement.classList.add('oculto');
     } 
 
-    // --- MÉTODOS DE DIFICULTAD Y PUNTUACIÓN ---
     actualizarDificultad() {
         if (this.nivelDificultad < DIFICULTAD_NIVELES.length) {
             const siguienteNivel = DIFICULTAD_NIVELES[this.nivelDificultad];
