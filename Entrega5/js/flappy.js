@@ -10,9 +10,10 @@ const GRAVEDAD = 0.45; //0.35
 const IMPULSO_SALTO = -6; 
 
 // VARIABLES DE DIFICULTAD 
-let VELOCIDAD_JUEGO = 3.2; //2 
+let VELOCIDAD_JUEGO = 4.0; //2 //3.2
 let HUECO_TUBERIA = 130; //160
 let INTERVALO_GENERACION = 2500; // ms
+let MAX_VARIACION_Y = 120; // 🔥 NUEVO: Rango máximo de variación vertical del hueco (eje Y)
 
 // Constantes de Diseño 
 const ANCHO_TUBERIA = 100; 
@@ -20,10 +21,14 @@ const ALTURA_PICO_TUBERIA = 25;
 
 // NIVELES DE DIFICULTAD
 const DIFICULTAD_NIVELES = [
-    { score: 10, hueco: 140, velocidad: 3.5, intervalo: 2200 }, //2.5
-    { score: 20, hueco: 120, velocidad: 4.0, intervalo: 1900 }, //3.0
-    { score: 30, hueco: 100, velocidad: 4.5, intervalo: 1600 }, //3.5
-    { score: 40, hueco: 90, velocidad: 5.0, intervalo: 1400 }, //4.0
+    // Score 10: Tuberías más cerca, Hueco 120, Variación Y 150
+    { score: 10, hueco: 120, velocidad: 4.0, intervalo: 2000, variacionY: 150 }, 
+    // Score 20: Tuberías más cerca, Hueco 100, Variación Y 180
+    { score: 20, hueco: 100, velocidad: 4.0, intervalo: 1700, variacionY: 180 }, 
+    // Score 30: Tuberías muy cerca, Hueco 90, Variación Y 210
+    { score: 30, hueco: 90, velocidad: 4.0, intervalo: 1500, variacionY: 210 }, 
+    // Score 40: Tuberías casi continuas, Hueco 80, Variación Y 240 (máxima variación)
+    { score: 40, hueco: 80, velocidad: 4.0, intervalo: 1300, variacionY: 240 },
 ];
 
 // ===========================================
@@ -157,12 +162,41 @@ class Pajaro {
 // ===========================================
 class Pipe {
     constructor(x) {
-        const MIN_ALTURA_SEGMENTO = 65; 
-        const MIN_ALTURA_ALEATORIA = 120;
-        const MAX_ALTURA_SUPERIOR = JUEGO_ALTURA_UTIL - MIN_ALTURA_SEGMENTO - HUECO_TUBERIA;
 
-        const alturaSuperior = Math.floor(Math.random() * (MAX_ALTURA_SUPERIOR - MIN_ALTURA_ALEATORIA + 1)) + MIN_ALTURA_ALEATORIA;
-        const alturaInferior = JUEGO_ALTURA_UTIL - alturaSuperior - HUECO_TUBERIA; 
+        // 1. Punto central del área de juego
+        const CENTRO_Y_SEGURO = JUEGO_ALTURA_UTIL / 2;
+
+        // 2. Calcular el desplazamiento aleatorio basado en MAX_VARIACION_Y (ej: entre -120 y +120)
+        // Esto genera una mayor o menor desviación del centro, forzando la dificultad vertical.
+        const offsetAleatorio = (Math.random() * MAX_VARIACION_Y * 2) - MAX_VARIACION_Y;
+
+        // 3. Determinar la posición Y del centro del hueco
+        const posYCentroHueco = CENTRO_Y_SEGURO + offsetAleatorio;
+
+        // 4. Calcular la altura de la tubería superior
+        // La altura superior es el centro menos la mitad del hueco.
+        let alturaSuperior = posYCentroHueco - (HUECO_TUBERIA / 2);
+
+        // 5. CLAMPING: Asegurar que la tubería no se salga del área jugable (JUEGO_ALTURA_UTIL)
+        // Margen mínimo arriba y abajo para que el hueco sea visible y jugable.
+        const ALTURA_MARGEN = 65; // Usamos 65 como tu MIN_ALTURA_SEGMENTO
+
+        const ALTURA_MIN = ALTURA_MARGEN; 
+        const ALTURA_MAX = JUEGO_ALTURA_UTIL - HUECO_TUBERIA - ALTURA_MARGEN;
+
+        // Aplicar el límite
+        if (alturaSuperior < ALTURA_MIN) {
+            alturaSuperior = ALTURA_MIN;
+        } else if (alturaSuperior > ALTURA_MAX) {
+            alturaSuperior = ALTURA_MAX;
+        }
+
+        // 6. Calcular la altura de la tubería inferior
+        const alturaInferior = JUEGO_ALTURA_UTIL - alturaSuperior - HUECO_TUBERIA;
+
+        // -----------------------------------------------------
+        // ✅ FIN DEL CÁLCULO
+        // -----------------------------------------------------
 
         this.alturaSuperior = alturaSuperior;
         this.hueco = HUECO_TUBERIA;
@@ -669,9 +703,10 @@ class Juego {
 
     // --- MÉTODOS DE CONFIGURACIÓN ---
     resetearDificultadInicial() {
-        VELOCIDAD_JUEGO = 2; 
+        VELOCIDAD_JUEGO = 4.0; //2
         HUECO_TUBERIA = 130; //160
         INTERVALO_GENERACION = 2500;
+        MAX_VARIACION_Y = 120; // 🔥 NUEVO: Resetear variación Y
         this.nivelDificultad = 0;
     }
 
@@ -730,6 +765,7 @@ class Juego {
                 VELOCIDAD_JUEGO = siguienteNivel.velocidad;
                 HUECO_TUBERIA = siguienteNivel.hueco;
                 INTERVALO_GENERACION = siguienteNivel.intervalo; 
+                MAX_VARIACION_Y = siguienteNivel.variacionY; // 🔥 NUEVO: Asignar la variación Y
                 
                 this.nivelDificultad++;
                 
@@ -802,7 +838,7 @@ class Juego {
             // GESTIÓN DE PÁJAROS DE FONDO
             // ======================================
             this.tiempoDesdeUltimoPajaro += dt;
-            const INTERVALO_PAJARO_FONDO = 15000; // 15 segundos
+            const INTERVALO_PAJARO_FONDO = 30000; // 30 segundos
             const MAX_PAJAROS_EN_PANTALLA = 1; // Nunca permitas más de 1 a la vez
 
             if (this.tiempoDesdeUltimoPajaro >= INTERVALO_PAJARO_FONDO && this.pajarosFondo.length < MAX_PAJAROS_EN_PANTALLA) {
@@ -1149,7 +1185,7 @@ class PajaroFondo {
         
         // Animación del sprite (si tienes un spritesheet)
         this.frame = 0;
-        this.frameAncho = 168; // Asume el mismo ancho de frame que el pájaro principal o ajústalo
+        this.frameAncho = 84; // Asume el mismo ancho de frame que el pájaro principal o ajústalo
         this.animacionTiempo = 0;
         
         this.element.style.top = `${this.y}px`;
