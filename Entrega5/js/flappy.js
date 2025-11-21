@@ -1,6 +1,6 @@
-// ===========================================
-// VARIABLES GLOBALES MUTABLES (INICIALES)
-// ===========================================
+// ===================
+// VARIABLES GLOBALES 
+// ===================
 const JUEGO_ALTURA = 550; 
 const JUEGO_ANCHO = 1100;
 
@@ -38,7 +38,6 @@ const sonidoWin = new Audio ("./sonidos/win.wav");
 const sonidoVidaMenos = new Audio ("./sonidos/vidamenos.wav");
 
 
-// Evita delay en Chrome
 sonidoAleteo.preload = "auto";
 sonidoChoque.preload = "auto";
 sonidoPunto.preload = "auto";
@@ -270,10 +269,9 @@ class Pipe {
             }
         }, 18);
 
-        // ANIMACIÓN DE SPRITE FRAME A FRAME
         let frame = 0;
         const totalFrames = 3; 
-        const FRAME_PLANT_WIDTH_SCALED = 48; // El nuevo ancho de un frame escalado
+        const FRAME_PLANT_WIDTH_SCALED = 48; 
 
         this.plantaFrame = setInterval(() => {
             if (!this.planta) return;
@@ -742,7 +740,6 @@ class Juego {
         return false;
     }
 
-    // --- BUCLE PRINCIPAL DEL JUEGO ---
     iniciar() {
         requestAnimationFrame(this.bucle.bind(this));
     }
@@ -834,19 +831,17 @@ class Juego {
                     ultimaPipe.bonus = bonus; 
                     this.bonus3.push(bonus);
 
-                    this.tiempoUltimoBonus3 = 0; // Reinicia el contador del bonus
+                    this.tiempoUltimoBonus3 = 0; 
                 }
             }
         }
 
 
-        // Actualización tuberías, colisiones y puntuación
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             const pipe = this.pipes[i];
 
             pipe.actualizar(dt);
 
-            // Puntaje
             this.checkScore(this.pajaro.getBounds(), pipe);
 
             if (this.puntaje >= 120) {
@@ -935,7 +930,6 @@ class Juego {
                         }, 2000); 
                         return; 
                     } else {
-                        // Última vida: game over
                         if (this.notificacionVida) {
                             this.notificacionVida.textContent = "¡ULTIMA VIDA PERDIDA!";
                             this.notificacionVida.classList.remove('oculto');
@@ -1160,7 +1154,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.querySelector('.tapToStart').classList.remove('oculto');
         
-        // Crear nueva instancia de juego
         juegoFlappy = new Juego((score) => pantallas.mostrarGameOver(score));
 
         juegoFlappy.puntaje = 0;             
