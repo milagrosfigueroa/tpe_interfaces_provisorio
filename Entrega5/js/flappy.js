@@ -19,6 +19,10 @@ let MAX_VARIACION_Y = 120;
 const ANCHO_TUBERIA = 100; 
 const ALTURA_PICO_TUBERIA = 25; 
 
+// Constantes de Sprite del Pájaro
+const BIRD_WIDTH = 34;
+const BIRD_HEIGHT = 24;
+
 const DIFICULTAD_NIVELES = [
     { score: 10, hueco: 120, velocidad: 4.0, intervalo: 2000, variacionY: 150 }, 
     { score: 20, hueco: 100, velocidad: 4.0, intervalo: 1700, variacionY: 180 }, 
@@ -484,6 +488,105 @@ class Bonus3 {
     }
 }
 
+// ===========================================
+//   CLASE EXPLOSION 
+// ===========================================
+class Explosion {
+    static EXPLOSION_FRAME_WIDTH = 60; 
+    static EXPLOSION_FRAME_HEIGHT = 60;
+    static NUM_FRAMES = 10; 
+    static ANIMATED_FRAMES = 7; 
+    
+    constructor(x, y, contenedorJuego) {
+        this.x = x;
+        this.y = y;
+        this.contenedorJuego = contenedorJuego;
+        this.frame = 0;
+        this.animacionTerminada = false;
+
+        this.element = document.createElement("div");
+        this.element.classList.add("explosion-fx"); 
+
+        // Centrar la explosión de 60x60 alrededor del punto de impacto (x, y)
+        this.element.style.left = `${this.x - (Explosion.EXPLOSION_FRAME_WIDTH / 2)}px`; 
+        this.element.style.top = `${this.y - (Explosion.EXPLOSION_FRAME_HEIGHT / 2)}px`;
+
+        contenedorJuego.appendChild(this.element);
+
+        this.spriteInterval = setInterval(() => {
+            if (this.frame >= Explosion.ANIMATED_FRAMES - 1) {
+                this.animacionTerminada = true;
+                this.remove(); 
+                return;
+            }
+            this.frame++;
+            this.element.style.backgroundPosition = `-${this.frame * Explosion.EXPLOSION_FRAME_WIDTH}px 0px`;
+        }, 60); 
+    }
+
+    remove() {
+        clearInterval(this.spriteInterval);
+        this.element.remove();
+    }
+}
+
+// -------------------------------------------
+// CLASE PAJARO DECORATIVO DE FONDO 
+// -------------------------------------------
+class PajaroFondo {
+    constructor(contenedorJuego) {
+        this.contenedor = contenedorJuego;
+        
+        this.element = document.createElement('div');
+        this.element.classList.add('pajaro-fondo'); 
+        
+        this.x = JUEGO_ANCHO; 
+        
+        const ALTURA_MAX_Y = JUEGO_ALTURA_UTIL * 0.33; 
+        this.y = Math.random() * ALTURA_MAX_Y;
+
+        this.velocidad = (Math.random() * 0.5) + 0.8; 
+        
+        this.frame = 0;
+        this.frameAncho = 84; 
+        this.animacionTiempo = 0;
+        
+        this.element.style.top = `${this.y}px`;
+        this.element.style.left = `${this.x}px`;
+        
+        this.contenedor.appendChild(this.element);
+    }
+
+    actualizarAnimacion(dt) {
+        this.animacionTiempo += dt;
+
+        if (this.animacionTiempo > 100) {
+            const totalFrames = 4;
+            this.frame = (this.frame + 1) % totalFrames; 
+            this.element.style.backgroundPosition = `-${this.frame * this.frameAncho}px 0px`;
+            this.animacionTiempo = 0;
+        }
+    }
+
+    actualizar(dt) {
+        const factorNormalizacion = dt / 16.66; 
+        
+        this.x -= this.velocidad * factorNormalizacion;
+        this.element.style.left = `${this.x}px`;
+        
+        this.actualizarAnimacion(dt);
+    }
+
+    isOffScreen() {
+        return this.x < -this.element.offsetWidth;
+    }
+
+    remove() {
+        this.element.remove();
+    }
+}
+
+
 // =========================
 //   CLASE JUEGO 
 // =========================
@@ -500,12 +603,11 @@ class Juego {
 
         this.notificacionVida = document.getElementById('notificacionVida');
 
-        this.pajaro = new Pajaro(contenedorPajaro, imagenPajaro, 150, 250, 34);
+        this.pajaro = new Pajaro(contenedorPajaro, imagenPajaro, 150, 250, BIRD_WIDTH);
         this.pipes = [];
 
         this.pajarosFondo = []; 
         this.tiempoDesdeUltimoPajaro = 0; 
-        const INTERVALO_PAJARO_FONDO = 15000; 
         this.pipeGeneratorId = null;
 
         this.tiempoAnterior = 0;
@@ -600,6 +702,7 @@ class Juego {
             this.pajaro.y = 250;
             this.pajaro.velY = 0;
             this.pajaro.actualizarPosicionDiv();
+            this.pajaro.contenedor.style.display = 'block'; // Asegurar visibilidad
             return;
         }
 
@@ -619,11 +722,15 @@ class Juego {
 
         this.pajaro.velY = 0;
         this.pajaro.contenedor.style.transform = "rotate(0deg)";
+        this.pajaro.contenedor.style.display = 'block'; // Asegurar visibilidad
         this.pajaro.actualizarPosicionDiv();
 
         this.iniciado = false;
         this.juegoContenedor.classList.add('parallax-paused');
         this.tapStartElement.classList.remove('oculto');
+        
+        // CORRECCIÓN: Asegurar que la notificación está oculta si se está reiniciando
+        if (this.notificacionVida) this.notificacionVida.classList.add('oculto'); 
     }
 
     limpiarBonus3() {
@@ -760,17 +867,17 @@ class Juego {
 
     actualizar(dt) {
         this.pajaro.actualizar(dt);
+
         if (this.iniciado) { 
             // ======================================
-            // GESTIÓN DE PÁJAROS DE FONDO
+            // GESTIÓN DE PÁJAROS DE FONDO 
             // ======================================
             this.tiempoDesdeUltimoPajaro += dt;
-            const INTERVALO_PAJARO_FONDO = 30000; 
+            const INTERVALO_PAJARO_FONDO = 45000 + Math.random() * 20000; 
             const MAX_PAJAROS_EN_PANTALLA = 1; 
 
             if (this.tiempoDesdeUltimoPajaro >= INTERVALO_PAJARO_FONDO && this.pajarosFondo.length < MAX_PAJAROS_EN_PANTALLA) {
-                this.pajarosFondo.push(new PajaroFondo(this.juegoContenedor));
-
+                this.pajarosFondo.push(new PajaroFondo(this.juegoContenedor)); 
                 this.tiempoDesdeUltimoPajaro = 0;
             }
 
@@ -785,18 +892,36 @@ class Juego {
                 }
             }
         }
-        // Colisión con bordes
+        
+        // 1. ☠️ COLISIÓN CON BORDES (AHORA CAUSA MUERTE INMEDIATA)
         if (this.pajaro.haChocadoAlBorde(JUEGO_ALTURA)) {
+            
             this.jugando = false;
-
             sonidoChoque.currentTime = 0;
-            sonidoChoque.play();
+            sonidoChoque.play(); 
+            
+            this.vidas = 0; // Se fuerza el Game Over
+            
+            // === CÓDIGO CRÍTICO DE EXPLOSIÓN ===
+            const OFFSET_X = -5;  
+            const OFFSET_Y = -15;  
 
-            sonidoDie.currentTime = 0;
-            sonidoDie.play();
+            const explosionX = this.pajaro.x + (BIRD_WIDTH / 2) + OFFSET_X;
+            const explosionY = this.pajaro.y + (BIRD_HEIGHT / 2) + OFFSET_Y;
 
+            this.pajaro.contenedor.style.display = 'none'; 
+            new Explosion(explosionX, explosionY, this.juegoContenedor); 
+            // === FIN CÓDIGO CRÍTICO DE EXPLOSIÓN ===
+
+            if (this.notificacionVida) this.notificacionVida.classList.remove('oculto');
             if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused');
-            setTimeout(() => this.onGameOver(this.puntaje), 1000);
+
+            setTimeout(() => {
+                if (this.notificacionVida) this.notificacionVida.classList.add('oculto');
+                sonidoDie.currentTime = 0;
+                sonidoDie.play();
+                this.onGameOver(this.puntaje);
+            }, 1000); 
             return;
         }
 
@@ -814,13 +939,12 @@ class Juego {
                 this.tiempoDesdeUltimaTuberia = 0;
             }
         }
-        const ultimaPipe = this.pipes[this.pipes.length - 1]; // Obtener la última tubería generada
+        const ultimaPipe = this.pipes[this.pipes.length - 1]; 
 
 
         // =========================================
         // GENERACIÓN DE BONUS +3 
         // =========================================
-        // *Depende de la última tubería para aparecer*
         if (this.pipes.length > 0) {
             this.tiempoUltimoBonus3 += dt;
             const INTERVALO_BONUS3 = 30000 + Math.random() * 20000;
@@ -862,23 +986,39 @@ class Juego {
                 return;
             }
 
-            // Colisión con tubería
-            if (!pipe._colisionPlanta && this.checkCollision(this.pajaro.getBounds(), pipe)) {
+            // 2. 💥 COLISIÓN CON TUBERÍA (AHORA CAUSA MUERTE INMEDIATA)
+            if (!pipe._colisionPlanta && !this.pajaro.isInvulnerable && this.checkCollision(this.pajaro.getBounds(), pipe)) {
+                
                 this.jugando = false;
-
                 sonidoChoque.currentTime = 0;
                 sonidoChoque.play();
 
-                sonidoDie.currentTime = 0;
-                sonidoDie.play();
+                this.vidas = 0; // Se fuerza el Game Over
+                
+                // === CÓDIGO CRÍTICO DE EXPLOSIÓN ===
+                const OFFSET_X = -5;  
+                const OFFSET_Y = -15;  
 
+                const explosionX = this.pajaro.x + (BIRD_WIDTH / 2) + OFFSET_X;
+                const explosionY = this.pajaro.y + (BIRD_HEIGHT / 2) + OFFSET_Y;
+
+                this.pajaro.contenedor.style.display = 'none'; 
+                new Explosion(explosionX, explosionY, this.juegoContenedor); 
+                // === FIN CÓDIGO CRÍTICO DE EXPLOSIÓN ===
+
+                if (this.notificacionVida) this.notificacionVida.classList.remove('oculto');
                 if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused');
-                setTimeout(() => this.onGameOver(this.puntaje), 1000);
-                return;
+
+                setTimeout(() => {
+                    if (this.notificacionVida) this.notificacionVida.classList.add('oculto');
+                    sonidoDie.currentTime = 0;
+                    sonidoDie.play();
+                    this.onGameOver(this.puntaje); 
+                }, 1000); 
+                return; 
             }
-            // ==========================
-            // COLISIÓN CON PLANTA
-            // ==========================
+            
+            // 3. 🌱 COLISIÓN CON PLANTA (AHORA SOLO RESTA VIDA)
             if (pipe.planta) {
                 const pRect = pipe.planta.getBoundingClientRect();
                 const b = this.pajaro.getBounds();
@@ -889,7 +1029,7 @@ class Juego {
                     b.bottom > pRect.top &&
                     b.top < pRect.bottom;
 
-                if (overlap) {
+                if (overlap && !this.pajaro.isInvulnerable) {
                     if (pipe._cooldownPlanta) continue;
                     pipe._cooldownPlanta = true;
                     setTimeout(() => { pipe._cooldownPlanta = false; }, 600);
@@ -898,19 +1038,20 @@ class Juego {
 
                     this.jugando = false;
 
-                    this.vidas--;
+                    this.vidas--; // <--- SOLO RESTA UNA VIDA
                     this.actualizarDisplayVidas();
 
                     sonidoVidaMenos.currentTime = 0;
                     sonidoVidaMenos.play();
 
                     if (this.notificacionVida) {
-                        this.notificacionVida.innerHTML = `¡VIDA PERDIDA! <br> Vidas restantes: ${this.vidas}`;
+                        this.notificacionVida.innerHTML = `¡CONTACTO! <br> Vidas restantes: ${this.vidas}`; // Mensaje de contacto
                         this.notificacionVida.classList.remove('oculto');
                     }
                     if (this.juegoContenedor) this.juegoContenedor.classList.add('parallax-paused');
 
                     if (this.vidas > 0) {
+                        // REINICIO (Le quedan vidas)
                         const INVULNERABILITY_DURATION = 800;
 
                         setTimeout(() => {
@@ -927,19 +1068,24 @@ class Juego {
                             this.jugando = true;
                             requestAnimationFrame(this.bucle.bind(this));
 
-                        }, 2000); 
+                        }, 500); 
                         return; 
                     } else {
+                        // ÚLTIMA VIDA PERDIDA: GAME OVER (sin explosión, por planta)
                         if (this.notificacionVida) {
-                            this.notificacionVida.textContent = "¡ULTIMA VIDA PERDIDA!";
+                            this.notificacionVida.textContent = "¡ÚLTIMO CONTACTO!";
                             this.notificacionVida.classList.remove('oculto');
                         }
+                        
                         setTimeout(() => {
                             if (this.notificacionVida) this.notificacionVida.classList.add('oculto');
+                            
                             sonidoDie.currentTime = 0;
                             sonidoDie.play();
+
+                            this.pajaro.contenedor.style.display = 'block'; // Pájaro visible al morir
                             this.onGameOver(this.puntaje);
-                        }, 1000);
+                        }, 500); 
                         return; 
                     }
                 }
@@ -1008,16 +1154,15 @@ class Juego {
                 }
 
                 const heart = new Heart(ultimaPipe, this.juegoContenedor);
-                ultimaPipe.heart = heart;
-
-                this.corazonesExtra.push(heart);
+                ultimaPipe.heart = heart; 
+                this.corazonesExtra.push(heart); 
 
                 this.tiempoUltimoCorazon = 0;
             }
         }
 
         // =========================================
-        // ACTUALIZACIÓN DE CORAZONES EXTRA
+        // ACTUALIZACIÓN Y COLISIÓN DE CORAZÓN EXTRA
         // =========================================
         for (let i = this.corazonesExtra.length - 1; i >= 0; i--) {
             const heart = this.corazonesExtra[i];
@@ -1040,129 +1185,99 @@ class Juego {
                 bird.bottom > hb.top;
 
             if (toca) {
-
                 if (this.vidas < 3) {
-                    this.vidas++;
+                    this.vidas++; 
                     this.actualizarDisplayVidas();
                 }
 
                 sonidoCollect.currentTime = 0;
                 sonidoCollect.play();
 
+                // Eliminar corazón
                 heart.remove();
                 this.corazonesExtra.splice(i, 1);
             }
         }
     }
 }
+
+
 // ===========================================
-// CLASE PAJARO DECORATIVO DE FONDO
-// ===========================================
-class PajaroFondo {
-    constructor(contenedorJuego) {
-        this.contenedor = contenedorJuego;
-        
-        this.element = document.createElement('div');
-        this.element.classList.add('pajaro-fondo'); 
-        
-        this.x = JUEGO_ANCHO; 
-        
-        const ALTURA_MAX_Y = JUEGO_ALTURA_UTIL * 0.33; 
-        this.y = Math.random() * ALTURA_MAX_Y;
-
-        this.velocidad = (Math.random() * 0.5) + 0.8; 
-        
-        this.frame = 0;
-        this.frameAncho = 84; 
-        this.animacionTiempo = 0;
-        
-        this.element.style.top = `${this.y}px`;
-        this.element.style.left = `${this.x}px`;
-        
-        this.contenedor.appendChild(this.element);
-    }
-
-    actualizarAnimacion(dt) {
-        this.animacionTiempo += dt;
-
-        if (this.animacionTiempo > 100) {
-            const totalFrames = 4;
-            this.frame = (this.frame + 1) % totalFrames; 
-            this.element.style.backgroundPosition = `-${this.frame * this.frameAncho}px 0px`;
-            this.animacionTiempo = 0;
-        }
-    }
-
-    actualizar(dt) {
-        const factorNormalizacion = dt / 16.66; 
-        
-        this.x -= this.velocidad * factorNormalizacion;
-        this.element.style.left = `${this.x}px`;
-        
-        this.actualizarAnimacion(dt);
-    }
-
-    isOffScreen() {
-        return this.x < -this.element.offsetWidth;
-    }
-
-    remove() {
-        this.element.remove();
-    }
-}
-// ===========================================
-//  INICIALIZACIÓN 
+//  INICIALIZACIÓN (DOMCONTENTLOADED) - CÓDIGO FINAL DE BOTONES
 // ===========================================
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. Prevención de desplazamiento por la barra espaciadora
     window.addEventListener("keydown", function(e) {
         if (e.code === "Space") {
             e.preventDefault();
         }
     });
 
+    // 2. Definición de Contenedores de Pantalla (usando los IDs/Clases de tu HTML)
     const inicio = document.getElementById("paginaInicio");
     const juego = document.getElementById("paginaJuego");
     const instrucciones = document.querySelector(".flappy-pantalla-instrucciones");
     const gameOver = document.getElementById("pantallaGameOver");
+
+    // Inicializar el gestor de pantallas
     const pantallas = new Pantalla(inicio, juego, instrucciones, gameOver);
     pantallas.mostrarInicio();
-
-    // Mostrar BEST apenas carga la página
+    
+    // Mostrar BEST score
     const bestDisplay = document.getElementById("bestScore");
     if (bestDisplay) {
         let best = localStorage.getItem("bestScoreFlappy") || 0;
         bestDisplay.textContent = best;
     }
 
-
-    const btnJugar = document.getElementById("botonIniciar");
+    // 3. Selección de Botones
+    const btnJugar = document.getElementById("botonIniciar"); // START
     const btnInstrucciones = document.getElementById("btn-instrucciones");
-    const btnVolver = document.querySelector(".flappy-btn-volver");
+    const btnVolver = document.querySelector(".flappy-btn-volver"); // Botón Volver de Instrucciones
     const btnReintentar = document.getElementById("btnReintentar");
-    const btnIrInicio = document.getElementById("btnIrInicio");
+    const btnIrInicio = document.getElementById("btnIrInicio"); // HOME/Salir
 
     let juegoFlappy = null;
 
+    // 4. Función de Inicio de Partida
     const iniciarNuevaPartida = () => {
+        // Limpiar cualquier juego anterior
         if (juegoFlappy) {
             juegoFlappy.destruir(); 
         }
+        
+        // Configurar la UI y el juego
         pantallas.mostrarJuego(); 
         
         const contPadre = document.querySelector('.juegoFlappyContenedor');
         if (contPadre) contPadre.classList.add('parallax-paused');
 
-        document.querySelector('.tapToStart').classList.remove('oculto');
+        const tapToStart = document.querySelector('.tapToStart');
+        if (tapToStart) tapToStart.classList.remove('oculto');
         
+        // Crear nueva instancia de juego, pasando la función que se ejecuta al morir/ganar
         juegoFlappy = new Juego((score) => pantallas.mostrarGameOver(score));
 
+        // CORRECCIÓN: Asegurar que la notificación está oculta al inicio de la partida
+        const notificacionVida = document.getElementById('notificacionVida');
+        if (notificacionVida) {
+            notificacionVida.classList.add('oculto');
+        }
+
+        // Inicializar puntaje y vidas
         juegoFlappy.puntaje = 0;             
         juegoFlappy.actualizarDisplayPuntaje(); 
 
+        // Restablecer pájaro a la posición inicial
+        juegoFlappy.pajaro.x = 150;
+        juegoFlappy.pajaro.y = 250;
         juegoFlappy.pajaro.velY = 0;
         juegoFlappy.pajaro.contenedor.style.transform = "rotate(0deg)";
         juegoFlappy.pajaro.mostrarFrame(0); 
         juegoFlappy.pajaro.actualizarPosicionDiv();
+        
+        // CORRECCIÓN: Asegurar que el elemento es visible al iniciar
+        juegoFlappy.pajaro.contenedor.style.display = 'block'; 
 
         juegoFlappy.iniciar(); 
         juegoFlappy.vidas = 3;
@@ -1170,6 +1285,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     };
 
+    // 5. Asignación de Eventos de Clic
+
+    // Botón Jugar (START)
     if (btnJugar) {
         btnJugar.addEventListener("click", function(e) {
             e.preventDefault();
@@ -1178,9 +1296,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    btnInstrucciones.addEventListener("click", () => pantallas.mostrarInstrucciones());
-    btnVolver.addEventListener("click", () => pantallas.mostrarInicio());
+    // Botón Instrucciones
+    if (btnInstrucciones) {
+        btnInstrucciones.addEventListener("click", () => pantallas.mostrarInstrucciones());
+    }
+    
+    // Botón Volver
+    if (btnVolver) {
+        btnVolver.addEventListener("click", () => pantallas.mostrarInicio());
+    }
 
+    // Botón Reintentar (Game Over)
     if (btnReintentar) {
         btnReintentar.addEventListener("click", function(e) {
             e.preventDefault();
@@ -1189,13 +1315,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     
+    // Botón Salir/Home (Game Over)
     if (btnIrInicio) {
         btnIrInicio.addEventListener("click", () => {
             if (juegoFlappy) {
                 juegoFlappy.destruir();
-                juegoFlappy = null;
+                juegoFlappy = null; // Es importante liberar la referencia
             }
             pantallas.mostrarInicio();
         });
     }
 });
+
+
+
+

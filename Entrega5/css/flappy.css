@@ -584,6 +584,7 @@ body {
 .parallax-paused .layer {
     animation-play-state: paused !important;
 }
+
 /* ======================================= */
 /* PLANTA CARNÍVORA                             */
 /* ======================================= */
@@ -594,6 +595,24 @@ body {
     transition: transform 0.08s linear;
     z-index: 5;
     position: absolute;
+}
+
+/* ======================================= */
+/* EXPLOSION DE IMPACTO                    */
+/* ======================================= */
+
+.explosion-fx {
+    position: absolute;
+    width: 60px;     
+    height: 60px;   
+    z-index: 1000;       
+    
+    background-image: url('../img/flappy/explosion_spritesheet.png'); 
+    background-repeat: no-repeat;
+    
+    background-size: 600px 60px; 
+    background-position: 0 0;
+    image-rendering: pixelated; 
 }
 
 /* ======================================= */
@@ -853,9 +872,10 @@ body {
 }
 
 .pajaro-invulnerable {
-    animation: invulnerable-flash 0.1s step-end infinite;
+    animation: invulnerable-flash 0.05s steps(1) infinite; 
     filter: brightness(200%); 
 }
+
 /* ======================================= */
 /* ANIMACIÓN DEL PAJARO                    */
 /* ======================================= */
@@ -1581,5 +1601,13 @@ body {
     color: #A70046;
     animation: pulseHeart 0.8s ease-in-out infinite alternate;
 }
+
+
+
+
+
+
+
+
 
 
